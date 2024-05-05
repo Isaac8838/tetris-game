@@ -1,8 +1,10 @@
-#dockerfile
+#docker
 dockerfile
-
-#docker-compose.yml
 docker-compose.yml
 
-#node_modules
+#nodejs
 node_modules
+package-lock.json
+
+#vscode
+.vscode
