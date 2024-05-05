@@ -3,8 +3,8 @@ dockerfile
 docker-compose.yml
 
 #nodejs
-node_modules
-package-lock.json
+tetris-game/node_modules
+tetris-game/package-lock.json
 
 #vscode
 .vscode
