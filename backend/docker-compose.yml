@@ -29,7 +29,8 @@ services:
       - postgres
 
 networks:
-  server-side: {}
+  server-side:
+    driver: bridge
 
 volumes:
   db-data: {}

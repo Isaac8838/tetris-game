@@ -1,0 +1,4 @@
+ALTER TABLE IF EXISTS "scores" DROP CONSTRAINT IF EXISTS "scores_owner_fkey";
+
+DROP TABLE IF EXISTS "scores";
+DROP TABLE IF EXISTS "users";
