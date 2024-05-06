@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  react:
+    build:
+      context: .
+      dockerfile: dockerfile-development
+    ports:
+      - '3000:3000'
+    tty: true
+    volumes:
+      - ./tetris-game/:/app
