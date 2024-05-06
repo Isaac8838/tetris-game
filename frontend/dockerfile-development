@@ -1,0 +1,10 @@
+FROM node:alpine3.18
+
+ENV CI=true
+ENV PORT=3000
+
+WORKDIR /app
+COPY ./tetris-game /app
+RUN npm install
+
+CMD [ "npm", "start" ]
