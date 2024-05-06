@@ -1,7 +1,7 @@
 #docker
 */dockerfile
 */docker-compose.yml
-*/.dockerignore
+*/dockerfile-development
 
 #nodejs
 */node_modules
