@@ -4,7 +4,9 @@ ENV CI=true
 ENV PORT=3000
 
 WORKDIR /app
-COPY ./tetris-game /app
-RUN npm install
+COPY tetris-game/package.json /app
+COPY tetris-game/package-lock.json /app
+RUN npm ci
+COPY tetris-game/ /app
 
 CMD [ "npm", "start" ]

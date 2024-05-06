@@ -5,10 +5,10 @@ ENV PORT=3000
 
 WORKDIR /app
 
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+COPY tetris-game/package.json /app/package.json
+COPY tetris-game/package-lock.json /app/package-lock.json
 RUN npm ci
-COPY . /app
+COPY ./tetris-game /app
 
 CMD [ "npm", "start" ]
 
@@ -28,11 +28,12 @@ EOF
 # build the same image again
 # see this issue https://github.com/docker/awesome-compose/issues/401
 COPY --from=gloursdocker/docker / /
+CMD [ "npm", "start" ]
 
 FROM development AS builder
 
 RUN npm run build
 
-FROM nginx:1.13-alpine
+FROM nginx:1.25-alpine
 
 COPY --from=builder /code/build /usr/share/nginx/html
