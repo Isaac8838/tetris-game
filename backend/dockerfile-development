@@ -2,6 +2,11 @@ FROM golang:1.22.2-bookworm
 
 WORKDIR /app
 
+RUN <<EOF
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+EOF
+
 COPY . /app
 
 EXPOSE 8080
