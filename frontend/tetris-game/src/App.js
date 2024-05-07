@@ -5,6 +5,8 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 //import page
 import Home from "./pages/Home"
 import Game from "./pages/Game"
+import Login from "./pages/Login"
+import Signup from "./pages/Signup"
 
 export default class App extends Component{
   render(){
@@ -13,7 +15,9 @@ export default class App extends Component{
         {/* 註冊路遊 */}
         <BrowserRouter>
           <Routes>
-            <Route index Component={Home}/>
+            <Route index Component={Login}/>
+            <Route path='/login' Component={Login}/>
+            <Route path='/signup' Component={Signup}/>
             <Route path='/home' Component={Home}/>
             <Route path='/Game' Component={Game}/>
           </Routes>

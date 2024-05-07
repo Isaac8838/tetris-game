@@ -1,0 +1,74 @@
+.login-from-container{
+    width: 65%;
+}
+
+.login-from-container form{
+    margin-bottom: 10px;
+}
+
+.login-from-container h1{
+    font-size: 50px;
+
+}
+
+.login-from-container .input-box{
+    margin-top: 50px;
+    font-size: 25px;
+}
+
+.login-from-container label{
+    display: block;
+    margin-bottom: 20px;
+}
+
+.login-from-container input{
+    width: 100%;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 3px solid white;
+    font-size: 25px;
+    color: black;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.login-from-container input:focus-visible{
+    outline: none;
+    border: 3px solid rgb(0, 0, 0);
+    background-color: white;
+}
+
+.login-from-container button{
+    display: block;
+    margin-top: 40px;
+    height: 35px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.login-from-container button:hover{
+    background-color: rgb(97, 97, 97);
+}
+
+.login-from-container .sign-up{
+    display: block;
+    width: 100%;
+    height: 35px;
+    background-color: white;
+    text-align: center;
+    line-height: 35px;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+.login-from-container .sign-up:hover{
+    background-color: rgb(173, 173, 173);
+}
