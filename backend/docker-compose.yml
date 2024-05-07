@@ -22,6 +22,8 @@ services:
       - '8080:8080'
     networks:
       - server-side
+    environment:
+      - DB_SOURCE=postgresql://root:root@postgres:5432/tetris-game?sslmode=disable
     tty: true
     volumes:
       - ./:/app
