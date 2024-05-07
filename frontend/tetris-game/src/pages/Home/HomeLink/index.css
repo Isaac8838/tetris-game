@@ -1,0 +1,10 @@
+.link{
+    display: block;
+    width:100%;
+    margin: auto;
+    color: rgb(255, 174, 0);
+    text-decoration: none;
+    padding: 15px 25px;
+    box-sizing: border-box;
+
+}
