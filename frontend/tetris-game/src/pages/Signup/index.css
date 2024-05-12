@@ -1,0 +1,17 @@
+.signup-container{
+    max-width: 1800px;
+    height: 740px;
+    background-color: rgb(226, 226, 226);
+    box-sizing: border-box;
+    padding: 30px 70px;
+    border-radius: 30px;
+}
+
+.signup-container h1{
+    font-size: 40px;
+}
+
+.signup-container form{
+    width: 80%;
+    margin: auto;
+}

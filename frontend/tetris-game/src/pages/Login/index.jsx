@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import LoginForm from './LoginForm'
+// import LoginForm from './LoginForm'
 import "./index.css"
+import { Outlet } from 'react-router-dom'
 
 export default class index extends Component {
   render() {
@@ -17,7 +18,8 @@ export default class index extends Component {
           </div>
         </div>
         <div className='right-container'>
-          <LoginForm></LoginForm>
+          {/* 將login form顯示在這裡 */}
+          <Outlet />
         </div>
       </div>
     )
