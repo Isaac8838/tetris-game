@@ -1,0 +1,52 @@
+.link{
+    display: block;
+    width:100%;
+    margin: auto;
+    color: rgb(255, 174, 0);
+    text-decoration: none;
+    padding: 15px 25px;
+    box-sizing: border-box;
+
+}
+
+.menu-header{
+    text-align: center;
+    font-size: 80px;
+    color:  white;
+}
+
+.menu-ul{
+    list-style: none;
+    font-size: 40px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-ul li{
+    display: inline-block;
+    margin: auto;
+    width: 200px;
+    text-align: center;
+    margin-bottom: 70px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid gray;
+}
+
+.menu-ul li:hover{
+    background-color: gray;
+}
+
+.menu-ul li:last-child{
+    margin-bottom: 0;
+}
+
+.menu-ul a{
+    display: inline-block;
+    width: 100%;
+    color:white;
+    text-decoration: none;
+    
+}
