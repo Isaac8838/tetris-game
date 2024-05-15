@@ -1,4 +1,4 @@
-import BoardCell from 'pages/Home/Game/BoardCell'
+import {BoardCell} from 'pages/Home/Game/BoardCell'
 
 import './index.css'
 

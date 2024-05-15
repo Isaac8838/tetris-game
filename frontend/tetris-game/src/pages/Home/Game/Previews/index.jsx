@@ -6,14 +6,15 @@ const Previews = ({ tetrominoes }) => {
     const previewTetrominoes = tetrominoes
         .slice(1 - tetrominoes.length)
         .reverse();
-    
+
     return(
         <>
-            {previewTetrominoes.map((tetrominoe,index) => (
-                <Preview tetrominoe = {tetrominoe} index = {index} key={index}/>
+            {previewTetrominoes.map((tetromino,index) => (
+                <Preview tetromino = {tetromino} index = {index} key={index}/>
             ))}
         </>
     )
+
 }
 
 export default React.memo(Previews);

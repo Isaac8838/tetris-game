@@ -1,9 +1,10 @@
 import "./index.css"
 
-const BoardCell = ({ cell }) => (
-    <div className={`BoardCell ${cell.className}`}>
-        <div className="Sparkle"></div>
-    </div>
-);
+export const BoardCell = ({cell,where}) => {
 
-export default BoardCell;
+    return(
+        <div className={`BoardCell ${cell.className}`}>
+            <div className="Sparkle"></div>
+        </div>
+    );
+}
