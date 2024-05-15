@@ -12,7 +12,7 @@
 }
 
 /* 每隔的小光點 */
-.Sparkle{
+.tetromino .Sparkle{
     position: absolute;
     z-index: 10;
     width: 6px;
