@@ -23,14 +23,14 @@ type renewTokenResponse struct {
 var validUsedRefreshToken = make(map[string]time.Time)
 
 // using refresh token rotation to renew token
-func (server *Server) renewToken(ctx *gin.Context) {
+func (server *TetrisServer) renewToken(ctx *gin.Context) {
 	var req renewTokenRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
 
-	err := detectedRefreshTokenReused(req.RefreshToken)
+	err := server.helper.DetectedRefreshTokenReused(req.RefreshToken)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
@@ -77,19 +77,6 @@ func (server *Server) renewToken(ctx *gin.Context) {
 		RefreshTokenExpiresAt: newRefreshTokenPayload.ExpiredAt,
 	}
 	ctx.JSON(http.StatusOK, rsp)
-}
-
-func detectedRefreshTokenReused(refreshToken string) error {
-	_, ok := validUsedRefreshToken[refreshToken]
-	if ok {
-		// clear all the refresh tokens
-		for token := range validUsedRefreshToken {
-			delete(validUsedRefreshToken, token)
-		}
-
-		return fmt.Errorf("refresh token is reused, user might be hacked")
-	}
-	return nil
 }
 
 func deleteExpiredRefreshTokens() {

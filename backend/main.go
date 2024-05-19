@@ -23,12 +23,13 @@ func main() {
 	defer dbpool.Close()
 
 	dbqtx := db.NewDBQTx(dbpool)
+	helper := api.NewHelper()
 
-	runGinServer(config, dbqtx)
+	runGinServer(config, dbqtx, helper)
 }
 
-func runGinServer(config utils.Config, dbqtx db.DBQTx) {
-	server, err := api.NewServer(config, dbqtx)
+func runGinServer(config utils.Config, dbqtx db.DBQTx, helper api.Helper) {
+	server, err := api.NewServer(config, dbqtx, helper)
 	if err != nil {
 		log.Fatal("Unable create server")
 	}
