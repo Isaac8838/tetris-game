@@ -32,6 +32,8 @@ func (server *TetrisServer) SetupRouter() {
 	router := gin.Default()
 
 	router.POST("/tokens/renew_access", server.renewToken)
+	router.POST("/users", server.createUser)
+	router.POST("/users/login", server.loginUser)
 
 	server.router = router
 }

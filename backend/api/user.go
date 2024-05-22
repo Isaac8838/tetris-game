@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"net/http"
 	"time"
 
@@ -44,13 +45,15 @@ func (server *TetrisServer) createUser(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.CreateUserParams{
-		Username:       req.Username,
-		HashedPassword: hashedPassword,
-		Email:          req.Email,
+	arg := db.CreateUserTxParams{
+		CreateUserParams: db.CreateUserParams{
+			Username:       req.Username,
+			HashedPassword: hashedPassword,
+			Email:          req.Email,
+		},
 	}
 
-	user, err := server.dbqtx.CreateUser(ctx, arg)
+	userTxResult, err := server.dbqtx.CreateUserTx(ctx, arg)
 	if err != nil {
 		if db.ErrorCode(err) == db.UniqueViolation {
 			ctx.JSON(http.StatusForbidden, errorResponse(err))
@@ -60,7 +63,7 @@ func (server *TetrisServer) createUser(ctx *gin.Context) {
 		return
 	}
 
-	rsp := newUserResponse(user)
+	rsp := newUserResponse(userTxResult.User)
 	ctx.JSON(http.StatusOK, rsp)
 }
 
@@ -86,6 +89,10 @@ func (server *TetrisServer) loginUser(ctx *gin.Context) {
 
 	user, err := server.dbqtx.GetUser(ctx, req.Username)
 	if err != nil {
+		if errors.Is(err, db.ErrRecordNotFound) {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}

@@ -4,7 +4,6 @@ import "context"
 
 type CreateUserTxParams struct {
 	CreateUserParams
-	AfterCreate func(user User) error
 }
 
 type CreateUserTxResult struct {
@@ -22,7 +21,7 @@ func (dbqtx *SQLDBQTx) CreateUserTx(ctx context.Context, arg CreateUserTxParams)
 			return err
 		}
 
-		return arg.AfterCreate(result.User)
+		return nil
 	})
 
 	return result, err
