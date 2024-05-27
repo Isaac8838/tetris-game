@@ -34,7 +34,10 @@ func (server *TetrisServer) SetupRouter() {
 	router.POST("/tokens/renew_access", server.renewToken)
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
+	router.GET("/scores", server.listScores)
 
+	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
+	authRoutes.POST("/scores", server.createScore)
 	server.router = router
 }
 
