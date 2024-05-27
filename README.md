@@ -7,15 +7,17 @@ A practice of Tetris game.
 **Users**
  - POST /users **createUser**
  > usage: Create a User(創造使用者)
-```json
-key: value(type and limits)
 
+key: value(type and limits)
 json request 
+```json
 "username": "string, Alphanumeric",
 "password": "string, min=6",
 "email": "string, email format"
+```
 
 json response
+```json
 "username": "string",
 "email": "string",
 "password_changed_at": "time",
@@ -23,14 +25,16 @@ json response
 ```
  - POST /users/login **loginUser** 
  > usage: User login (Also create access token and refresh token for user) (使用者登入，同時也創造access token和refresh token作為登入時的授權手段)
-```json
-key: value(type and limits)
 
+key: value(type and limits)
 json request 
+```json
 "username": "string, Alphanumeric",
 "password": "string, min=6"
+```
 
 json response
+```json
 "access_token": "string",
 "access_token_expires_at": "time",
 "refresh_token": "string",
