@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/isaac8838/tetris-game/token"
@@ -46,7 +47,14 @@ func authMiddleware(tokenMaker token.Maker) gin.HandlerFunc {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, errorResponse(err))
 			return
 		}
-		ctx.Set(authorizationHeaderKey, payload)
+
+		duration := payload.ExpiredAt.Sub(payload.IssuedAt)
+		if duration > 15*time.Minute {
+			err := errors.New("invalid authorization token")
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, errorResponse(err))
+		}
+
+		ctx.Set(authorizationPayloadKey, payload)
 		ctx.Next()
 	}
 }
