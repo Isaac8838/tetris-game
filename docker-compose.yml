@@ -3,35 +3,32 @@ services:
   frontend:
     build:
       context: frontend
-      target: development
+      dockerfile: dockerfile
     networks:
       - client-side
     ports:
-      - 3000:3000
-    volumes:
-      - ./frontend/src:/app/src:ro
+      - 3000:80
+    depends_on:
+      - backend
 
-  # TODO: start the server need to add wait-for to wait postgres start.   
   backend:
     build:
       context: backend
-      target: development
+      dockerfile: dockerfile
     environment:
-      - DB_SOURCE=postgresql://root:root@postgres:5432/tetris-game?sslmode=disable
+      - DB_SOURCE=postgresql://root:root@db:5432/tetris-game?sslmode=disable
     networks:
       - client-side
       - server-side
-    volumes:
-      - ./backend:/app
-      - backend-cache:/app/target
+    ports:
+      - 8080:8080
     depends_on:
       - db
-    entrypoint: [ "/app/wait-for.sh", "postgres:5432", "--", "/app/start.sh" ]
+    entrypoint: [ "/app/wait-for.sh", "db:5432", "--", "/app/start.sh" ]
     command: [ "/app/main" ]
   
   db:
     image: postgres:16-alpine
-    restart: always
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
@@ -44,9 +41,10 @@ services:
       - db-data:/var/lib/postgresql/data
 
 networks:
-  client-side: {}
-  server-side: {}
+  client-side: 
+    driver: bridge
+  server-side: 
+    driver: bridge
 
 volumes:
-  backend-cache: {}
-  db-data: {}
+  db-data:

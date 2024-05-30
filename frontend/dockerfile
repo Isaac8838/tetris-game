@@ -1,39 +1,19 @@
-FROM node:lts AS development
-
-ENV CI=true
-ENV PORT=3000
+FROM node:alpine3.18 AS builder
 
 WORKDIR /app
 
-COPY tetris-game/package.json /app/package.json
-COPY tetris-game/package-lock.json /app/package-lock.json
-RUN npm ci
-COPY ./tetris-game /app
+COPY tetris-game/package*.json ./
 
-CMD [ "npm", "start" ]
+RUN npm install
 
-FROM development AS dev-envs
-RUN <<EOF
-apt-get update
-apt-get install -y --no-install-recommands git
-EOF
-
-RUN <<EOF
-useradd -s /bin/bash -m vscode
-groupadd docker
-username -aG docker vscode
-EOF
-
-# copy the previous image to the root directory so that don't have to
-# build the same image again
-# see this issue https://github.com/docker/awesome-compose/issues/401
-COPY --from=gloursdocker/docker / /
-CMD [ "npm", "start" ]
-
-FROM development AS builder
+COPY tetris-game .
 
 RUN npm run build
 
-FROM nginx:1.25-alpine
+FROM nginx:alpine
 
-COPY --from=builder /code/build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]
