@@ -1,0 +1,15 @@
+.tetris-container {
+    position: relative;
+    /* border: 0.5rem solid rgb(255, 255, 255); */
+    display: inline-block;
+
+    align-self: center;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 2rem 12rem 2rem 2rem;
+
+    border-radius: 15px;
+
+    background-color: white;
+}

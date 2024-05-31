@@ -1,33 +1,98 @@
-.login-container{
+.login-container {
     display: flex;
-    max-width: 1800px;
+    max-width: 1600px;
     height: 730px;
     margin: auto;
     border-radius: 30px;
     overflow: hidden;
-    background-image: linear-gradient(to right, white 50%, rgb(226, 226, 226) 50%);
+    background-image: linear-gradient(
+        to right,
+        white 50%,
+        rgb(226, 226, 226) 50%
+    );
 }
 
-.login-container .left-container{
+.left-container {
     width: 60%;
-    padding: 80px 80px 0 10%;
+    padding: 5rem;
     box-sizing: border-box;
     background-color: white;
 }
 
-.login-container .left-container h2{
+.left-container h2 {
     font-size: 60px;
-    margin-bottom: 80px;
+    margin-bottom: 4rem;
 }
 
-.login-container .left-container .content{
+.left-container-content {
     font-size: 30px;
 }
 
-
-.login-container .right-container{
+.right-container {
     width: 40%;
-    padding: 80px 0 0 50px;
+    padding: 5rem;
     box-sizing: border-box;
     background-color: rgb(226, 226, 226);
+}
+
+.right-container h1 {
+    font-size: 50px;
+    margin-bottom: 4rem;
+}
+
+.right-container form {
+    display: grid;
+    grid-template-rows: repeat(2, 5rem);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-box {
+    margin-bottom: 10px;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 8rem;
+    height: 2.5rem;
+    margin: auto;
+    font-size: 1.3rem;
+    line-height: 1rem;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.link-signup {
+    display: inline-block;
+    text-decoration: underline;
+    color: #007bff;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.link-signup:hover {
+    color: #6228ff;
 }

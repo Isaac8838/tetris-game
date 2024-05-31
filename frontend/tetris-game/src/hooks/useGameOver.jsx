@@ -1,13 +1,9 @@
-import { useCallback, useState } from "react";
+const { useState } = require('react');
 
 const useGameOver = () => {
-    const [gameOver,setGameOver] = useState(false);
-    
-    const resetGameOver = useCallback(() => {
-        setGameOver(false);
-    },[])
+    const [isGameOver, setIsGameOver] = useState(false);
 
-    return [gameOver,setGameOver,resetGameOver]
-}
+    return [isGameOver, setIsGameOver];
+};
 
 export default useGameOver;

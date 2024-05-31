@@ -1,36 +1,30 @@
-import { useState,useCallback } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-import { buildBoard } from "utils/Board";
-
-import { randomTetromino } from "utils/Tetrominoes";
-
-const buildPlayer = (previous) => {
-    let tetrominoes;
-
-    if (previous) {
-        tetrominoes = {...previous.tetrominoes};
-        tetrominoes.unshift(randomTetromino());
-    }else{
-        tetrominoes = Array(5)
-            .fill(0)
-            .map((_) => randomTetromino());
-    }
-
-    return{
-        collided: false,
-        isFastDropping: false,
-        position: {row: 0,column: 4},
-        tetrominoes,
-        tetromino: tetrominoes.pop()
-    }
-};
+// import hook
+import { useTetrominoes } from './useTetrominoes';
 
 export const usePlayer = () => {
-    const [player ,setPlayer] = useState(buildPlayer());
+    const [tetrominoes, getNextTetromino] = useTetrominoes();
+    const [player, setPlayer] = useState(null);
 
     const resetPlayer = useCallback(() => {
-        setPlayer((prev) => buildBoard(prev));
-    },[]);
+        const newPlayerTetromino = getNextTetromino();
+        setPlayer({
+            tetromino: newPlayerTetromino,
+            position: { column: 4, row: 0 },
+            collide: false,
+            fastDorp: false,
+        });
+    }, [getNextTetromino, player]);
 
-    return [player,setPlayer,resetPlayer]
-}
+    useEffect(() => {
+        resetPlayer();
+    }, []);
+
+    // 印出用;
+    // useEffect(() => {
+    //     console.log('useEffect', player);
+    // }, [player]);
+
+    return [player, tetrominoes, setPlayer, resetPlayer];
+};

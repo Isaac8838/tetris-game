@@ -1,0 +1,57 @@
+.BoardCell {
+    width: auto;
+    border-radius: 6px;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.233);
+}
+
+.tetromino {
+    border-top: 3px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+    border-right: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.tetrominoI {
+    background-color: rgb(30, 88, 88);
+}
+.tetrominoJ {
+    background-color: rgba(36, 95, 223, 1);
+}
+.tetrominoL {
+    background-color: rgb(133, 103, 21);
+}
+.tetrominoO {
+    background-color: rgb(104, 101, 16);
+}
+.tetrominoS {
+    background-color: rgb(25, 114, 30);
+}
+.tetrominoT {
+    background-color: rgba(132, 61, 198, 1);
+}
+.tetrominoZ {
+    background-color: rgb(131, 43, 106);
+}
+
+.tetrominoI_ghost {
+    border: 3px solid rgb(30, 88, 88);
+}
+.tetrominoJ_ghost {
+    border: 3px solid rgba(36, 95, 223, 1);
+}
+.tetrominoL_ghost {
+    border: 3px solid rgb(133, 103, 21);
+}
+.tetrominoO_ghost {
+    border: 3px solid rgb(104, 101, 16);
+}
+.tetrominoS_ghost {
+    border: 3px solid rgb(25, 114, 30);
+}
+.tetrominoT_ghost {
+    border: 3px solid rgba(132, 61, 198, 1);
+}
+.tetrominoZ_ghost {
+    border: 3px solid rgb(131, 43, 106);
+}
