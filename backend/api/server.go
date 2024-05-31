@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	db "github.com/isaac8838/tetris-game/db/sqlc"
 	"github.com/isaac8838/tetris-game/token"
@@ -30,6 +31,8 @@ func NewServer(config utils.Config, dbqtx db.DBQTx, helper Helper) (*TetrisServe
 
 func (server *TetrisServer) SetupRouter() {
 	router := gin.Default()
+
+	router.Use(cors.Default())
 
 	router.POST("/tokens/renew_access", server.renewToken)
 	router.POST("/users", server.createUser)
