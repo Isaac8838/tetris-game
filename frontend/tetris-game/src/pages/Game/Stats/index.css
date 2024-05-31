@@ -1,0 +1,15 @@
+.stats {
+    position: absolute;
+    width: 170px;
+    right: -1rem;
+    bottom: 1rem;
+}
+
+.statsTitle {
+    font-size: 30px;
+}
+
+.statsContent {
+    font-size: 25px;
+    margin-bottom: 20px;
+}

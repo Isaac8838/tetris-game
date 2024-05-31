@@ -1,21 +1,11 @@
-export const Action = {
-    Left : "Left",
-    FastDrop: "FastDrop",
-    Pause: "Pause",
-    Quit: "Quit",
-    Right: "Right",
-    Rotate: "Rotate",
-    SlowDrop: "SlowDrop"
-}
+const Key = {
+    ArrowUp: 'Rotate',
+    ArrowDown: 'SlowDrop',
+    ArrowLeft: 'Left',
+    ArrowRight: 'Right',
+    KeyQ: 'Quit',
+    KeyP: 'Pause',
+    Space: 'FastDrop',
+};
 
-export const Key = {
-    ArrowUp: Action.Rotate,
-    ArrowDown: Action.SlowDrop,
-    ArrowLeft: Action.Left,
-    ArrowRight: Action.Right,
-    KeyQ: Action.Quit,
-    KeyP: Action.Pause,
-    Space: Action.FastDrop
-}
-
-export const actionForKey = (ketCode) => Key[ketCode]
+export const actionForKey = (keyCode) => Key[keyCode];
