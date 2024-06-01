@@ -14,6 +14,8 @@ type Querier interface {
 	DeleteUser(ctx context.Context, username string) error
 	GetUser(ctx context.Context, username string) (User, error)
 	ListScores(ctx context.Context, arg ListScoresParams) ([]Score, error)
+	RankByLevel(ctx context.Context, arg RankByLevelParams) ([]Score, error)
+	RankByScore(ctx context.Context, arg RankByScoreParams) ([]Score, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 }
 

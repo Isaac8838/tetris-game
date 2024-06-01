@@ -129,6 +129,36 @@ func (mr *MockDBQTxMockRecorder) ListScores(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListScores", reflect.TypeOf((*MockDBQTx)(nil).ListScores), arg0, arg1)
 }
 
+// RankByLevel mocks base method.
+func (m *MockDBQTx) RankByLevel(arg0 context.Context, arg1 db.RankByLevelParams) ([]db.Score, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RankByLevel", arg0, arg1)
+	ret0, _ := ret[0].([]db.Score)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RankByLevel indicates an expected call of RankByLevel.
+func (mr *MockDBQTxMockRecorder) RankByLevel(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RankByLevel", reflect.TypeOf((*MockDBQTx)(nil).RankByLevel), arg0, arg1)
+}
+
+// RankByScore mocks base method.
+func (m *MockDBQTx) RankByScore(arg0 context.Context, arg1 db.RankByScoreParams) ([]db.Score, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RankByScore", arg0, arg1)
+	ret0, _ := ret[0].([]db.Score)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RankByScore indicates an expected call of RankByScore.
+func (mr *MockDBQTxMockRecorder) RankByScore(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RankByScore", reflect.TypeOf((*MockDBQTx)(nil).RankByScore), arg0, arg1)
+}
+
 // UpdateUser mocks base method.
 func (m *MockDBQTx) UpdateUser(arg0 context.Context, arg1 db.UpdateUserParams) (db.User, error) {
 	m.ctrl.T.Helper()
