@@ -249,10 +249,10 @@ func TestListScores(t *testing.T) {
 			},
 		},
 		{
-			name: "InvalidPageID",
+			name: "InvalidPageSize",
 			query: Query{
 				owner:    user.Username,
-				pageID:   -1,
+				pageID:   1,
 				pageSize: 100000,
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
