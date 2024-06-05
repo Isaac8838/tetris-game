@@ -10,8 +10,10 @@
 package mockapi
 
 import (
+	context "context"
 	reflect "reflect"
 
+	db "github.com/isaac8838/tetris-game/db/sqlc"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -36,6 +38,20 @@ func NewMockHelper(ctrl *gomock.Controller) *MockHelper {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockHelper) EXPECT() *MockHelperMockRecorder {
 	return m.recorder
+}
+
+// CreateAchievement mocks base method.
+func (m *MockHelper) CreateAchievement(arg0 context.Context, arg1 db.Score, arg2 db.DBQTx) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAchievement", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateAchievement indicates an expected call of CreateAchievement.
+func (mr *MockHelperMockRecorder) CreateAchievement(arg0, arg1, arg2 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAchievement", reflect.TypeOf((*MockHelper)(nil).CreateAchievement), arg0, arg1, arg2)
 }
 
 // DetectedRefreshTokenReused mocks base method.

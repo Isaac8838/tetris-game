@@ -9,10 +9,13 @@ import (
 )
 
 type Querier interface {
+	CreateAchievement(ctx context.Context, arg CreateAchievementParams) (Achievement, error)
 	CreateScore(ctx context.Context, arg CreateScoreParams) (Score, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteUser(ctx context.Context, username string) error
+	GetAchievement(ctx context.Context, arg GetAchievementParams) (Achievement, error)
 	GetUser(ctx context.Context, username string) (User, error)
+	ListAchievements(ctx context.Context, owner string) ([]Achievement, error)
 	ListScores(ctx context.Context, arg ListScoresParams) ([]Score, error)
 	RankByLevel(ctx context.Context, arg RankByLevelParams) ([]Score, error)
 	RankByScore(ctx context.Context, arg RankByScoreParams) ([]Score, error)
