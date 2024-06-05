@@ -1,6 +1,21 @@
 # tetris-game
 A practice of Tetris game.
 
+# Docker
+cd to root of project directory i.e. path/to/tetris-game
+
+build and start container:
+```bash
+docker compose up --build -d
+```
+
+for delete container and volumes, using:
+```bash
+docker compose down -v
+```
+> [!NOTE]
+> notice that image should delete manually at docker desktop or using CLI command.
+
 # Backend
     server port: 8080
 ## APIs
