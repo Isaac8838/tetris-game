@@ -44,11 +44,17 @@ func (server *TetrisServer) createScore(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
+
+	err = server.helper.CreateAchievement(ctx, score, server.dbqtx)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+
 	ctx.JSON(http.StatusOK, score)
 }
 
 type listScoreRequest struct {
-	Owner    string `form:"owner" binding:"required"`
+	Owner    string `form:"owner" binding:"required,alphanum"`
 	PageID   int32  `form:"page_id" binding:"required,min=1"`
 	PageSize int32  `form:"page_size" binding:"required,min=5,max=10"`
 }

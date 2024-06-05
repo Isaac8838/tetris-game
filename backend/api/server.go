@@ -40,6 +40,7 @@ func (server *TetrisServer) SetupRouter() {
 	router.GET("/scores", server.listScores)
 	router.GET("/rank/scores", server.rankByScore)
 	router.GET("/rank/levels", server.rankByLevel)
+	router.GET("/achievements", server.listAchievements)
 
 	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
 	authRoutes.POST("/scores", server.createScore)

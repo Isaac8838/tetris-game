@@ -40,6 +40,21 @@ func (m *MockDBQTx) EXPECT() *MockDBQTxMockRecorder {
 	return m.recorder
 }
 
+// CreateAchievement mocks base method.
+func (m *MockDBQTx) CreateAchievement(arg0 context.Context, arg1 db.CreateAchievementParams) (db.Achievement, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAchievement", arg0, arg1)
+	ret0, _ := ret[0].(db.Achievement)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAchievement indicates an expected call of CreateAchievement.
+func (mr *MockDBQTxMockRecorder) CreateAchievement(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAchievement", reflect.TypeOf((*MockDBQTx)(nil).CreateAchievement), arg0, arg1)
+}
+
 // CreateScore mocks base method.
 func (m *MockDBQTx) CreateScore(arg0 context.Context, arg1 db.CreateScoreParams) (db.Score, error) {
 	m.ctrl.T.Helper()
@@ -99,6 +114,21 @@ func (mr *MockDBQTxMockRecorder) DeleteUser(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockDBQTx)(nil).DeleteUser), arg0, arg1)
 }
 
+// GetAchievement mocks base method.
+func (m *MockDBQTx) GetAchievement(arg0 context.Context, arg1 db.GetAchievementParams) (db.Achievement, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAchievement", arg0, arg1)
+	ret0, _ := ret[0].(db.Achievement)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAchievement indicates an expected call of GetAchievement.
+func (mr *MockDBQTxMockRecorder) GetAchievement(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAchievement", reflect.TypeOf((*MockDBQTx)(nil).GetAchievement), arg0, arg1)
+}
+
 // GetUser mocks base method.
 func (m *MockDBQTx) GetUser(arg0 context.Context, arg1 string) (db.User, error) {
 	m.ctrl.T.Helper()
@@ -112,6 +142,21 @@ func (m *MockDBQTx) GetUser(arg0 context.Context, arg1 string) (db.User, error) 
 func (mr *MockDBQTxMockRecorder) GetUser(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockDBQTx)(nil).GetUser), arg0, arg1)
+}
+
+// ListAchievements mocks base method.
+func (m *MockDBQTx) ListAchievements(arg0 context.Context, arg1 string) ([]db.Achievement, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAchievements", arg0, arg1)
+	ret0, _ := ret[0].([]db.Achievement)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAchievements indicates an expected call of ListAchievements.
+func (mr *MockDBQTxMockRecorder) ListAchievements(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAchievements", reflect.TypeOf((*MockDBQTx)(nil).ListAchievements), arg0, arg1)
 }
 
 // ListScores mocks base method.

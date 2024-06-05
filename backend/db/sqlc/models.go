@@ -8,6 +8,12 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Achievement struct {
+	Owner         string             `json:"owner"`
+	AchievementID int32              `json:"achievement_id"`
+	AchievedAt    pgtype.Timestamptz `json:"achieved_at"`
+}
+
 type Score struct {
 	ID        int64              `json:"id"`
 	Owner     string             `json:"owner"`

@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	mockapi "github.com/isaac8838/tetris-game/api/mock"
 	mockdb "github.com/isaac8838/tetris-game/db/mock"
 	db "github.com/isaac8838/tetris-game/db/sqlc"
 	"github.com/isaac8838/tetris-game/token"
@@ -29,7 +30,7 @@ func TestCreateScore(t *testing.T) {
 		name          string
 		body          gin.H
 		setupAuth     func(t *testing.T, request *http.Request, tokenMaker token.Maker)
-		buildStubs    func(dbqtx *mockdb.MockDBQTx)
+		buildStubs    func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper)
 		checkResponse func(recorder *httptest.ResponseRecorder)
 	}{
 		{
@@ -41,7 +42,7 @@ func TestCreateScore(t *testing.T) {
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
 			},
-			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				arg := db.CreateScoreParams{
 					Owner: user.Username,
 					Score: score.Score,
@@ -51,6 +52,11 @@ func TestCreateScore(t *testing.T) {
 					CreateScore(gomock.Any(), gomock.Eq(arg)).
 					Times(1).
 					Return(score, nil)
+
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Eq(score), gomock.Any()).
+					Times(1).
+					Return(nil)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
@@ -65,9 +71,12 @@ func TestCreateScore(t *testing.T) {
 			},
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 			},
-			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
 					CreateScore(gomock.Any(), gomock.Any()).
+					Times(0)
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
@@ -83,11 +92,14 @@ func TestCreateScore(t *testing.T) {
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
 			},
-			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
 					CreateScore(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.Score{}, sql.ErrConnDone)
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -102,11 +114,14 @@ func TestCreateScore(t *testing.T) {
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
 			},
-			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
 					CreateScore(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.Score{}, db.ErrUniqueViolation)
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusForbidden, recorder.Code)
@@ -121,13 +136,39 @@ func TestCreateScore(t *testing.T) {
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
 			},
-			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
 					CreateScore(gomock.Any(), gomock.Any()).
+					Times(0)
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
+			},
+		},
+		{
+			name: "CreateAchievementError",
+			body: gin.H{
+				"score": score.Score,
+				"level": score.Level,
+			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
+			},
+			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
+				dbqtx.EXPECT().
+					CreateScore(gomock.Any(), gomock.Any()).
+					Times(1).
+					Return(score, nil)
+				helper.EXPECT().
+					CreateAchievement(gomock.Any(), gomock.Eq(score), gomock.Any()).
+					Times(1).
+					Return(sql.ErrConnDone)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusInternalServerError, recorder.Code)
 			},
 		},
 	}
@@ -138,9 +179,10 @@ func TestCreateScore(t *testing.T) {
 			defer ctrl.Finish()
 
 			dbqtx := mockdb.NewMockDBQTx(ctrl)
-			tc.buildStubs(dbqtx)
+			helper := mockapi.NewMockHelper(ctrl)
+			tc.buildStubs(dbqtx, helper)
 
-			server := newTestServer(t, dbqtx, nil)
+			server := newTestServer(t, dbqtx, helper)
 			recorder := httptest.NewRecorder()
 
 			data, err := json.Marshal(tc.body)
@@ -197,6 +239,7 @@ func TestListScores(t *testing.T) {
 					ListScores(gomock.Any(), gomock.Eq(arg)).
 					Times(1).
 					Return(scores, nil)
+
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
@@ -252,6 +295,28 @@ func TestListScores(t *testing.T) {
 			name: "InvalidPageSize",
 			query: Query{
 				owner:    user.Username,
+				pageID:   1,
+				pageSize: 100000,
+			},
+			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
+				arg := db.ListScoresParams{
+					Owner:  user.Username,
+					Limit:  int32(n),
+					Offset: 0,
+				}
+
+				dbqtx.EXPECT().
+					ListScores(gomock.Any(), gomock.Eq(arg)).
+					Times(0)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusBadRequest, recorder.Code)
+			},
+		},
+		{
+			name: "InvalidUsername",
+			query: Query{
+				owner:    "-",
 				pageID:   1,
 				pageSize: 100000,
 			},
