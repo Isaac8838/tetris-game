@@ -11,7 +11,7 @@ A practice of Tetris game.
 key: value(type and limits)
 json request 
 ```json
-"username": "string, Alphanumeric",
+"username": "string, alphanumeric",
 "password": "string, min=6",
 "email": "string, email format"
 ```
@@ -88,7 +88,7 @@ json response
  - GET /scores **listScores**
  > usage: Get Scores by given owner, page id and page size from url (獲取分數透過url中的使用者名稱、page id和page size)
 
-owner: username
+owner: string, alphanumeric
 page_id: int, min=1
 page_size: int, min=5, max=10
 
@@ -102,5 +102,44 @@ json response
     "score": "int",
     "level": "int",
     "created_at": "time"
+]
+```
+
+**Rank**
+ - GET /rank/scores rankByScore
+ - GET /rank/levels rankByLevels
+ > usage: rank the scores and levels by descending order (以大到小排序分數以及等級)
+
+page_id: int, min=1
+page_size: int, min=5, max=10
+
+example url: localhost:8080/rank/scores?page_id=1&page_size=5<br>
+example url: localhost:8080/rank/levels?page_id=1&page_size=5
+
+json response
+```json
+[
+    "id": "int",
+    "owner": "string",
+    "score": "int",
+    "level": "int",
+    "created_at": "time"
+]
+```
+
+**Achievements**
+ - GET /achievements listAchievements
+ > usage: list owner's achievements (列出特定使用者的成就)
+
+owner: string, alphanumeric
+
+example url: localhost:8080/achievements?owner=isaac
+
+json response
+```json
+[
+    "owner": "string",
+    "achievement_id": "int",
+    "achieved_at": "time"
 ]
 ```
