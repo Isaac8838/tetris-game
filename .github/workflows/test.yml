@@ -39,14 +39,10 @@ jobs:
       - name: Install golang-migrate
         run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-      - name: Change to backend directory
-        run: cd ./backend
-
-      - name: Check current directory
-        run: pwd
-
       - name: Run migrate
+        working-directory: ./backend
         run: make migrateup
       
       - name: Test
+        working-directory: ./backend
         run: make test
