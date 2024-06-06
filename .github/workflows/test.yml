@@ -41,7 +41,7 @@ jobs:
 
       - name: Run migrate
         working-directory: ./backend
-        run: make migrateup
+        run: make cimigrateup
       
       - name: Test
         working-directory: ./backend
