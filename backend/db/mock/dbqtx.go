@@ -55,6 +55,21 @@ func (mr *MockDBQTxMockRecorder) CreateAchievement(arg0, arg1 any) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAchievement", reflect.TypeOf((*MockDBQTx)(nil).CreateAchievement), arg0, arg1)
 }
 
+// CreateAchievementTx mocks base method.
+func (m *MockDBQTx) CreateAchievementTx(arg0 context.Context, arg1 db.CreateAchievementTxParams) (db.CreateAchievementTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAchievementTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAchievementTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAchievementTx indicates an expected call of CreateAchievementTx.
+func (mr *MockDBQTxMockRecorder) CreateAchievementTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAchievementTx", reflect.TypeOf((*MockDBQTx)(nil).CreateAchievementTx), arg0, arg1)
+}
+
 // CreateScore mocks base method.
 func (m *MockDBQTx) CreateScore(arg0 context.Context, arg1 db.CreateScoreParams) (db.Score, error) {
 	m.ctrl.T.Helper()
@@ -68,6 +83,21 @@ func (m *MockDBQTx) CreateScore(arg0 context.Context, arg1 db.CreateScoreParams)
 func (mr *MockDBQTxMockRecorder) CreateScore(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateScore", reflect.TypeOf((*MockDBQTx)(nil).CreateScore), arg0, arg1)
+}
+
+// CreateScoreTx mocks base method.
+func (m *MockDBQTx) CreateScoreTx(arg0 context.Context, arg1 db.CreateScoreTxParams) (db.CreateScoreTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateScoreTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateScoreTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateScoreTx indicates an expected call of CreateScoreTx.
+func (mr *MockDBQTxMockRecorder) CreateScoreTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateScoreTx", reflect.TypeOf((*MockDBQTx)(nil).CreateScoreTx), arg0, arg1)
 }
 
 // CreateUser mocks base method.

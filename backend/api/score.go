@@ -22,19 +22,21 @@ func (server *TetrisServer) createScore(ctx *gin.Context) {
 	}
 
 	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
-	arg := db.CreateScoreParams{
-		Owner: authPayload.Username,
-		Score: pgtype.Int8{
-			Int64: req.Score,
-			Valid: true,
-		},
-		Level: pgtype.Int4{
-			Int32: req.Level,
-			Valid: true,
+	arg := db.CreateScoreTxParams{
+		CreateScoreParams: db.CreateScoreParams{
+			Owner: authPayload.Username,
+			Score: pgtype.Int8{
+				Int64: req.Score,
+				Valid: true,
+			},
+			Level: pgtype.Int4{
+				Int32: req.Level,
+				Valid: true,
+			},
 		},
 	}
 
-	score, err := server.dbqtx.CreateScore(ctx, arg)
+	scoreTxResult, err := server.dbqtx.CreateScoreTx(ctx, arg)
 	if err != nil {
 		errCode := db.ErrorCode(err)
 		if errCode == db.ForeignKeyViolation || errCode == db.UniqueViolation {
@@ -45,12 +47,12 @@ func (server *TetrisServer) createScore(ctx *gin.Context) {
 		return
 	}
 
-	err = server.helper.CreateAchievement(ctx, score, server.dbqtx)
+	err = server.helper.CreateAchievement(ctx, scoreTxResult.Score, server.dbqtx)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 	}
 
-	ctx.JSON(http.StatusOK, score)
+	ctx.JSON(http.StatusOK, scoreTxResult.Score)
 }
 
 type listScoreRequest struct {

@@ -76,13 +76,13 @@ func TestCreateAchievement(t *testing.T) {
 					Times(1).
 					Return(db.Achievement{}, db.ErrRecordNotFound)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.Achievement{}, nil)
+					Return(db.CreateAchievementTxResult{}, nil)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.Achievement{}, nil)
+					Return(db.CreateAchievementTxResult{}, nil)
 
 			},
 			checkError: func(err error) {
@@ -111,10 +111,10 @@ func TestCreateAchievement(t *testing.T) {
 					GetAchievement(gomock.Any(), gomock.Any()).
 					Times(0)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(0)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(0)
 
 			},
@@ -145,11 +145,11 @@ func TestCreateAchievement(t *testing.T) {
 					Times(1).
 					Return(db.Achievement{}, nil)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.Achievement{}, sql.ErrConnDone)
+					Return(db.CreateAchievementTxResult{}, sql.ErrConnDone)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(0)
 
 			},
@@ -196,13 +196,13 @@ func TestCreateAchievement(t *testing.T) {
 						AchievementID: utils.Level5,
 					}, nil)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(3).
-					Return(db.Achievement{}, nil)
+					Return(db.CreateAchievementTxResult{}, nil)
 				dbqtx.EXPECT().
-					CreateAchievement(gomock.Any(), gomock.Any()).
+					CreateAchievementTx(gomock.Any(), gomock.Any()).
 					Times(3).
-					Return(db.Achievement{}, nil)
+					Return(db.CreateAchievementTxResult{}, nil)
 			},
 			checkError: func(err error) {
 				require.NoError(t, err)
