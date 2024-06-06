@@ -42,6 +42,9 @@ jobs:
       - name: Change to backend directory
         run: cd ./backend
 
+      - name: Check current directory
+        run: pwd
+
       - name: Run migrate
         run: make migrateup
       
