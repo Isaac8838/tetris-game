@@ -10,6 +10,8 @@ import (
 type DBQTx interface {
 	Querier
 	CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
+	CreateScoreTx(ctx context.Context, arg CreateScoreTxParams) (CreateScoreTxResult, error)
+	CreateAchievementTx(ctx context.Context, arg CreateAchievementTxParams) (CreateAchievementTxResult, error)
 }
 
 type SQLDBQTx struct {

@@ -77,11 +77,13 @@ func (helper *FuncHelper) CreateAchievement(ctx context.Context, score db.Score,
 			if score.Score.Int64 < achiScore {
 				break
 			} else {
-				arg := db.CreateAchievementParams{
-					Owner:         score.Owner,
-					AchievementID: i,
+				arg := db.CreateAchievementTxParams{
+					CreateAchievementParams: db.CreateAchievementParams{
+						Owner:         score.Owner,
+						AchievementID: i,
+					},
 				}
-				_, err := dbqtx.CreateAchievement(ctx, arg)
+				_, err := dbqtx.CreateAchievementTx(ctx, arg)
 				if err != nil {
 					return err
 				}
@@ -100,11 +102,13 @@ func (helper *FuncHelper) CreateAchievement(ctx context.Context, score db.Score,
 			if score.Level.Int32 < achiLevel {
 				break
 			} else {
-				arg := db.CreateAchievementParams{
-					Owner:         score.Owner,
-					AchievementID: i,
+				arg := db.CreateAchievementTxParams{
+					CreateAchievementParams: db.CreateAchievementParams{
+						Owner:         score.Owner,
+						AchievementID: i,
+					},
 				}
-				_, err := dbqtx.CreateAchievement(ctx, arg)
+				_, err := dbqtx.CreateAchievementTx(ctx, arg)
 				if err != nil {
 					return err
 				}

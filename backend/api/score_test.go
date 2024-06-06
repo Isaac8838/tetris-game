@@ -43,15 +43,17 @@ func TestCreateScore(t *testing.T) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
-				arg := db.CreateScoreParams{
-					Owner: user.Username,
-					Score: score.Score,
-					Level: score.Level,
+				arg := db.CreateScoreTxParams{
+					CreateScoreParams: db.CreateScoreParams{
+						Owner: user.Username,
+						Score: score.Score,
+						Level: score.Level,
+					},
 				}
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Eq(arg)).
+					CreateScoreTx(gomock.Any(), gomock.Eq(arg)).
 					Times(1).
-					Return(score, nil)
+					Return(db.CreateScoreTxResult{Score: score}, nil)
 
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Eq(score), gomock.Any()).
@@ -73,7 +75,7 @@ func TestCreateScore(t *testing.T) {
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Any()).
+					CreateScoreTx(gomock.Any(), gomock.Any()).
 					Times(0)
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
@@ -94,9 +96,9 @@ func TestCreateScore(t *testing.T) {
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Any()).
+					CreateScoreTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.Score{}, sql.ErrConnDone)
+					Return(db.CreateScoreTxResult{}, sql.ErrConnDone)
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
@@ -116,9 +118,9 @@ func TestCreateScore(t *testing.T) {
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Any()).
+					CreateScoreTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.Score{}, db.ErrUniqueViolation)
+					Return(db.CreateScoreTxResult{}, db.ErrUniqueViolation)
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
@@ -138,7 +140,7 @@ func TestCreateScore(t *testing.T) {
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Any()).
+					CreateScoreTx(gomock.Any(), gomock.Any()).
 					Times(0)
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Any(), gomock.Any()).
@@ -158,10 +160,17 @@ func TestCreateScore(t *testing.T) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
 			},
 			buildStubs: func(dbqtx *mockdb.MockDBQTx, helper *mockapi.MockHelper) {
+				arg := db.CreateScoreTxParams{
+					CreateScoreParams: db.CreateScoreParams{
+						Owner: user.Username,
+						Score: score.Score,
+						Level: score.Level,
+					},
+				}
 				dbqtx.EXPECT().
-					CreateScore(gomock.Any(), gomock.Any()).
+					CreateScoreTx(gomock.Any(), gomock.Eq(arg)).
 					Times(1).
-					Return(score, nil)
+					Return(db.CreateScoreTxResult{Score: score}, nil)
 				helper.EXPECT().
 					CreateAchievement(gomock.Any(), gomock.Eq(score), gomock.Any()).
 					Times(1).

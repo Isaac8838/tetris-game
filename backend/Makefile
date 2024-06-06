@@ -24,5 +24,7 @@ mockdb:
 mockapi:
 	mockgen -package mockapi -destination api/mock/helper.go github.com/isaac8838/tetris-game/api Helper
 
+test:
+	go test -v -cover -short ./...
 
 .PHONY: migrateup migratedown sqlc server mock
