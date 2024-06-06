@@ -1,4 +1,5 @@
 DB_URL=postgresql://root:root@postgres:5432/tetris-game?sslmode=disable
+CI_DB_URL=postgresql://root:root@localhost:5432/tetris-game?sslmode=disable
 
 migrateup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
@@ -11,6 +12,9 @@ migratedown:
 
 migratedown1:
 	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
+
+cimigrateup:
+	migrate -path db/migration -database "$(CI_DB_URL)" -verbose up	
 
 sqlc:
 	sqlc generate
@@ -27,4 +31,4 @@ mockapi:
 test:
 	go test -v -cover -short ./...
 
-.PHONY: migrateup migratedown sqlc server mock
+.PHONY: migrateup migratedown migrateup1 migratedown1 cimigrateup sqlc server mock test
