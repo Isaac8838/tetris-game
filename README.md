@@ -87,6 +87,18 @@ json response
 
 key: value(type and limits)
 json request 
+
+http header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+http body
 ```json
 "score": "int, > 0",
 "level": "int, > 0"
@@ -158,3 +170,19 @@ json response
     "achieved_at": "time"
 ]
 ```
+
+ - Achievement Table
+ ```
+ | ID  | 内容                |
+| --- | ------------------- |
+| 1   | SCORE 10達成         |
+| 2   | SCORE 100達成        |
+| 3   | SCORE 1000達成       |
+| 4   | SCORE 10000達成      |
+| 5   | SCORE 100000達成     |
+| 6   | LEVEL 5達成          |
+| 7   | LEVEL 10達成         |
+| 8   | LEVEL 15達成         |
+| 9   | LEVEL 20達成         |
+| 10  | LEVEL 25達成         |
+ ```
