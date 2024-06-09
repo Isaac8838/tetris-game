@@ -32,7 +32,12 @@ func NewServer(config utils.Config, dbqtx db.DBQTx, helper Helper) (*TetrisServe
 func (server *TetrisServer) SetupRouter() {
 	router := gin.Default()
 
-	router.Use(cors.Default())
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AddAllowHeaders("Authorization")
+	config.AllowCredentials = true
+
+	router.Use(cors.New(config))
 
 	router.POST("/tokens/renew_access", server.renewToken)
 	router.POST("/users", server.createUser)
