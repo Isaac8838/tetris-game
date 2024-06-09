@@ -26,7 +26,7 @@ const Tetris = ({
     //創建player hook
     const [player, tetrominoes, setPlayer, resetPlayer] = usePlayer();
     // 創建計分板
-    // const [stats, setStats] = useStats();
+
     //創建board hook，把player傳進去渲染到board上
     const [board, setboard] = useBoard(
         columns,

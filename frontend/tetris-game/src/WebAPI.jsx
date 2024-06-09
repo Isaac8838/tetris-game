@@ -1,0 +1,97 @@
+// createUser API
+export const createUserAPI = async ({ username, password, email }) => {
+    const userData = {
+        username,
+        password,
+        email,
+    };
+
+    try {
+        console.log("送出");
+        const response = await fetch("http://localhost:8080/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// loginUser API
+export const loginAPI = async ({ username, password }) => {
+    try {
+        const response = await fetch("http://localhost:8080/users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// renewToken API
+export const renewTokenAPI = async ({ refreshToken }) => {
+    try {
+        const response = await fetch(
+            "http://localhost:8080/tokens/renew_access",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ refresh_token: refreshToken }),
+            }
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+//createScore
+export const createScoreAPI = async (Stats, accessToken) => {
+    try {
+        const response = await fetch("http://localhost:8080/scores", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(Stats),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to create score");
+        }
+
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+};
+
+//rank
+export const rankAPI = async (sort, page) => {
+    try {
+        const response = await fetch(
+            `http://localhost:8080/rank/${sort}?page_id=${page}&page_size=5`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to get rank");
+        }
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};

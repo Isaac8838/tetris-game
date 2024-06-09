@@ -1,0 +1,48 @@
+@import "scss/variable.scss";
+
+.home-box {
+    width: 130rem;
+    height: 90rem;
+    margin: auto;
+    padding-top: 10rem;
+    display: flex;
+    justify-content: center;
+}
+
+.home-logo {
+    background-image: url("/img/img/Tetris-logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-x: center;
+    width: 90%;
+    position: relative;
+}
+
+.list-box {
+    height: 40%;
+    width: 20%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 5%);
+
+    &__ul {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        list-style: none;
+        font-size: $font-size-mid-2;
+        text-align: center;
+        height: 100%;
+
+        a:link,
+        a:visited {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+        a:hover {
+            border-bottom: 2px solid rgb(86, 103, 197);
+        }
+    }
+}

@@ -29,7 +29,7 @@ const GameController = ({
     useEffect(() => {
         if (keyCodes.length > 0 && !isGameOver) {
             const action = keyCodes[0];
-
+            // console.log("action", action);
             PlayerController({
                 action,
                 player,
