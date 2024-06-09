@@ -78,7 +78,7 @@ export const createScoreAPI = async (Stats, accessToken) => {
     }
 };
 
-//
+//rank
 export const rankAPI = async (sort, page) => {
     try {
         const response = await fetch(
