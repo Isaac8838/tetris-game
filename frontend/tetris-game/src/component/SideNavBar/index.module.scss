@@ -1,0 +1,105 @@
+@import "scss/variable.scss";
+.sidebar-btn {
+    width: 7rem;
+    height: 7rem;
+    position: absolute;
+    left: -15rem;
+    right: 0rem;
+    top: 3rem;
+    border-radius: 50%;
+    background-color: #100071;
+    border: 0;
+
+    .burger-lines {
+        width: 3rem;
+        height: 0.3rem;
+        background-color: white;
+        margin: 0.7rem auto;
+    }
+}
+
+.sidebar {
+    &-background {
+        position: absolute;
+        background-color: rgba(black, 0.35);
+        height: 100vh;
+        z-index: 1;
+    }
+
+    &-box {
+        position: absolute;
+        right: 0rem;
+        width: 40rem;
+        height: 100vh;
+        background-color: rgba(black, 0.4);
+        z-index: 2;
+        transition: all 0.2s;
+        color: white;
+    }
+}
+
+.nav-box {
+    padding: 0 3rem;
+
+    h3 {
+        font-size: $font-size-mid;
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+    }
+
+    &__icon {
+        width: 2rem;
+        height: 2rem;
+        display: inline-block;
+        background-size: cover;
+        margin-right: 2rem;
+        &--user {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-image: url("/img/icon/user-big.png");
+        }
+
+        &--home {
+            background-image: url("/img/icon/home.png");
+        }
+        &--rank {
+            background-image: url("/img/icon/ranking.png");
+        }
+        &--list {
+            background-image: url("/img/icon/list.png");
+        }
+        &--achieve {
+            background-image: url("/img/icon/achieve.png");
+        }
+    }
+
+    &__nav {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        list-style: none;
+        gap: 2.5rem;
+        padding: 2.5rem 0;
+        border-bottom: 1px solid gray;
+        border-top: 1px solid gray;
+        margin-bottom: 2rem;
+        a:link,
+        a:visited {
+            color: rgba(white, 0.6);
+            text-decoration: none;
+        }
+        a:hover {
+            color: white;
+        }
+    }
+
+    &__logout {
+        color: rgba(white, 0.6);
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            color: white;
+        }
+    }
+}

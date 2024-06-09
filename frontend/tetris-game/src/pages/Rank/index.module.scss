@@ -1,0 +1,86 @@
+@import "scss/variable.scss";
+
+.score-board-box {
+    position: relative;
+    top: 4rem;
+    width: 130rem;
+    height: 75rem;
+    margin: auto;
+    border-radius: 30px;
+    border: 1rem solid #531cc9;
+    overflow: hidden;
+    background-color: #02054f;
+
+    &__title {
+        height: 14rem;
+        background-color: #270f89;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        color: white;
+        font-size: $font-size-mid-2;
+        margin-bottom: 1rem;
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &__ul {
+        display: grid;
+        height: calc(100% - 14rem - 1rem);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 1rem;
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        background-color: #250c6c;
+        color: white;
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8rem auto;
+    width: 30rem;
+
+    // background-color: red;
+    &__btn {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 50%;
+        background-color: black;
+        position: relative;
+        cursor: pointer;
+
+        &--icon {
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 3rem;
+            width: 3rem;
+            // background-image: url("/img/icon/left-arrow1.png");
+            // background-size: cover;
+
+            &--left {
+                background-image: url("/img/icon/left-arrow1.png");
+                background-size: cover;
+            }
+            &--right {
+                background-image: url("/img/icon/right-arrow1.png");
+                background-size: cover;
+            }
+        }
+    }
+}

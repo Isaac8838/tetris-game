@@ -13,7 +13,7 @@ export const buildBoard = (columns, rows) => {
     };
 };
 
-export const nextBoard = ({ board, player, setStats }) => {
+export const nextBoard = ({ board, player }) => {
     //複製board
     let rows = board.rows.map((row) =>
         row.map((cell) => (cell.occupied ? cell : { ...defaultCell }))
@@ -62,17 +62,18 @@ export const nextBoard = ({ board, player, setStats }) => {
     }, []);
 
     // 計分
-    if (clearLine > 0) {
-        setStats((prevStats) => {
-            const line = prevStats.line + clearLine;
-            const level = 1 + Math.floor(line / 10);
-            const score =
-                calculateScore(player, clearLine, rows) + prevStats.score;
-            return { score, level, line };
-        });
-    }
+    // if (clearLine > 0) {
+    //     setStats((prevStats) => {
+    //         const line = prevStats.line + clearLine;
+    //         const level = 1 + Math.floor(line / 10);
+    //         const score =
+    //             calculateScore(player, clearLine, rows) + prevStats.score;
+    //         return { score, level, line };
+    //     });
+    // }
+    const stats = clearLine > 0 ? { clearLine } : null;
 
-    return { rows, size: board.size };
+    return { rows, size: board.size, stats };
 };
 
 export const transferToBoard = ({ rows, tetromino, position, collide }) => {

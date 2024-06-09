@@ -1,9 +1,30 @@
+import { useContext, useEffect } from "react";
 import "./index.css";
-
+import { AuthContext } from "contexts/AuthContext";
+import { createScoreAPI } from "WebAPI";
 // import { Link } from "react-router-dom";
 
 const GameOverMenu = ({ stats }) => {
     const { score, level, line } = stats;
+    const { authState, checkAndRenewToken } = useContext(AuthContext);
+
+    useEffect(() => {
+        const sendScore = async () => {
+            if (checkAndRenewToken()) {
+                try {
+                    const response = await createScoreAPI(
+                        stats,
+                        authState.accessToken
+                    );
+                    console.log("Score submitted successfully:", response);
+                } catch (error) {
+                    console.error("send score error:", error);
+                }
+            }
+        };
+        sendScore();
+    }, [stats, authState, checkAndRenewToken]);
+
     return (
         <div className="GameOverMenuBG">
             <div className="GameOverMenuContainer">

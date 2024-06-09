@@ -1,16 +1,34 @@
-import React from 'react'
-import "./index.css"
-// import Menu from "./Menu"
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import styles from "./index.module.scss";
+import { Link } from "react-router-dom";
+import SideNavBar from "component/SideNavBar";
 
 const Home = () => {
-    return(
-      <div className='home-container-outline'>
-        <div className='home-container'>
-          <Outlet/>
-        </div>
-      </div>
-    )
-}
+    return (
+        <>
+            <SideNavBar />
+            <div className={styles["home-box"]}>
+                <div className={styles["home-logo"]}>
+                    <div className={styles["list-box"]}>
+                        <ul className={styles["list-box__ul"]}>
+                            <li>
+                                <Link to="/game">Start</Link>
+                            </li>
+                            <li>
+                                <Link to="/rank">Rank</Link>
+                            </li>
+                            <li>
+                                <Link to="/game">List Score</Link>
+                            </li>
+                            <li>
+                                <Link to="/game">Achieve</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
 
 export default Home;
