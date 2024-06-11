@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	db "github.com/isaac8838/tetris-game/db/sqlc"
+	"github.com/isaac8838/tetris-game/token"
 	"github.com/isaac8838/tetris-game/utils"
 )
 
@@ -122,5 +123,35 @@ func (server *TetrisServer) loginUser(ctx *gin.Context) {
 		RefreshTokenExpiresAt: refreshTokenPayload.ExpiredAt,
 		User:                  newUserResponse(user),
 	}
+	ctx.JSON(http.StatusOK, rsp)
+}
+
+type getUserResponse struct {
+	Owner             string    `json:"owner"`
+	Email             string    `json:"email"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
+}
+
+func (server *TetrisServer) userProfile(ctx *gin.Context) {
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+
+	user, err := server.dbqtx.GetUser(ctx, authPayload.Username)
+	if err != nil {
+		if errors.Is(db.ErrRecordNotFound, err) {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	rsp := getUserResponse{
+		Owner:             user.Username,
+		Email:             user.Email,
+		PasswordChangedAt: user.PasswordChangedAt.Time,
+		CreatedAt:         user.CreatedAt.Time,
+	}
+
 	ctx.JSON(http.StatusOK, rsp)
 }
