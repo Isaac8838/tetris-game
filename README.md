@@ -63,6 +63,27 @@ json response
 }
 ```
 
+ - GET /users **userProfile**
+ > usage: Getting user personal information (not including password). (取得使用者個人資訊，但不包含密碼)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+json response
+```json
+"owner": "string",
+"email": "string",
+"password_changed_at": "time",
+"created_at": "time"
+``` 
+
 **Tokens**
  - POST /tokens/renew_access **renewToken**
  > usage: Renew token using refresh token. If refresh token was compromised, then it will ask user to login again to renew tokens. (使用refresh token更新token。如果refresh token被盜用，則系統會要求使用者重新登入)
@@ -86,9 +107,8 @@ json response
  > usage: Create a score (創造分數)
 
 key: value(type and limits)
-json request 
 
-http header
+json request header
 ```json
 "Authorization": "Bearer token"
 ```

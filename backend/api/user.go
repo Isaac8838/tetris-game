@@ -126,7 +126,7 @@ func (server *TetrisServer) loginUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rsp)
 }
 
-type getUserResponse struct {
+type userProfileResponse struct {
 	Owner             string    `json:"owner"`
 	Email             string    `json:"email"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
@@ -146,7 +146,7 @@ func (server *TetrisServer) userProfile(ctx *gin.Context) {
 		return
 	}
 
-	rsp := getUserResponse{
+	rsp := userProfileResponse{
 		Owner:             user.Username,
 		Email:             user.Email,
 		PasswordChangedAt: user.PasswordChangedAt.Time,
