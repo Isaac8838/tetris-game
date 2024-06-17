@@ -6,6 +6,7 @@ import SignupComponent from "pages/Login/SignupComponent";
 import Home from "pages/Home";
 import Game from "pages/Game";
 import Rank from "pages/Rank";
+import ListScore from "pages/ListScore";
 // import Menu from "pages/Home/Menu";
 
 import PrivateRoute from "./PrivateRoute";
@@ -32,27 +33,28 @@ const routing_table = [
     {
         path: "/home",
         element: (
-            <PrivateRoute>
-                <Home />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Home />
+            // </PrivateRoute>
         ),
     },
     {
         path: "/game",
         element: (
-            <PrivateRoute>
-                <Game />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Game />
+            // </PrivateRoute>
         ),
     },
     {
         path: "/rank",
         element: (
-            <PrivateRoute>
-                <Rank />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Rank />
+            // </PrivateRoute>
         ),
     },
+    { path: "/ListScore", element: <ListScore /> },
     {
         path: "/",
         element: <Navigate to="/login" />,

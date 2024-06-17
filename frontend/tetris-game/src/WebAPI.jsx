@@ -6,6 +6,8 @@ export const createUserAPI = async ({ username, password, email }) => {
         email,
     };
 
+    console.log(userData);
+
     try {
         console.log("送出");
         const response = await fetch("http://localhost:8080/users", {

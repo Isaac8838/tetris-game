@@ -1,9 +1,9 @@
 @import "scss/variable.scss";
 .sidebar-btn {
-    width: 7rem;
-    height: 7rem;
+    width: min(5rem, 55px);
+    height: min(5rem, 55px);
     position: absolute;
-    left: -15rem;
+    left: -90px;
     right: 0rem;
     top: 3rem;
     border-radius: 50%;
@@ -29,7 +29,6 @@
     &-box {
         position: absolute;
         right: 0rem;
-        width: 40rem;
         height: 100vh;
         background-color: rgba(black, 0.4);
         z-index: 2;
@@ -39,7 +38,8 @@
 }
 
 .nav-box {
-    padding: 0 3rem;
+    padding: 0 6%;
+    overflow: hidden;
 
     h3 {
         font-size: $font-size-mid;
@@ -49,8 +49,9 @@
     }
 
     &__icon {
-        width: 2rem;
-        height: 2rem;
+        /*width: 2rem;*/
+        width: clamp(1rem, 3vw, 2rem);
+        height: clamp(1rem, 3vw, 2rem);
         display: inline-block;
         background-size: cover;
         margin-right: 2rem;
@@ -62,6 +63,7 @@
 
         &--home {
             background-image: url("/img/icon/home.png");
+            background-size: 100%;
         }
         &--rank {
             background-image: url("/img/icon/ranking.png");
@@ -78,7 +80,7 @@
         display: grid;
         grid-template-rows: repeat(4, 1fr);
         list-style: none;
-        gap: 2.5rem;
+        gap: 3vh;
         padding: 2.5rem 0;
         border-bottom: 1px solid gray;
         border-top: 1px solid gray;
@@ -87,6 +89,7 @@
         a:visited {
             color: rgba(white, 0.6);
             text-decoration: none;
+            font-size: $font-size-small;
         }
         a:hover {
             color: white;
@@ -97,7 +100,7 @@
         color: rgba(white, 0.6);
         font-weight: 600;
         cursor: pointer;
-
+        font-size: $font-size-small;
         &:hover {
             color: white;
         }

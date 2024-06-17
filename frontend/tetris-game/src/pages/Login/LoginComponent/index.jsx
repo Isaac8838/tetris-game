@@ -54,7 +54,7 @@ const LoginComponent = () => {
                     Login &rarr;
                 </button>
             </form>
-            <p>
+            <p className={styles["left-box__p"]}>
                 Don't have an account?{" "}
                 <Link
                     to="/login/signupComponent"

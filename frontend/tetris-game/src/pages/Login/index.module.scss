@@ -1,28 +1,30 @@
-// 导入变量
 @import "scss/variable.scss";
 
 .login-box {
     display: grid;
     width: 100%;
-    height: 100vh;
-    padding: 8rem 10%;
+    height: min(90vh, 95rem, 50vw);
+    padding: min(5vh, 10rem) 5vw;
     grid-template-columns: 50% 50%;
     color: white;
     position: relative;
+    align-items: center;
 }
 
 .left-box {
+    margin-left: auto;
     grid-template-rows: repeat(5, auto);
     gap: 4.5rem;
-    width: 100%;
-    padding: 2rem 15%;
+    width: min(80rem, 45vw, 88vh);
+    height: min(80rem, 45vw, 88vh);
+    padding: min(2vh, 5rem) min(8rem, 8vh, 2.5vw);
 
     &__title {
         font-size: $font-size-big;
         text-align: center;
         font-weight: 300;
         margin: 0;
-        margin-bottom: 4rem;
+        margin-bottom: min(4rem, 4vh, 2vw);
         letter-spacing: 0.5rem;
     }
 
@@ -30,12 +32,11 @@
         font-size: $font-size-mid;
         list-style: none;
         display: flex;
-        margin-bottom: 1.2rem;
-        margin-bottom: 6rem;
+        margin-bottom: min(6rem, 6vh, 5vw);
 
         li {
             &:not(:last-child) {
-                margin-right: 3rem;
+                margin-right: min(3rem, 2vw, 4vh);
             }
         }
 
@@ -53,24 +54,19 @@
     &__navlink-active {
         color: white;
     }
+
+    &__p {
+        font-size: $font-size-small;
+    }
 }
 
 .right-box {
-    height: 78rem;
-    width: 100%;
+    height: min(75rem, 80vh, 45vw);
+    aspect-ratio: 1/1;
     background-image: url("/img/img/login_img.jpg");
     border-radius: $border-radius;
     position: relative;
-}
-
-@media (max-width: 1400px) {
-    .right-box {
-        display: none;
-    }
-
-    .login-box {
-        grid-template-columns: 100%;
-    }
+    background-size: cover;
 }
 
 // login component
@@ -78,17 +74,20 @@
 .login__form {
     display: grid;
     grid-template-rows: repeat(3);
-    gap: 7rem;
-    margin-bottom: 5rem;
+    gap: min(8rem, 9vh, 4.5vw);
+    margin-bottom: min(5rem, 4vh, 2.5vw);
 }
 
 .input-box {
     position: relative;
+    height: min(5rem, 6.5vh, 3.6vw);
 
     input {
-        width: 100%;
+        position: absolute;
+        top: 0;
         border: 0;
-        height: $compenent-height;
+        width: 100%;
+        height: 100%;
         border-radius: $border-radius;
         font-size: calc($font-size-small);
         padding-left: $font-size-mid;
@@ -109,12 +108,12 @@
 
     &__icon {
         position: absolute;
-        width: 2.5rem;
-        height: 2.5rem;
+        width: min(2.5rem, 4vh, 2vw);
+        height: min(2.5rem, 4vh, 2vw);
         display: inline-block;
         top: 50%;
-        left: 1rem;
-        transform: translateY(-55%);
+        left: 2%;
+        transform: translateY(-58%);
 
         &--login {
             background-image: url("/img/icon/user.png");
@@ -151,6 +150,6 @@
 .register__form {
     display: grid;
     grid-template-rows: repeat(5);
-    gap: 5rem;
+    gap: min(5rem, 6vh);
     margin-bottom: 5rem;
 }

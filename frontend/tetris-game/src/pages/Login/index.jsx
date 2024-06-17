@@ -38,6 +38,7 @@ const Login = () => {
                 </ul>
                 <Outlet></Outlet>
             </div>
+
             <div className={styles["right-box"]}></div>
         </div>
     );
