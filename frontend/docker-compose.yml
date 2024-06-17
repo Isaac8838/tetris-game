@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: dockerfile-development
     ports:
-      - '3000:3000'
+      - '3001:3001'
     tty: true
     volumes:
       - ./tetris-game/:/app
