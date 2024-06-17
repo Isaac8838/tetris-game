@@ -91,9 +91,27 @@ export const rankAPI = async (sort, page) => {
             throw new Error("Failed to get rank");
         }
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         return data;
     } catch (error) {
         throw error;
+    }
+};
+
+//list score
+export const listScoreAPI = async (username, page) => {
+    try {
+        const res = await fetch(
+            `http://localhost:8080/scores?owner=${username}&page_id=${page}&page_size=5`
+        );
+        if (!res.ok) {
+            throw new Error("Failed to get list score");
+        }
+
+        const data = await res.json();
+
+        return data;
+    } catch (err) {
+        throw err;
     }
 };

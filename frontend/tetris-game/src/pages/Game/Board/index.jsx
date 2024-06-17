@@ -1,4 +1,4 @@
-import "./index.css";
+import styles from "./index.module.scss";
 
 //import component
 import BoardCell from "pages/Game/BoardCell";
@@ -10,7 +10,7 @@ const Board = ({ board }) => {
     };
 
     return (
-        <div className="board" style={boardStyle}>
+        <div className={styles["board"]} style={boardStyle}>
             {board.rows.map((columns, y) =>
                 columns.map((cell, x) => (
                     <BoardCell key={`${y}-${x}`} cell={cell}></BoardCell>

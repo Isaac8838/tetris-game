@@ -1,8 +1,8 @@
 .BoardCell {
     width: auto;
-    border-radius: 6px;
+    border-radius: 0.3rem;
     position: relative;
-    background-color: rgba(0, 0, 0, 0.233);
+    background-color: rgb(31, 7, 87);
 }
 
 .tetromino {

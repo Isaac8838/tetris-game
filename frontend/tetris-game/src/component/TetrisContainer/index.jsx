@@ -1,7 +1,7 @@
-import "./index.css";
+import styles from "./index.module.scss";
 
 const TetrisContainer = ({ children }) => {
-    return <div className="tetris-container">{children}</div>;
+    return <div className={styles["tetris-container"]}>{children}</div>;
 };
 
 export default TetrisContainer;

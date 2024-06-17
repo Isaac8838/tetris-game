@@ -6,24 +6,24 @@ import { createScoreAPI } from "WebAPI";
 
 const GameOverMenu = ({ stats }) => {
     const { score, level, line } = stats;
-    const { authState, checkAndRenewToken } = useContext(AuthContext);
+    // const { authState, checkAndRenewToken } = useContext(AuthContext);
 
-    useEffect(() => {
-        const sendScore = async () => {
-            if (checkAndRenewToken()) {
-                try {
-                    const response = await createScoreAPI(
-                        stats,
-                        authState.accessToken
-                    );
-                    console.log("Score submitted successfully:", response);
-                } catch (error) {
-                    console.error("send score error:", error);
-                }
-            }
-        };
-        sendScore();
-    }, [stats, authState, checkAndRenewToken]);
+    // useEffect(() => {
+    //     const sendScore = async () => {
+    //         if (checkAndRenewToken()) {
+    //             try {
+    //                 const response = await createScoreAPI(
+    //                     stats,
+    //                     authState.accessToken
+    //                 );
+    //                 console.log("Score submitted successfully:", response);
+    //             } catch (error) {
+    //                 console.error("send score error:", error);
+    //             }
+    //         }
+    //     };
+    //     sendScore();
+    // }, [stats, authState, checkAndRenewToken]);
 
     return (
         <div className="GameOverMenuBG">

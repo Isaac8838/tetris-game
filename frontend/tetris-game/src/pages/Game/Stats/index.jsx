@@ -1,14 +1,19 @@
-import './index.css';
-
+import styles from "./index.module.scss";
 const Stats = ({ stats }) => {
     return (
-        <div className="stats">
-            <div className="statsTitle">Score</div>
-            <div className="statsContent">{stats.score}</div>
-            <div className="statsTitle">Level</div>
-            <div className="statsContent">{stats.level}</div>
-            <div className="statsTitle">Lines</div>
-            <div className="statsContent">{stats.line}</div>
+        <div className={styles["stats"]}>
+            <div className={styles["statsBox"]}>
+                <div className={styles["statsTitle"]}>Score</div>
+                <div className={styles["statsContent"]}>{stats.score}</div>
+            </div>
+            <div className={styles["statsBox"]}>
+                <div className={styles["statsTitle"]}>Level</div>
+                <div className={styles["statsContent"]}>{stats.level}</div>
+            </div>
+            <div className={styles["statsBox"]}>
+                <div className={styles["statsTitle"]}>Lines</div>
+                <div className={styles["statsContent"]}>{stats.line}</div>
+            </div>
         </div>
     );
 };

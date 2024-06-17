@@ -33,7 +33,7 @@ func (server *TetrisServer) SetupRouter() {
 	router := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://127.0.0.1:3000"}
+	config.AllowOrigins = []string{"http://127.0.0.1:3000/", "http://localhost:3000", "http://localhost:3001"}
 	config.AddAllowHeaders("Authorization")
 	config.AllowCredentials = true
 

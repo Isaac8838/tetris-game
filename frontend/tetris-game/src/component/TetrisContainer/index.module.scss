@@ -1,0 +1,19 @@
+@import "scss/variable.scss";
+
+.tetris-container {
+    position: relative;
+
+    display: inline-block;
+
+    align-self: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 12rem 2rem 2rem;
+
+    border-radius: 15px;
+
+    // background-color: white;
+    // border: 1rem solid $--color--purple--border;
+    // background-color: $--color--purple--background;
+}

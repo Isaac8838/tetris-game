@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 #root {
     width: 100%;
 }
@@ -5,4 +7,26 @@
 .app {
     width: 100%;
     position: relative;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-weight: 300;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #000f8c 20%, #54b7ff);
+    font-family: "Lato", sans-serif;
+    font-size: 2.5rem;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
