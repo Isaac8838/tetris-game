@@ -15,13 +15,14 @@ const SideNavBar = () => {
     };
 
     const handleClickSignOut = () => {
+        console.log("logout");
         logout();
     };
 
     useEffect(() => {
         if (sidebarOpen) {
             setSidebarBackground({ width: "100vw" });
-            setSidebarBox({ width: "40rem" });
+            setSidebarBox({ width: "clamp(20vw,40rem,30vw)" });
         } else {
             setSidebarBackground({ width: "0" });
             setSidebarBox({ width: "0" });
@@ -56,7 +57,7 @@ const SideNavBar = () => {
                         <span
                             className={`${styles["nav-box__icon"]} ${styles["nav-box__icon--user"]}`}
                         ></span>
-                        {`${authState.user.username}`}
+                        {`${authState?.user?.username}`}
                     </h3>
                     <ul className={styles["nav-box__nav"]}>
                         <li>

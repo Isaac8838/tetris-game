@@ -5,8 +5,14 @@ import { rankAPI } from "WebAPI";
 
 const Rank = () => {
     useEffect(() => {
-        const data = rankAPI("scores", "1");
-        // console.log(data);
+        const handleAPI = async () => {
+            try {
+                const data = await rankAPI("scores", "1");
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        handleAPI();
     }, []);
 
     return (
@@ -31,6 +37,15 @@ const Rank = () => {
                     <li className={styles["score-board-box__list"]}>
                         <p>aaa</p>
                     </li>
+                    <li className={styles["score-board-box__list"]}>
+                        <p>aaa</p>
+                    </li>
+                    <li className={styles["score-board-box__list"]}>
+                        <p>aaa</p>
+                    </li>
+                    <li className={styles["score-board-box__list"]}>
+                        <p>aaa</p>
+                    </li>
                 </ul>
             </div>
             <div className={styles["page"]}>
@@ -39,7 +54,7 @@ const Rank = () => {
                         className={`${styles["page__btn--icon"]} ${styles["page__btn--icon--left"]}`}
                     ></span>
                 </div>
-                <div>1</div>
+                <div className={styles["page__num"]}>1</div>
                 <div className={styles["page__btn"]}>
                     <span
                         className={`${styles["page__btn--icon"]} ${styles["page__btn--icon--right"]}`}

@@ -1,9 +1,11 @@
-$font-size-big: 10rem;
+$font-size-big: min(10rem, 15vh, 6vw);
 
-$font-size-mid: 4rem;
-$font-size-mid-2: 5rem;
-$font-size-small: 2.2rem;
+$font-size-mid: min(5rem, 7vh, 3vw);
+$font-size-mid-2: min(4.5rem, 5vw, 6vh);
+$font-size-small: min(3.5rem, 3vw, 5vh);
 
-$compenent-height: 5rem;
+$compenent-height: min(5rem, 8vh, 3vw);
 
 $border-radius: 1.5rem;
+
+$border-1: min(1rem, 1vh);

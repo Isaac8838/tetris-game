@@ -97,6 +97,8 @@ export function AuthProvider({ children }) {
             user: null,
             isAuthenticated: false,
         });
+
+        navigate("/login");
     };
 
     const checkAndRenewToken = useCallback(async () => {
@@ -125,14 +127,14 @@ export function AuthProvider({ children }) {
         }
     }, [authState, navigate]);
 
-    useEffect(() => {
-        // 檢查access token
+    // useEffect(() => {
+    //     // 檢查access token
 
-        checkAndRenewToken();
-        const intervalId = setInterval(checkAndRenewToken, 5 * 1000);
+    //     checkAndRenewToken();
+    //     const intervalId = setInterval(checkAndRenewToken, 5 * 1000);
 
-        return () => clearInterval(intervalId);
-    }, [checkAndRenewToken]);
+    //     return () => clearInterval(intervalId);
+    // }, [checkAndRenewToken]);
 
     const value = {
         authState,
