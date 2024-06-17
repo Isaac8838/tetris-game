@@ -132,8 +132,8 @@ func TestCreateScore(t *testing.T) {
 		{
 			name: "InvalidScore",
 			body: gin.H{
-				"score": -1,
-				"level": -1,
+				"score": 0,
+				"level": 0,
 			},
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, score.Owner, time.Minute)
