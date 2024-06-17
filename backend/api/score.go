@@ -10,7 +10,7 @@ import (
 )
 
 type createScoreRequest struct {
-	Score int64 `json:"score" binding:"required,gt=0"`
+	Score int64 `json:"score" binding:"gte=0"`
 	Level int32 `json:"level" binding:"required,gt=0"`
 }
 
