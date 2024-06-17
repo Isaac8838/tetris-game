@@ -1,3 +1,4 @@
+@import "scss/variable.scss";
 .board {
     display: grid;
     grid-gap: 2px;
@@ -8,10 +9,11 @@
     aspect-ratio: 1/2;
 
     min-height: 40rem;
-    /* margin: auto; */
     border: 1px solid gray;
-    border-radius: 10px;
+    border-radius: $border-radius-2;
 
     overflow: hidden;
     background-color: rgb(212, 212, 212);
+    border: 1rem solid $--color--purple--border;
+    background-color: $--color--purple--background;
 }

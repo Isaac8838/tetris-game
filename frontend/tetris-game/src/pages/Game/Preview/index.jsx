@@ -1,4 +1,4 @@
-import "./index.css";
+import styles from "./index.module.scss";
 
 //import utils
 import { buildBoard, transferToBoard } from "utils/Board";
@@ -18,7 +18,7 @@ const Preview = ({ tetromino, index }) => {
     });
 
     return (
-        <div className="previewBoard" style={previewBoardTop}>
+        <div className={styles["previewBoard"]} style={previewBoardTop}>
             {preview_board.map((row, y) =>
                 row.map((cell, x) => (
                     <BoardCell key={y * row.length + x} cell={cell}></BoardCell>

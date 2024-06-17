@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
         accessTokenExpiresAt: localStorage.getItem("access_token_expires_at"),
         refreshToken: localStorage.getItem("refresh_token"),
         refreshTokenExpiresAt: localStorage.getItem("refresh_token_expires_at"),
-        user: localStorage.getItem("user"),
+        user: JSON.parse(localStorage.getItem("user")),
         isAuthenticated: !!localStorage.getItem("access_token"),
     });
 
@@ -54,9 +54,9 @@ export function AuthProvider({ children }) {
                 throw new Error("Network response was not ok");
             }
 
-            const data = await response.json();
+            // const data = await response.json();
             // console.log("User created successfully:", data);
-            console.log("User created successfully");
+            // console.log("User created successfully");
 
             login(formData);
 
@@ -82,7 +82,7 @@ export function AuthProvider({ children }) {
         }
     };
 
-    const logout = () => {
+    const logout = useCallback(() => {
         localStorage.removeItem("access_token");
         localStorage.removeItem("access_token_expires_at");
         localStorage.removeItem("refresh_token");
@@ -99,18 +99,20 @@ export function AuthProvider({ children }) {
         });
 
         navigate("/login");
-    };
+    }, [navigate]);
 
     const checkAndRenewToken = useCallback(async () => {
         if (authState.isAuthenticated) {
             const now = new Date();
+            console.log("now", now);
             // 沒到期
-            console.log("沒到期");
             if (new Date(authState.accessTokenExpiresAt) > now) return true;
             try {
                 console.log("到期，請後端延長");
                 // 到期，請後端延長
-                const response = await renewTokenAPI();
+                const response = await renewTokenAPI({
+                    refreshToken: authState.refreshToken,
+                });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -125,16 +127,7 @@ export function AuthProvider({ children }) {
                 return false;
             }
         }
-    }, [authState, navigate]);
-
-    // useEffect(() => {
-    //     // 檢查access token
-
-    //     checkAndRenewToken();
-    //     const intervalId = setInterval(checkAndRenewToken, 5 * 1000);
-
-    //     return () => clearInterval(intervalId);
-    // }, [checkAndRenewToken]);
+    }, [authState, navigate, logout]);
 
     const value = {
         authState,

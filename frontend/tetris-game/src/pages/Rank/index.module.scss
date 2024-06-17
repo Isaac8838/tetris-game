@@ -20,10 +20,13 @@
         grid-template-columns: repeat(5, 1fr);
         color: white;
         font-size: $font-size-mid-2;
+        align-items: center;
+        justify-items: start;
+
         p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
+            margin: auto;
+            line-height: 1.2;
         }
     }
 
@@ -32,19 +35,6 @@
         height: calc(100% - 20%);
         grid-template-rows: repeat(5, 1fr);
         gap: 2%;
-    }
-
-    &__list {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        background-color: #250c6c;
-        color: white;
-        p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: $font-size-small;
-        }
     }
 }
 
@@ -91,4 +81,26 @@
         font-size: $font-size-small;
         font-weight: 400;
     }
+}
+
+.sort {
+    display: inline-block;
+    background-image: url("/img/icon/sort.png");
+    width: 3rem;
+    height: 3rem;
+    background-size: cover;
+    background-position-y: 0.5rem;
+}
+
+.unsort {
+    display: inline-block;
+    background-image: url("/img/icon/unsort.png");
+    width: 3rem;
+    height: 3rem;
+    background-size: cover;
+    background-position-y: 0.5rem;
+}
+
+.cursor {
+    cursor: pointer;
 }

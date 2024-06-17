@@ -1,4 +1,5 @@
-import "./index.css";
+// import "./index.css";
+import styles from "./index.module.scss";
 
 import Preview from "pages/Game/Preview";
 
@@ -7,7 +8,7 @@ const Previews = ({ tetrominoes }) => {
     const previewTetrominoes = tetrominoes.slice(-3).reverse();
     // console.log(tetrominoes);
     return (
-        <div className="previews">
+        <div className={styles["previews"]}>
             {previewTetrominoes.map((tetromino, index) => (
                 <Preview
                     key={index}
