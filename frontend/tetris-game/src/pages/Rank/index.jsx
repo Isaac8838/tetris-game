@@ -13,10 +13,15 @@ const Rank = () => {
         const handleAPI = async () => {
             try {
                 const data = await rankAPI(sortBy, String(page));
-                setRankList(data);
-
-                console.log("data", data);
-                console.log("page", page);
+                const updateData = data.map((item) => {
+                    return {
+                        ...item,
+                        created_at: new Date(
+                            item.created_at
+                        ).toLocaleDateString(),
+                    };
+                });
+                setRankList(updateData);
             } catch (error) {
                 console.log(error);
             }
@@ -41,10 +46,8 @@ const Rank = () => {
         setSortBy("levels");
     };
 
-    useEffect(() => console.log("sortBy", sortBy), [sortBy]);
-
     return (
-        <>
+        <div className={styles["score-board-container"]}>
             <SideNavBar></SideNavBar>
             <div className={styles["score-board-box"]}>
                 <div className={styles["score-board-box__title"]}>
@@ -97,14 +100,16 @@ const Rank = () => {
                     ></span>
                 </div>
                 <div className={styles["page__num"]}>{page}</div>
-                <div className={styles["page__btn"]}>
+                <div
+                    className={styles["page__btn"]}
+                    onClick={hanldeClickNextPage}
+                >
                     <span
                         className={`${styles["page__btn--icon"]} ${styles["page__btn--icon--right"]}`}
-                        onClick={hanldeClickNextPage}
                     ></span>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

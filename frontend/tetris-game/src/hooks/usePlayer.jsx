@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 // import hook
-import { useTetrominoes } from './useTetrominoes';
+import { useTetrominoes } from "./useTetrominoes";
 
 export const usePlayer = () => {
     const [tetrominoes, getNextTetromino] = useTetrominoes();
@@ -15,16 +15,11 @@ export const usePlayer = () => {
             collide: false,
             fastDorp: false,
         });
-    }, [getNextTetromino, player]);
+    }, [getNextTetromino]);
 
     useEffect(() => {
         resetPlayer();
-    }, []);
-
-    // 印出用;
-    // useEffect(() => {
-    //     console.log('useEffect', player);
-    // }, [player]);
+    }, [resetPlayer]);
 
     return [player, tetrominoes, setPlayer, resetPlayer];
 };

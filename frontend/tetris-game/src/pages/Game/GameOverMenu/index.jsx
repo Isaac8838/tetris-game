@@ -1,45 +1,42 @@
-import { useContext, useEffect } from "react";
-import "./index.css";
-import { AuthContext } from "contexts/AuthContext";
-import { createScoreAPI } from "WebAPI";
+// import { useContext, useEffect } from "react";
+import styles from "./index.module.scss";
+
+import { Link, useNavigate } from "react-router-dom";
+
 // import { Link } from "react-router-dom";
 
 const GameOverMenu = ({ stats }) => {
     const { score, level, line } = stats;
-    // const { authState, checkAndRenewToken } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const sendScore = async () => {
-    //         if (checkAndRenewToken()) {
-    //             try {
-    //                 const response = await createScoreAPI(
-    //                     stats,
-    //                     authState.accessToken
-    //                 );
-    //                 console.log("Score submitted successfully:", response);
-    //             } catch (error) {
-    //                 console.error("send score error:", error);
-    //             }
-    //         }
-    //     };
-    //     sendScore();
-    // }, [stats, authState, checkAndRenewToken]);
+    const handleRefresh = () => {
+        navigate("/game", { replace: true });
+        navigate(0);
+    };
 
     return (
-        <div className="GameOverMenuBG">
-            <div className="GameOverMenuContainer">
-                <h3>GAME OVER</h3>
-                <div className="statsContainer">
-                    <h4>Score Stats</h4>
-                    <ul>
-                        <li>Score:{score}</li>
-                        <li>Level:{level}</li>
-                        <li>Lines:{line}</li>
-                    </ul>
+        <div className={styles["GameOverMenu"]}>
+            <h2>Game Over</h2>
+            <div className={styles["state-box"]}>
+                <div className={styles["state"]}>
+                    <p>SCORE : {score}</p>
+                    <p>LEVEl : {level}</p>
+                    <p>LINE : {line}</p>
                 </div>
-
-                {/* 還沒完成 */}
-                {/* <Link to="./">aaaa</Link> */}
+                <ul className={styles["btn"]}>
+                    <li>
+                        <div onClick={handleRefresh}>New Game</div>
+                    </li>
+                    <li>
+                        <Link to="/rank">Rank</Link>
+                    </li>
+                    <li>
+                        <Link to="/listScore">ListScore</Link>
+                    </li>
+                    <li>
+                        <Link to="/home">Home</Link>
+                    </li>
+                </ul>
             </div>
         </div>
     );

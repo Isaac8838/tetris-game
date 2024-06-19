@@ -12,12 +12,29 @@ const ListScore = () => {
 
     const [listScore, setListScore] = useState([]);
 
+    const hanldeClickPreviousPage = () => {
+        if (page <= 1) return;
+        setPage((page) => (page -= 1));
+    };
+
+    const hanldeClickNextPage = () => {
+        setPage((page) => (page += 1));
+    };
+
     useEffect(() => {
         const { username } = authState.user;
         const fetchData = async () => {
             try {
                 const data = await listScoreAPI(username, page);
-                setListScore(data);
+                const updateData = data.map((item) => {
+                    return {
+                        ...item,
+                        created_at: new Date(
+                            item.created_at
+                        ).toLocaleDateString(),
+                    };
+                });
+                setListScore(updateData);
                 return data;
             } catch (err) {
                 console.error("fetch list score error", err);
@@ -25,10 +42,6 @@ const ListScore = () => {
         };
         fetchData();
     }, [authState, page]);
-
-    useEffect(() => {
-        console.log(listScore);
-    });
 
     return (
         <>
@@ -42,27 +55,32 @@ const ListScore = () => {
                     <p>playtime</p>
                 </div>
                 <ul className={styles["score-board-box__ul"]}>
-                    {listScore.map((item) => {
+                    {listScore.map((item, idx) => {
                         return (
                             <ListItem
                                 item={item}
                                 key={item.id}
-                                rank={(page - 1) * 5 + 1}
+                                rank={(page - 1) * 5 + 1 + idx}
                             ></ListItem>
                         );
                     })}
                 </ul>
             </div>
 
-            {/* <ListItem item={}></ListItem> */}
             <div className={styles["page"]}>
-                <div className={styles["page__btn"]}>
+                <div
+                    className={styles["page__btn"]}
+                    onClick={hanldeClickPreviousPage}
+                >
                     <span
                         className={`${styles["page__btn--icon"]} ${styles["page__btn--icon--left"]}`}
                     ></span>
                 </div>
-                <div className={styles["page__num"]}>1</div>
-                <div className={styles["page__btn"]}>
+                <div className={styles["page__num"]}>{page}</div>
+                <div
+                    className={styles["page__btn"]}
+                    onClick={hanldeClickNextPage}
+                >
                     <span
                         className={`${styles["page__btn--icon"]} ${styles["page__btn--icon--right"]}`}
                     ></span>

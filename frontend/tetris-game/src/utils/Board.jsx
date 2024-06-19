@@ -1,8 +1,6 @@
 import { defaultCell } from "./Cell";
 import { findGhostPosition } from "./PlayerController";
 
-import { calculateScore } from "./Stats";
-
 export const buildBoard = (columns, rows) => {
     const builtRows = Array.from({ length: rows }, () =>
         Array.from({ length: columns }, () => ({ ...defaultCell }))
@@ -18,8 +16,6 @@ export const nextBoard = ({ board, player }) => {
     let rows = board.rows.map((row) =>
         row.map((cell) => (cell.occupied ? cell : { ...defaultCell }))
     );
-
-    // detectDead({ rows, player, setIsGameOver });
 
     const ghostPosition = findGhostPosition(player, board);
 
@@ -61,25 +57,15 @@ export const nextBoard = ({ board, player }) => {
         return acc;
     }, []);
 
-    // 計分
-    // if (clearLine > 0) {
-    //     setStats((prevStats) => {
-    //         const line = prevStats.line + clearLine;
-    //         const level = 1 + Math.floor(line / 10);
-    //         const score =
-    //             calculateScore(player, clearLine, rows) + prevStats.score;
-    //         return { score, level, line };
-    //     });
-    // }
     const stats = clearLine > 0 ? { clearLine } : null;
 
     return { rows, size: board.size, stats };
 };
 
 export const transferToBoard = ({ rows, tetromino, position, collide }) => {
-    tetromino.shape.map((tetromino_rows, y) => {
+    tetromino.shape.forEach((tetromino_rows, y) => {
         const _y = position.row + y;
-        tetromino_rows.map((tetromino_cell, x) => {
+        tetromino_rows.forEach((tetromino_cell, x) => {
             if (tetromino_cell) {
                 const _x = position.column + x;
 

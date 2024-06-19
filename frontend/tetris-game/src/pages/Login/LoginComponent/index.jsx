@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
+
 import styles from "../index.module.scss";
 
 const LoginComponent = () => {
+    const [loginError, setLoginError] = useState(false);
+
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -18,7 +21,10 @@ const LoginComponent = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        login(formData);
+
+        setLoginError(false);
+        const res = login(formData);
+        if (!res.ok) setLoginError(true);
     };
 
     return (
@@ -50,9 +56,12 @@ const LoginComponent = () => {
                         className={`${styles["input-box__icon"]} ${styles["input-box__icon--password"]}`}
                     ></span>
                 </div>
-                <button type="submit" className="btn btn--black">
-                    Login &rarr;
-                </button>
+                <div className={styles["button-box"]}>
+                    <button type="submit" className="btn btn--black">
+                        Login &rarr;
+                    </button>
+                    {loginError && <p>Username or Password incorrect</p>}
+                </div>
             </form>
             <p className={styles["left-box__p"]}>
                 Don't have an account?{" "}

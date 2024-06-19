@@ -10,6 +10,8 @@ const SignupComponent = () => {
         email: "",
     });
 
+    const [registerErr, setRegisterErr] = useState("");
+
     const handleInputChange = (event) => {
         const { id, value } = event.target;
         setFormData({ ...formData, [id]: value });
@@ -22,10 +24,19 @@ const SignupComponent = () => {
 
         const { password, repeatPassword } = formData;
         if (password !== repeatPassword) {
-            alert("Passwords do not match");
+            // alert("Passwords do not match");
+            setRegisterErr("Passwords do not match");
             return;
         }
-        register(formData);
+
+        // 錯誤處理，如果登入成功這裡不會執行
+        const res = await register(formData);
+        const body = await res.json();
+        if (body.error.includes("users_pkey")) {
+            setRegisterErr("Username has been registered");
+        } else if (body.error.includes("users_email_key")) {
+            setRegisterErr("Email has been registered");
+        }
     };
 
     return (
@@ -83,9 +94,12 @@ const SignupComponent = () => {
                         className={`${styles["input-box__icon"]} ${styles["input-box__icon--email"]}`}
                     ></span>
                 </div>
-                <button type="submit" className="btn btn--black">
-                    Register
-                </button>
+                <div className={styles["button-box"]}>
+                    <button type="submit" className="btn btn--black">
+                        Register
+                    </button>
+                    {registerErr && <p>{registerErr}</p>}
+                </div>
             </form>
         </>
     );

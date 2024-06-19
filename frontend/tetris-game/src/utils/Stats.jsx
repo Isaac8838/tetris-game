@@ -15,11 +15,13 @@ export const calculateScore = (player, clearLine, rows) => {
         case 4:
             score = 800;
             break;
+        default:
+            break;
     }
 
     // 如果是T轉(分數成1.5)
     if (isTspin({ ...player, rows })) {
-        console.log('T轉');
+        console.log("T轉");
         score *= 1.5;
     }
 

@@ -115,3 +115,21 @@ export const listScoreAPI = async (username, page) => {
         throw err;
     }
 };
+
+//listAchievements
+export const listAchievementsAPI = async (username) => {
+    try {
+        const res = await fetch(
+            `http://localhost:8080/achievements?owner=${username}`
+        );
+        if (!res.ok) {
+            throw new Error("Failed to get list score");
+        }
+
+        const data = await res.json();
+
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
