@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 
 import "./index.css";
 
@@ -28,7 +28,7 @@ const Tetris = ({
     // 創建計分板
 
     //創建board hook，把player傳進去渲染到board上
-    const [board, setboard] = useBoard(
+    const [board] = useBoard(
         columns,
         rows,
         player,

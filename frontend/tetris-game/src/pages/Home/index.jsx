@@ -18,10 +18,10 @@ const Home = () => {
                                 <Link to="/rank">Rank</Link>
                             </li>
                             <li>
-                                <Link to="/game">List Score</Link>
+                                <Link to="/listScore">List Score</Link>
                             </li>
                             <li>
-                                <Link to="/game">Achieve</Link>
+                                <Link to="/achieve">Achieve</Link>
                             </li>
                         </ul>
                     </div>

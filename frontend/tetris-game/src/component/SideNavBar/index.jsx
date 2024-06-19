@@ -69,7 +69,7 @@ const SideNavBar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link to="/rank">
                                 <span
                                     className={`${styles["nav-box__icon"]} ${styles["nav-box__icon--rank"]}`}
                                 ></span>
@@ -77,7 +77,7 @@ const SideNavBar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link to="/listScore">
                                 <span
                                     className={`${styles["nav-box__icon"]} ${styles["nav-box__icon--list"]}`}
                                 ></span>
@@ -85,7 +85,7 @@ const SideNavBar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <Link to="/achieve">
                                 <span
                                     className={`${styles["nav-box__icon"]} ${styles["nav-box__icon--achieve"]}`}
                                 ></span>

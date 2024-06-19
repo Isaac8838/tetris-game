@@ -1,11 +1,14 @@
-import React from "react";
-// import "./index.css";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import styles from "./index.module.scss";
 import "scss/component.scss";
+import { AuthContext } from "contexts/AuthContext";
 
 const Login = () => {
+    const { authState } = useContext(AuthContext);
+    const navigate = useNavigate();
+    if (authState.isAuthenticated) navigate("/home");
     return (
         <div className={styles["login-box"]}>
             <div className={styles["left-box"]}>

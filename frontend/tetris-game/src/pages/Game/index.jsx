@@ -11,6 +11,7 @@ import { useStats } from "hooks/useStats";
 import { AuthContext } from "contexts/AuthContext";
 
 import { createScoreAPI } from "WebAPI";
+import SideNavBar from "component/SideNavBar";
 
 const Game = () => {
     const [isGameOver, setIsGameOver] = useGameOver();
@@ -43,8 +44,11 @@ const Game = () => {
         sendScore();
     }, [isGameOver, authState.accessToken, checkAndRenewToken, stats]);
 
+    // console.log("刷新");
+
     return (
         <>
+            <SideNavBar />
             <Tetris
                 columns={10}
                 rows={20}
@@ -54,6 +58,7 @@ const Game = () => {
                 setStats={setStats}
             ></Tetris>
             {isGameOver && <GameOverMenu stats={stats}></GameOverMenu>}
+            {/* <GameOverMenu stats={stats}></GameOverMenu> */}
         </>
     );
 };

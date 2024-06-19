@@ -1,35 +1,37 @@
+import seedrandom from "seedrandom";
+
 const TETROMINOES = {
     I: {
         shape: [
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
+            [1, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
         ],
-        className: 'tetromino tetrominoI',
+        className: "tetromino tetrominoI",
     },
     J: {
         shape: [
-            [0, 1, 0],
-            [0, 1, 0],
-            [1, 1, 0],
+            [1, 0, 0],
+            [1, 1, 1],
+            [0, 0, 0],
         ],
-        className: 'tetromino tetrominoJ',
+        className: "tetromino tetrominoJ",
     },
     L: {
         shape: [
-            [0, 1, 0],
-            [0, 1, 0],
-            [0, 1, 1],
+            [0, 0, 1],
+            [1, 1, 1],
+            [0, 0, 0],
         ],
-        className: 'tetromino tetrominoL',
+        className: "tetromino tetrominoL",
     },
     O: {
         shape: [
             [1, 1],
             [1, 1],
         ],
-        className: 'tetromino tetrominoO',
+        className: "tetromino tetrominoO",
     },
     S: {
         shape: [
@@ -37,7 +39,7 @@ const TETROMINOES = {
             [1, 1, 0],
             [0, 0, 0],
         ],
-        className: 'tetromino tetrominoS',
+        className: "tetromino tetrominoS",
     },
     T: {
         shape: [
@@ -45,7 +47,7 @@ const TETROMINOES = {
             [1, 1, 1],
             [0, 0, 0],
         ],
-        className: 'tetromino tetrominoT',
+        className: "tetromino tetrominoT",
     },
     Z: {
         shape: [
@@ -53,14 +55,15 @@ const TETROMINOES = {
             [0, 1, 1],
             [0, 0, 0],
         ],
-        className: 'tetromino tetrominoZ',
+        className: "tetromino tetrominoZ",
     },
 };
 
+const rng = seedrandom();
+
 const randomTetromino = () => {
     const keys = Object.keys(TETROMINOES);
-    const index = Math.floor(Math.random() * keys.length);
-
+    const index = Math.floor(rng() * keys.length);
     return TETROMINOES[keys[index]];
 };
 

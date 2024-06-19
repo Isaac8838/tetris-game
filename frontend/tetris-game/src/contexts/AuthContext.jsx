@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, renewTokenAPI, createUserAPI } from "WebAPI";
 
@@ -33,8 +33,9 @@ export function AuthProvider({ children }) {
         );
         // 如果是refreshtoken 會沒有user資料
         if (user) localStorage.setItem("user", JSON.stringify(user));
-        console.log("user", user);
+
         setAuthState((prev) => ({
+            ...prev,
             accessToken: access_token,
             accessTokenExpiresAt: access_token_expires_at,
             refreshToken: refresh_token,
@@ -49,14 +50,10 @@ export function AuthProvider({ children }) {
     const register = async (formData) => {
         try {
             const response = await createUserAPI(formData);
-
+            console.log("response", response);
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                return response;
             }
-
-            // const data = await response.json();
-            // console.log("User created successfully:", data);
-            // console.log("User created successfully");
 
             login(formData);
 
@@ -70,8 +67,9 @@ export function AuthProvider({ children }) {
         try {
             const response = await loginAPI(formData);
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                return response;
             }
+
             const data = await response.json();
 
             // 儲存到localstorage和跟新authState
