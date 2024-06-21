@@ -50,12 +50,14 @@ export function AuthProvider({ children }) {
     const register = async (formData) => {
         try {
             const response = await createUserAPI(formData);
-            console.log("response", response);
+            // console.log("response", response);
             if (!response.ok) {
                 return response;
             }
 
             login(formData);
+
+            return response;
 
             // 重新導向
         } catch (error) {
@@ -75,6 +77,8 @@ export function AuthProvider({ children }) {
             // 儲存到localstorage和跟新authState
             update_token(data);
             navigate("/home");
+
+            return data;
         } catch (error) {
             console.error("Error logging in:", error);
         }

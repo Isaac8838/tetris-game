@@ -24,13 +24,16 @@ const SignupComponent = () => {
 
         const { password, repeatPassword } = formData;
         if (password !== repeatPassword) {
-            // alert("Passwords do not match");
             setRegisterErr("Passwords do not match");
             return;
         }
 
-        // 錯誤處理，如果登入成功這裡不會執行
+        //送出
         const res = await register(formData);
+
+        if (res.ok) return;
+        // 錯誤處理
+
         const body = await res.json();
         if (body.error.includes("users_pkey")) {
             setRegisterErr("Username has been registered");
