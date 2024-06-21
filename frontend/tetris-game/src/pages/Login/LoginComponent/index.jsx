@@ -23,7 +23,8 @@ const LoginComponent = () => {
         event.preventDefault();
 
         setLoginError(false);
-        const res = login(formData);
+        const res = await login(formData);
+
         if (!res.ok) setLoginError(true);
     };
 

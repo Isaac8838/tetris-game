@@ -1,9 +1,5 @@
 @import "./scss/variable.scss";
 
-.app {
-    height: 100vh;
-}
-
 .input-box-danger {
     margin-top: 40px;
     font-size: 25px;

@@ -1,6 +1,7 @@
-import "./App.css";
 import { useRoutes } from "react-router-dom";
 import routetable from "./routes/routetable";
+
+import "./App.css";
 
 export default function App() {
     // 使用路遊註冊表
