@@ -1,3 +1,9 @@
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+if (BASE_URL === undefined) {
+    window.location.href = "/error.html";
+}
+
 // createUser API
 export const createUserAPI = async ({ username, password, email }) => {
     const userData = {
