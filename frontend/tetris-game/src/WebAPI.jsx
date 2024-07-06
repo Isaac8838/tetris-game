@@ -16,7 +16,7 @@ export const createUserAPI = async ({ username, password, email }) => {
 
     try {
         console.log("送出");
-        const response = await fetch("http://localhost:8080/users", {
+        const response = await fetch(`${BASE_URL}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const createUserAPI = async ({ username, password, email }) => {
 // loginUser API
 export const loginAPI = async ({ username, password }) => {
     try {
-        const response = await fetch("http://localhost:8080/users/login", {
+        const response = await fetch(`${BASE_URL}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -49,16 +49,13 @@ export const loginAPI = async ({ username, password }) => {
 // renewToken API
 export const renewTokenAPI = async ({ refreshToken }) => {
     try {
-        const response = await fetch(
-            "http://localhost:8080/tokens/renew_access",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ refresh_token: refreshToken }),
-            }
-        );
+        const response = await fetch(`${BASE_URL}/tokens/renew_access`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ refresh_token: refreshToken }),
+        });
         return response;
     } catch (error) {
         throw error;
@@ -68,7 +65,7 @@ export const renewTokenAPI = async ({ refreshToken }) => {
 //createScore
 export const createScoreAPI = async (Stats, accessToken) => {
     try {
-        const response = await fetch("http://localhost:8080/scores", {
+        const response = await fetch(`${BASE_URL}/scores`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -90,7 +87,7 @@ export const createScoreAPI = async (Stats, accessToken) => {
 export const rankAPI = async (sort, page) => {
     try {
         const response = await fetch(
-            `http://localhost:8080/rank/${sort}?page_id=${page}&page_size=5`
+            `${BASE_URL}/rank/${sort}?page_id=${page}&page_size=5`
         );
 
         if (!response.ok) {
@@ -108,7 +105,7 @@ export const rankAPI = async (sort, page) => {
 export const listScoreAPI = async (username, page) => {
     try {
         const res = await fetch(
-            `http://localhost:8080/scores?owner=${username}&page_id=${page}&page_size=5`
+            `${BASE_URL}/scores?owner=${username}&page_id=${page}&page_size=5`
         );
         if (!res.ok) {
             throw new Error("Failed to get list score");
@@ -125,9 +122,7 @@ export const listScoreAPI = async (username, page) => {
 //listAchievements
 export const listAchievementsAPI = async (username) => {
     try {
-        const res = await fetch(
-            `http://localhost:8080/achievements?owner=${username}`
-        );
+        const res = await fetch(`${BASE_URL}/achievements?owner=${username}`);
         if (!res.ok) {
             throw new Error("Failed to get list score");
         }
