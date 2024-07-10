@@ -1,27 +1,3 @@
-export const PlayerController = ({
-    action,
-    player,
-    setPlayer,
-    board,
-    resetPlayer,
-    pauseDropTime,
-    resumeDropTime,
-}) => {
-    if (action === "Rotate") {
-        attemptRotate(player, board, setPlayer);
-    }
-    if (action === "Left" || action === "Right" || action === "SlowDrop") {
-        attemptMove(player, setPlayer, board, action);
-    }
-    if (action === "FastDrop") {
-        setPlayer({ ...player, collide: true, fastDorp: true });
-    }
-
-    if (action === "SlowDrop" || action === "FastDrop") {
-        pauseDropTime();
-    }
-};
-
 // 是否撞到已放置的方塊
 const isCollide = (shape, playerPosition, board) => {
     for (let y = 0; y < shape.length; y++) {
@@ -64,13 +40,12 @@ const isWithinBoard = (shape, playerPosition, board) => {
     return true;
 };
 
-const MovePlayer = (vector, position, shape, board) => {
+export const MovePlayer = (vector, position, shape, board) => {
     // 計算下一步
     const newPosition = {
         column: position.column + vector.x,
         row: position.row + vector.y,
     };
-
     // 檢查移動後是否在board裡面，有沒有撞到其他方塊
     const isOnBoard = isWithinBoard(shape, newPosition, board);
     const collided = isCollide(shape, newPosition, board);
@@ -85,37 +60,39 @@ const MovePlayer = (vector, position, shape, board) => {
     return { collideBottom: isHitBottom, position: resultPosition };
 };
 
-export const attemptMove = (player, setPlayer, board, action) => {
+export const attemptMove = ({ tetromino, board, key }) => {
     let vector = { x: 0, y: 0 };
-    if (action === "Left") vector.x--;
-    if (action === "Right") vector.x++;
-    if (action === "SlowDrop") vector.y++;
+    if (key === "ArrowLeft") vector.x--;
+    if (key === "ArrowRight") vector.x++;
+    if (key === "ArrowDown" || key === "AutoDown") vector.y++;
 
     const { collideBottom, position } = MovePlayer(
         vector,
-        player.position,
-        player.tetromino.shape,
-        board
+        tetromino.position,
+        tetromino.tetromino.shape,
+        board,
     );
 
     if (collideBottom) {
-        tetrominoDone(player, setPlayer);
+        if (key === "AutoDown") {
+            return [{ ...tetromino, collide: true }, true];
+        }
+        return [tetromino, false];
     } else {
-        setPlayer({ ...player, position: position });
+        return [{ ...tetromino, position: position }, false];
     }
 };
 
 // 為了不直接修改player.tetromino.shape使用深拷貝
 const deepCopy = (array) => array.map((row) => [...row]);
 
-const attemptRotate = (player, board, setPlayer) => {
-    const copyShape = deepCopy(player.tetromino.shape);
+export const attemptRotate = ({ tetromino, board }) => {
+    const copyShape = deepCopy(tetromino.tetromino.shape);
     const newShape = rotate(copyShape);
-    const position = player.position;
+    const position = tetromino.position;
 
     // wall kick
     const offsets = [
-        // 防止卡牆
         { x: 0, y: 0 }, // 不移動
         { x: -1, y: 0 }, // 向左移動1格
         { x: 1, y: 0 }, // 向右移動1格
@@ -138,20 +115,21 @@ const attemptRotate = (player, board, setPlayer) => {
         const isOnBoard = isWithinBoard(newShape, newPosition, board);
 
         const collided = isCollide(newShape, newPosition, board);
-
+        // 旋轉成功
         if (isOnBoard && !collided) {
-            setPlayer({
-                ...player,
+            return {
+                ...tetromino,
                 tetromino: {
-                    ...player.tetromino,
+                    ...tetromino.tetromino,
                     shape: newShape,
                 },
                 position: newPosition,
-            });
-
-            return;
+            };
         }
     }
+
+    //旋轉失敗
+    return tetromino;
 };
 
 const rotate = (shape) => {
@@ -172,22 +150,18 @@ const rotate = (shape) => {
     return shape;
 };
 
-const tetrominoDone = (player, setPlayer) => {
-    setPlayer({ ...player, collide: true });
-};
-
-export const findGhostPosition = (player, board) => {
-    let ghostPosition = null;
-    for (let i = 0; i < 20; i++) {
-        // 尋找最下面掉落位置
-        const { collideBottom, position } = MovePlayer(
-            { x: 0, y: i },
-            player.position,
-            player.tetromino.shape,
-            board
-        );
-        if (collideBottom) break;
-        ghostPosition = position;
-    }
-    return ghostPosition;
-};
+// export const findGhostPosition = (player, board) => {
+//     let ghostPosition = null;
+//     for (let i = 0; i < 20; i++) {
+//         // 尋找最下面掉落位置
+//         const { collideBottom, position } = MovePlayer(
+//             { x: 0, y: i },
+//             player.position,
+//             player.tetromino.shape,
+//             board,
+//         );
+//         if (collideBottom) break;
+//         ghostPosition = position;
+//     }
+//     return ghostPosition;
+// };

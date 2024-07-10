@@ -9,7 +9,7 @@ import Rank from "pages/Rank";
 import ListScore from "pages/ListScore";
 import Achieve from "pages/Achieve";
 
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const routing_table = [
     {

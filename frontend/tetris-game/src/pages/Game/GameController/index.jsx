@@ -1,3 +1,4 @@
+/*
 import { useEffect } from "react";
 
 //utils
@@ -59,3 +60,4 @@ const GameController = ({
 };
 
 export default GameController;
+*/

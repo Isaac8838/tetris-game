@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
 if (BASE_URL === undefined) {
     window.location.href = "/error.html";
@@ -12,10 +12,7 @@ export const createUserAPI = async ({ username, password, email }) => {
         email,
     };
 
-    console.log(userData);
-
     try {
-        console.log("送出");
         const response = await fetch(`${BASE_URL}/users`, {
             method: "POST",
             headers: {
@@ -24,7 +21,12 @@ export const createUserAPI = async ({ username, password, email }) => {
             body: JSON.stringify(userData),
         });
 
-        return response;
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(JSON.stringify(errorResponse) || "fetch failed");
+        }
+
+        return response.json();
     } catch (error) {
         throw error;
     }
@@ -40,37 +42,48 @@ export const loginAPI = async ({ username, password }) => {
             },
             body: JSON.stringify({ username, password }),
         });
-        return response;
+
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(JSON.stringify(errorResponse) || "Failed to login");
+        }
+
+        return response.json();
     } catch (error) {
         throw error;
     }
 };
 
 // renewToken API
-export const renewTokenAPI = async ({ refreshToken }) => {
+export const renewTokenAPI = async ({ refresh_token }) => {
     try {
         const response = await fetch(`${BASE_URL}/tokens/renew_access`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ refresh_token: refreshToken }),
+            body: JSON.stringify({ refresh_token: refresh_token }),
         });
-        return response;
+
+        if (!response.ok) {
+            throw new Error("Failed to renew token");
+        }
+
+        return response.json();
     } catch (error) {
         throw error;
     }
 };
 
 //createScore
-export const createScoreAPI = async (Stats, accessToken) => {
+export const createScoreAPI = async ({ stats, access_token }) => {
     try {
         const response = await fetch(`${BASE_URL}/scores`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${access_token}`,
             },
-            body: JSON.stringify(Stats),
+            body: JSON.stringify({ score: stats.score, level: stats.level }),
         });
 
         if (!response.ok) {
@@ -84,17 +97,16 @@ export const createScoreAPI = async (Stats, accessToken) => {
 };
 
 //rank
-export const rankAPI = async (sort, page) => {
+export const rankAPI = async ({ sort, page = 1 }) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/rank/${sort}?page_id=${page}&page_size=5`
+            `${BASE_URL}/rank/${sort}?page_id=${page}&page_size=5`,
         );
 
         if (!response.ok) {
             throw new Error("Failed to get rank");
         }
         const data = await response.json();
-        // console.log(data);
         return data;
     } catch (error) {
         throw error;
@@ -105,7 +117,7 @@ export const rankAPI = async (sort, page) => {
 export const listScoreAPI = async (username, page) => {
     try {
         const res = await fetch(
-            `${BASE_URL}/scores?owner=${username}&page_id=${page}&page_size=5`
+            `${BASE_URL}/scores?owner=${username}&page_id=${page}&page_size=5`,
         );
         if (!res.ok) {
             throw new Error("Failed to get list score");
