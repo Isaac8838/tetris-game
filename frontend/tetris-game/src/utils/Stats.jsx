@@ -1,29 +1,29 @@
-export const calculateScore = (player, clearLine, rows) => {
+export const calculateScore = ({ clearLine, level }) => {
     let score = 0;
 
     //一次消幾行
     switch (clearLine) {
         case 1:
-            score = 100;
+            score = 100 * level;
             break;
         case 2:
-            score = 300;
+            score = 300 * level;
             break;
         case 3:
-            score = 500;
+            score = 500 * level;
             break;
         case 4:
-            score = 800;
+            score = 800 * level;
             break;
         default:
             break;
     }
 
     // 如果是T轉(分數成1.5)
-    if (isTspin({ ...player, rows })) {
-        console.log("T轉");
-        score *= 1.5;
-    }
+    // if (isTspin({ ...player, rows })) {
+    //     console.log("T轉");
+    //     score *= 1.5;
+    // }
 
     return score;
 };

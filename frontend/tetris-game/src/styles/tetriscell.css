@@ -1,0 +1,61 @@
+.tetromino {
+    width: 100%;
+    height: 100%;
+    border-radius: 1px;
+}
+.tetrominoJ {
+    background-color: yellow;
+}
+
+.tetrominoJ_ghost {
+    background-color: yellow;
+    opacity: 0.2;
+}
+
+.tetrominoL {
+    background-color: blue;
+}
+.tetrominoL_ghost {
+    background-color: blue;
+    opacity: 0.2;
+}
+
+.tetrominoZ {
+    background-color: green;
+}
+.tetrominoZ_ghost {
+    background-color: green;
+    opacity: 0.2;
+}
+
+.tetrominoI {
+    background-color: rgb(0, 238, 255);
+}
+.tetrominoI_ghost {
+    background-color: rgb(0, 238, 255);
+    opacity: 0.2;
+}
+
+.tetrominoS {
+    background-color: rgb(183, 0, 255);
+}
+.tetrominoS_ghost {
+    background-color: rgb(183, 0, 255);
+    opacity: 0.2;
+}
+
+.tetrominoT {
+    background-color: rgb(255, 166, 0);
+}
+.tetrominoT_ghost {
+    background-color: rgb(255, 166, 0);
+    opacity: 0.2;
+}
+
+.tetrominoO {
+    background-color: red;
+}
+.tetrominoO_ghost {
+    background-color: red;
+    opacity: 0.2;
+}

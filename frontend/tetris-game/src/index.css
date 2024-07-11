@@ -1,33 +1,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-#root {
-    width: 100%;
-}
-
-.app {
-    width: 100%;
-    position: relative;
-    height: 100vh;
-}
-
-* {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    font-weight: 300;
-}
-
-html {
-    font-size: 62.5%;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
+    @apply font-sans;
     height: 100vh;
+    min-height: 500px;
+    min-width: 850px;
     background-image: linear-gradient(to bottom, #000f8c 20%, #54b7ff);
-    font-family: "Lato", sans-serif;
-    font-size: 2.5rem;
 }
 
-body::-webkit-scrollbar {
-    display: none;
+#root {
+    height: 100%;
+}
+
+.spinner {
+    position: absolute;
+    top: 25%;
+    display: inline-block;
+    margin-left: 10px;
+    width: 20px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: conic-gradient(#0000 30%, #46e5e2);
+
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 5px),
+        #000 0
+    );
+
+    animation: rotate 1.5s infinite linear;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(1turn);
+    }
 }
