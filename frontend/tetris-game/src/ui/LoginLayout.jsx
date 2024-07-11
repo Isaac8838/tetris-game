@@ -35,7 +35,7 @@ const LoginLayout = ({ children }) => {
                 </div>
                 <div className="hidden lg:flex items-center">
                     <img
-                        src="img/login_img.jpg"
+                        src={`${process.env.PUBLIC_URL}/img/login_img.jpg`}
                         alt="tetris"
                         className="max-h-[430px] rounded-xl"
                     />

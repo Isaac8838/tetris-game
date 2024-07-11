@@ -1,115 +1,136 @@
+import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import Spinner from "ui/Spinner";
 import { listAchievementsAPI } from "WebAPI";
-import SideNavBar from "component/SideNavBar";
-import { AuthContext } from "contexts/AuthContext";
-import { useContext, useEffect, useReducer } from "react";
 
-import styles from "./index.module.scss";
-import AchieveItem from "./AchieveItem";
-
-const ACHIEVEMENT_PARAGRAPH = [
-    "SCORE 10達成",
-    "SCORE 100達成",
-    "SCORE 1000達成",
-    "SCORE 10000達成",
-    "SCORE 100000達成",
-    "LEVEL 5達成",
-    "LEVEL 10達成",
-    "LEVEL 15達成",
-    "LEVEL 20達成",
-    "LEVEL 25達成",
-];
-
-const ACHIEVEMENT_COMPONENT = [
-    CoperMedal,
-    SliverMedal,
-    GoldMedal,
-    PlatinumMedal,
-    DiamondMedal,
-    CoperLevel,
-    SliverLevel,
-    GoldLevel,
-    PlatinumLevel,
-    DiamondLevel,
-];
-
-const initialAchievement = ACHIEVEMENT_PARAGRAPH.map((paragraph, idx) => {
-    return {
-        id: idx + 1,
-        paragraph,
-        component: ACHIEVEMENT_COMPONENT[idx],
-        done: false,
-    };
-});
-
-const achievementsReducer = (state, action) => {
-    switch (action.type) {
-        case "UPDATE_ACHIEVEMENTS":
-            return state.map((achievement) => {
-                const matchData = action.payload.find(
-                    (item) => item.achievement_id === achievement.id
-                );
-
-                if (matchData)
-                    return {
-                        ...achievement,
-                        done: true,
-                        createAt: new Date(
-                            matchData.achieved_at
-                        ).toLocaleDateString(),
-                    };
-                return achievement;
-            });
-        default:
-            return state;
-    }
+const achievements = {
+    1: {
+        label: "SCORE 10達成",
+        component: CoperMedal,
+        achieved_at: "",
+        achieve: false,
+    },
+    2: {
+        label: "SCORE 100達成",
+        component: SliverMedal,
+        achieved_at: "",
+        achieve: false,
+    },
+    3: {
+        label: "SCORE 1000達成",
+        component: GoldMedal,
+        achieved_at: "",
+        achieve: false,
+    },
+    4: {
+        label: "SCORE 10000達成",
+        component: PlatinumMedal,
+        achieved_at: "",
+        achieve: false,
+    },
+    5: {
+        label: "SCORE 100000達成",
+        component: DiamondMedal,
+        achieved_at: "",
+        achieve: false,
+    },
+    6: {
+        label: "LEVEL 5達成",
+        component: CoperLevel,
+        achieved_at: "",
+        achieve: false,
+    },
+    7: {
+        label: "LEVEL 10達成",
+        component: SliverLevel,
+        achieved_at: "",
+        achieve: false,
+    },
+    8: {
+        label: "LEVEL 15達成",
+        component: GoldLevel,
+        achieved_at: "",
+        achieve: false,
+    },
+    9: {
+        label: "LEVEL 20達成",
+        component: PlatinumLevel,
+        achieved_at: "",
+        achieve: false,
+    },
+    10: {
+        label: "LEVEL 25達成",
+        component: DiamondLevel,
+        achieved_at: "",
+        achieve: false,
+    },
 };
 
-const Achieve = () => {
-    const { authState } = useContext(AuthContext);
-    const [achievements, dispatch] = useReducer(
-        achievementsReducer,
-        initialAchievement
-    );
+const Achievement = () => {
+    const username = useSelector((state) => state.user.username);
 
-    useEffect(() => {
-        const { username } = authState.user;
+    const { data, isLoading } = useQuery({
+        queryKey: ["achievements"],
+        queryFn: () => listAchievementsAPI({ username }),
+    });
 
-        const fetchData = async () => {
-            try {
-                const data = await listAchievementsAPI(username);
+    if (isLoading) {
+        return <Spinner />;
+    }
 
-                dispatch({ type: "UPDATE_ACHIEVEMENTS", payload: data });
-            } catch (err) {
-                console.error("fetch list score error", err);
-            }
-        };
-        fetchData();
-    }, [authState.user]);
+    if (data) {
+        for (let i = 0; i < data.length; i++) {
+            achievements[data[i].achievement_id].achieve = true;
+            const date = new Date(data[i].achieved_at);
 
+            // 提取月份（0-11，所以需要加1）和日期
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+
+            const formattedDate = `${month}/${day}`;
+
+            achievements[data[i].achievement_id].achieved_at = formattedDate;
+        }
+    }
     return (
-        <>
-            <SideNavBar></SideNavBar>
-            <div className={styles["avhieve-board-box"]}>
-                <ul>
-                    {achievements.map((achievement) => {
-                        return (
-                            <AchieveItem
-                                achievement={achievement}
-                                key={achievement.id}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
-        </>
+        <div className=" w-[60%] max-w-[650px] h-[75%] max-h-[600px] m-auto overflow-auto border-4 border-violet-700 rounded-md bg-indigo-950 ">
+            <ul className="flex flex-col gap-4">
+                {Object.entries(achievements).map(([id, achievement]) => (
+                    <li
+                        key={id}
+                        className=" px-10  py-5  relative  bg-violet-950"
+                    >
+                        <div
+                            style={{
+                                filter:
+                                    achievement.achieve || "grayscale(100%)",
+                            }}
+                            className="flex items-center gap-14"
+                        >
+                            <div className="w-24 aspect-square">
+                                <achievement.component />
+                            </div>
+                            <div className=" text-3xl text-white">
+                                {achievement.label}
+                            </div>
+                            {achievement.achieve && (
+                                <div className=" absolute right-4 bottom-1 text-stone-400">
+                                    {achievement.achieved_at}
+                                </div>
+                            )}
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };
 
 function CoperMedal() {
     return (
         <svg
-            width="10rem"
-            height="10rem"
+            width="auto"
+            height="auto"
             viewBox="-2.4 -2.4 28.80 28.80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -630,4 +651,4 @@ function DiamondLevel() {
         </svg>
     );
 }
-export default Achieve;
+export default Achievement;

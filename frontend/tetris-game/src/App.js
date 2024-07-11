@@ -1,24 +1,20 @@
-import {
-    BrowserRouter,
-    Navigate,
-    Route,
-    Routes,
-    useRoutes,
-} from "react-router-dom";
-import routetable from "./routes/routetable";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "./App.css";
 import AppLayout from "ui/AppLayout";
-import Login from "pages/Login";
-import Signup from "pages/Signup";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
 import store from "store";
 import PrivateRoute from "utils/PrivateRoute";
+import Login from "pages/Login";
+import Signup from "pages/Signup";
 import Home from "pages/Home";
 import Game from "pages/Game";
 import Rank from "pages/Rank";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ListScore from "pages/ListScore";
+import Achievement from "pages/Achievement";
 export default function App() {
     // 使用路遊註冊表
 
@@ -43,6 +39,14 @@ export default function App() {
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/game" element={<Game />} />
                                 <Route path="/rank" element={<Rank />} />
+                                <Route
+                                    path="/listScore"
+                                    element={<ListScore />}
+                                />
+                                <Route
+                                    path="/achievement"
+                                    element={<Achievement />}
+                                />
                             </Route>
                         </Route>
                         <Route path="*" element={<div>404</div>}></Route>

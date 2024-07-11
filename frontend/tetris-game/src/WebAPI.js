@@ -1,4 +1,5 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 if (BASE_URL === undefined) {
     window.location.href = "/error.html";
@@ -114,7 +115,7 @@ export const rankAPI = async ({ sort, page = 1 }) => {
 };
 
 //list score
-export const listScoreAPI = async (username, page) => {
+export const listScoreAPI = async ({ username, page }) => {
     try {
         const res = await fetch(
             `${BASE_URL}/scores?owner=${username}&page_id=${page}&page_size=5`,
@@ -132,7 +133,7 @@ export const listScoreAPI = async (username, page) => {
 };
 
 //listAchievements
-export const listAchievementsAPI = async (username) => {
+export const listAchievementsAPI = async ({ username }) => {
     try {
         const res = await fetch(`${BASE_URL}/achievements?owner=${username}`);
         if (!res.ok) {

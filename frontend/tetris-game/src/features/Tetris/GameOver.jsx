@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import GameOverBTN from "./GameOverBTN";
 import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { createScoreAPI } from "WebAPI";
 import { handleSubmitRecord } from "./TetrisSlice";
 
 const GameOver = () => {
@@ -16,7 +14,6 @@ const GameOver = () => {
     useEffect(() => {
         if (!alreadySendRecord) {
             dispatch(handleSubmitRecord());
-            console.log("sendRecord");
         }
     }, [alreadySendRecord]);
 
