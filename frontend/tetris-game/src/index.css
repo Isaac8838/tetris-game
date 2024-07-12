@@ -15,28 +15,3 @@ body {
 #root {
     height: 100%;
 }
-
-.spinner {
-    position: absolute;
-    top: 25%;
-    display: inline-block;
-    margin-left: 10px;
-    width: 20px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background: conic-gradient(#0000 30%, #46e5e2);
-
-    -webkit-mask: radial-gradient(
-        farthest-side,
-        #0000 calc(100% - 5px),
-        #000 0
-    );
-
-    animation: rotate 1.5s infinite linear;
-}
-
-@keyframes rotate {
-    to {
-        transform: rotate(1turn);
-    }
-}

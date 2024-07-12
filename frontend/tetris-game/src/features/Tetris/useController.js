@@ -2,7 +2,7 @@ import { useDropTime } from "hooks/useDroptime";
 import useInterval from "hooks/useInterval";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { handleAutoDown, handleKeyPress } from "./TetrisSlice";
+import { handleKeyPress } from "./TetrisSlice";
 
 const isAvailableKey = (key) => {
     return (
@@ -10,6 +10,7 @@ const isAvailableKey = (key) => {
         key === "ArrowDown" ||
         key === "ArrowLeft" ||
         key === "ArrowRight" ||
+        key === "c" ||
         key === " "
     );
 };

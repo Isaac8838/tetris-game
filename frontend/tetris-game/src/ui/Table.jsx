@@ -72,10 +72,11 @@ const ListScoreBody = ({ data }) => {
     const date = new Date(data.created_at);
 
     // // 提取月份（0-11，所以需要加1）和日期
+    const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    const formattedDate = `${month}/${day}`;
+    const formattedDate = `${year}/${month}/${day}`;
 
     return (
         <div
@@ -91,7 +92,7 @@ const ListScoreBody = ({ data }) => {
     );
 };
 
-const Footer = ({ page, setPage }) => {
+const Footer = ({ page, setPage, data_length }) => {
     const { setShowJumpTable } = useContext(TableContext);
 
     const handleJump = () => {
@@ -105,6 +106,7 @@ const Footer = ({ page, setPage }) => {
     };
 
     const handleNext = () => {
+        if (data_length < 5) return;
         setPage(page + 1);
     };
 

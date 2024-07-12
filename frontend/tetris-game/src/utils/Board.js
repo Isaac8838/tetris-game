@@ -18,22 +18,21 @@ export const nextBoard = ({ board, tetromino }) => {
     );
 
     const ghostPosition = findGhostPosition({ tetromino, board });
-
-    const { fastDorp } = tetromino;
+    const { fastDrop } = tetromino;
 
     rows = transferToBoard({
         rows,
         tetromino: {
-            className: fastDorp
+            className: fastDrop
                 ? tetromino.tetromino.className
                 : `${tetromino.tetromino.className}_ghost`,
             shape: tetromino.tetromino.shape,
         },
         position: ghostPosition,
-        collide: fastDorp,
+        collide: fastDrop,
     });
 
-    if (!fastDorp) {
+    if (!fastDrop) {
         rows = transferToBoard({
             rows,
             tetromino: tetromino.tetromino,

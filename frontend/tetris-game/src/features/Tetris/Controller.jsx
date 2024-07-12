@@ -2,6 +2,6 @@ import useController from "./useController";
 
 const Controller = () => {
     useController();
-    return <></>;
+    return;
 };
 export default Controller;

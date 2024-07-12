@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Spinner from "ui/Spinner";
 import Table from "ui/Table";
-import { listScoreAPI } from "WebAPI";
+import { listScoreAPI } from "utils/WebAPI";
 
 const ListScore = () => {
     const [page, setPage] = useState(1);
@@ -20,9 +20,11 @@ const ListScore = () => {
     const handleBlur = () => {
         if (inputUsername === "") {
             setSearchUsername(username);
+            setPage(1);
             return;
         }
         setSearchUsername(inputUsername);
+        setPage(1);
     };
 
     return (
@@ -52,14 +54,20 @@ const ListScore = () => {
                         ]}
                     />
                     {isPending ? (
-                        <Spinner width={40} />
+                        <div className="mx-auto">
+                            <Spinner width={40} />
+                        </div>
                     ) : (
                         data?.map((item, index) => (
                             <Table.ListScoreBody key={item.id} data={item} />
                         ))
                     )}
                 </Table.Container>
-                <Table.Footer page={page} setPage={setPage} />
+                <Table.Footer
+                    page={page}
+                    setPage={setPage}
+                    data_length={data?.length}
+                />
                 {/* <Table.JumpTable /> */}
             </Table>
         </div>

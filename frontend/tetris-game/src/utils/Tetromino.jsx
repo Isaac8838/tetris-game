@@ -78,6 +78,5 @@ export const generateTetrominoesArr = (preTetrominoes) => {
     const tetrominoes = Array(5)
         .fill(0)
         .map(() => randomTetromino());
-
     return tetrominoes;
 };

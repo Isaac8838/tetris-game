@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Spinner from "ui/Spinner";
 import Table from "ui/Table";
-import { rankAPI } from "WebAPI";
+import { rankAPI } from "utils/WebAPI";
 
 const Rank = () => {
     const [page, setPage] = useState(1);
@@ -12,8 +12,6 @@ const Rank = () => {
         queryKey: ["rank", sortBy, page],
         queryFn: () => rankAPI({ sort: sortBy, page }),
     });
-
-    if (isPending) return <Spinner width={40} />;
 
     return (
         <div className="w-[70%] max-w-[900px] h-full flex flex-col justify-center items-center m-auto">
@@ -34,7 +32,9 @@ const Rank = () => {
                         titles={["Rank", "Username", "Score", "Level", "Line"]}
                     />
                     {isPending ? (
-                        <Spinner width={40} />
+                        <div className="mx-auto">
+                            <Spinner width={40} />
+                        </div>
                     ) : (
                         data?.map((item, index) => (
                             <Table.RankBody
@@ -45,7 +45,11 @@ const Rank = () => {
                         ))
                     )}
                 </Table.Container>
-                <Table.Footer page={page} setPage={setPage} />
+                <Table.Footer
+                    page={page}
+                    setPage={setPage}
+                    data_length={data?.length}
+                />
             </Table>
         </div>
     );
