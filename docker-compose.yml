@@ -4,8 +4,6 @@ services:
     build:
       context: frontend
       dockerfile: dockerfile
-    environment:
-      - API_URL=http://localhost:8080
     networks:
       - client-side
     ports:

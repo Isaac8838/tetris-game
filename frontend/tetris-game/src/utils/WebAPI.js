@@ -1,5 +1,6 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(BASE_URL)
 
 if (BASE_URL === undefined) {
     window.location.href = "/error.html";
