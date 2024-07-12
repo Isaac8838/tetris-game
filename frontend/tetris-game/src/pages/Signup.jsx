@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { type } from "@testing-library/user-event/dist/type";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
     HiOutlineLockClosed,
@@ -12,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "ui/Input";
 import LoginLayout from "ui/LoginLayout";
 import SubmitBTN from "ui/SubmitBTN";
-import { createUserAPI } from "WebAPI";
+import { createUserAPI } from "utils/WebAPI";
 
 const Signup = () => {
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
@@ -26,7 +25,7 @@ const Signup = () => {
 
     const navigate = useNavigate();
 
-    const signupMutate = useMutation({
+    const { mutate: signupMutate, isPending } = useMutation({
         mutationKey: ["signup"],
         mutationFn: createUserAPI,
         onSuccess: (data) => {
@@ -58,7 +57,7 @@ const Signup = () => {
         }
 
         const { username, password, email } = data;
-        signupMutate.mutate({ username, password, email });
+        signupMutate({ username, password, email });
     };
 
     return (
@@ -132,7 +131,7 @@ const Signup = () => {
                     </p>
                 </div>
 
-                <SubmitBTN>Register</SubmitBTN>
+                <SubmitBTN isPending={isPending}>Register</SubmitBTN>
                 {fetchError && (
                     <p className=" text-red-700 mt-[-30px] font-bold">
                         {fetchError}

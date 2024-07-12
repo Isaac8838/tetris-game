@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "./App.css";
 import AppLayout from "ui/AppLayout";
-import store from "store";
+import store from "utils/store";
 import PrivateRoute from "utils/PrivateRoute";
 import Login from "pages/Login";
 import Signup from "pages/Signup";
@@ -16,10 +16,6 @@ import Rank from "pages/Rank";
 import ListScore from "pages/ListScore";
 import Achievement from "pages/Achievement";
 export default function App() {
-    // 使用路遊註冊表
-
-    // const element = useRoutes(routetable);
-    // return <div className="app">{element}</div>;
     const queryClient = new QueryClient();
 
     return (

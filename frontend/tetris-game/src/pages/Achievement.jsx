@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import Spinner from "ui/Spinner";
-import { listAchievementsAPI } from "WebAPI";
+import { listAchievementsAPI } from "utils/WebAPI";
 
 const achievements = {
     1: {
@@ -98,27 +98,28 @@ const Achievement = () => {
                 {Object.entries(achievements).map(([id, achievement]) => (
                     <li
                         key={id}
-                        className=" px-10  py-5  relative  bg-violet-950"
+                        className="flex items-center gap-14 px-10  py-5  relative  bg-violet-950"
                     >
                         <div
+                            className="w-24 aspect-square"
                             style={{
                                 filter:
                                     achievement.achieve || "grayscale(100%)",
                             }}
-                            className="flex items-center gap-14"
                         >
-                            <div className="w-24 aspect-square">
-                                <achievement.component />
-                            </div>
-                            <div className=" text-3xl text-white">
-                                {achievement.label}
-                            </div>
-                            {achievement.achieve && (
-                                <div className=" absolute right-4 bottom-1 text-stone-400">
-                                    {achievement.achieved_at}
-                                </div>
-                            )}
+                            <achievement.component />
                         </div>
+                        <div
+                            className=" text-3xl text-white"
+                            style={{ color: !achievement.achieve && "gray" }}
+                        >
+                            {achievement.label}
+                        </div>
+                        {achievement.achieve && (
+                            <div className=" absolute right-4 bottom-1 text-stone-400 ">
+                                {achievement.achieved_at}
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>
@@ -129,8 +130,8 @@ const Achievement = () => {
 function CoperMedal() {
     return (
         <svg
-            width="auto"
-            height="auto"
+            width="100%"
+            height="100%"
             viewBox="-2.4 -2.4 28.80 28.80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
