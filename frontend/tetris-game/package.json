@@ -2,6 +2,7 @@
     "name": "tetris-game",
     "version": "0.1.0",
     "private": true,
+    "homepage": ".",
     "dependencies": {
         "@reduxjs/toolkit": "^2.2.6",
         "@tanstack/react-query": "^5.50.1",

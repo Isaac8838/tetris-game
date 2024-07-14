@@ -120,7 +120,7 @@ example
 
 http body
 ```json
-"score": "int, > 0",
+"score": "int, >= 0",
 "level": "int, > 0"
 ```
 
