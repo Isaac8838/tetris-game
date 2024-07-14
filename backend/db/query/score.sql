@@ -11,6 +11,6 @@ RETURNING *;
 -- name: ListScores :many
 SELECT * FROM scores
 WHERE owner = $1
-ORDER BY id
+ORDER BY id DESC
 LIMIT $2
 OFFSET $3;
