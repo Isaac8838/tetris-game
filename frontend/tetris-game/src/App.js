@@ -17,7 +17,6 @@ import ListScore from "pages/ListScore";
 import Achievement from "pages/Achievement";
 export default function App() {
     const queryClient = new QueryClient();
-
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
