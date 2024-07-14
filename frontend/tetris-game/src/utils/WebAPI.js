@@ -1,8 +1,6 @@
-// const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log(BASE_URL)
+const apiUrl = window.appConfig.API_URL;
 
-if (BASE_URL === undefined) {
+if (apiUrl === undefined) {
     window.location.href = "/error.html";
 }
 
@@ -15,7 +13,7 @@ export const createUserAPI = async ({ username, password, email }) => {
     };
 
     try {
-        const response = await fetch(`${BASE_URL}/users`, {
+        const response = await fetch(`${apiUrl}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +35,7 @@ export const createUserAPI = async ({ username, password, email }) => {
 // loginUser API
 export const loginAPI = async ({ username, password }) => {
     try {
-        const response = await fetch(`${BASE_URL}/users/login`, {
+        const response = await fetch(`${apiUrl}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +57,7 @@ export const loginAPI = async ({ username, password }) => {
 // renewToken API
 export const renewTokenAPI = async ({ refresh_token }) => {
     try {
-        const response = await fetch(`${BASE_URL}/tokens/renew_access`, {
+        const response = await fetch(`${apiUrl}/tokens/renew_access`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +78,7 @@ export const renewTokenAPI = async ({ refresh_token }) => {
 //createScore
 export const createScoreAPI = async ({ stats, access_token }) => {
     try {
-        const response = await fetch(`${BASE_URL}/scores`, {
+        const response = await fetch(`${apiUrl}/scores`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${access_token}`,
@@ -102,7 +100,7 @@ export const createScoreAPI = async ({ stats, access_token }) => {
 export const rankAPI = async ({ sort, page = 1 }) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/rank/${sort}?page_id=${page}&page_size=5`,
+            `${apiUrl}/rank/${sort}?page_id=${page}&page_size=5`,
         );
 
         if (!response.ok) {
@@ -119,7 +117,7 @@ export const rankAPI = async ({ sort, page = 1 }) => {
 export const listScoreAPI = async ({ username, page }) => {
     try {
         const res = await fetch(
-            `${BASE_URL}/scores?owner=${username}&page_id=${page}&page_size=5`,
+            `${apiUrl}/scores?owner=${username}&page_id=${page}&page_size=5`,
         );
         if (!res.ok) {
             throw new Error("Failed to get list score");
@@ -136,7 +134,7 @@ export const listScoreAPI = async ({ username, page }) => {
 //listAchievements
 export const listAchievementsAPI = async ({ username }) => {
     try {
-        const res = await fetch(`${BASE_URL}/achievements?owner=${username}`);
+        const res = await fetch(`${apiUrl}/achievements?owner=${username}`);
         if (!res.ok) {
             throw new Error("Failed to get list score");
         }
