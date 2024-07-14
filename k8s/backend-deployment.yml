@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 8080
+    targetPort: http-server
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: isaac8838/tetris-game-backend:v2
+        ports:
+        - containerPort: 8080
+          name: http-server
+        env:
+        - name: DB_SOURCE
+          valueFrom:
+            configMapKeyRef:
+              name: tetris-game-config
+              key: postgres-url
+        - name: ACCESS_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: tetris-game-config
+              key: access_origin

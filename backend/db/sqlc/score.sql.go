@@ -44,7 +44,7 @@ func (q *Queries) CreateScore(ctx context.Context, arg CreateScoreParams) (Score
 const listScores = `-- name: ListScores :many
 SELECT id, owner, score, level, created_at FROM scores
 WHERE owner = $1
-ORDER BY id
+ORDER BY id DESC
 LIMIT $2
 OFFSET $3
 `

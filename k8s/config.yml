@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tetris-game-config
+data:
+  postgres-url: "postgresql://root:root@postgres-service:5432/tetris-game?sslmode=disable"
+  postgres-user: "root"
+  postgres-dbname: "tetris-game"
+  access_origin: "http://tetris-game.com/"
+  frontend-config: | 
+    window.appConfig = {
+      API_URL: "http://tetris-game.com/api"
+    }
