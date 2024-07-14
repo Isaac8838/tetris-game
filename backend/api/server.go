@@ -34,7 +34,7 @@ func (server *TetrisServer) SetupRouter() {
 
 	config := cors.DefaultConfig()
 
-	config.AllowOrigins = []string{"http://127.0.0.1:3000", "http://localhost:3000", "http://localhost:3001"}
+	config.AllowOrigins = []string{"http://127.0.0.1:3000", "http://localhost:3000", "http://localhost:3001", server.config.AccessOrigin}
 
 	config.AddAllowHeaders("Authorization")
 	config.AllowCredentials = true
