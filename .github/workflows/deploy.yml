@@ -32,10 +32,10 @@ jobs:
       env: 
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-backend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-backend:latest ./backend
-        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-frontend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-frontend:latest ./frontend
+        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:latest ./backend
+        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:latest ./frontend
 
     - name: Push Docker image to Artifact Registry
       run: |
-        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-backend
-        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/tetris-game-frontend
+        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend
+        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend
