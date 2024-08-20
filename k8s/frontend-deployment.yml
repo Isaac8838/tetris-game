@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: isaac8838/tetris-game-frontend:v3
+        image: asia-east1-docker.pkg.dev/cloud-practice-427001/gar-tetris-game/tetris-game-frontend:latest
         ports:
         - containerPort: 80
         volumeMounts:

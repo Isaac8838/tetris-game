@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: isaac8838/tetris-game-backend:v2
+        image: asia-east1-docker.pkg.dev/cloud-practice-427001/gar-tetris-game/tetris-game-backend:latest
         ports:
         - containerPort: 8080
           name: http-server
