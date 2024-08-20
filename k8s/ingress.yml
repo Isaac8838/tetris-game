@@ -8,8 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: tetris-game.com
-      http:
+    - http:
         paths:
           - path: /api/(.*)
             pathType: ImplementationSpecific
