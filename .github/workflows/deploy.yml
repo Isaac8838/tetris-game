@@ -20,6 +20,12 @@ jobs:
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
+    
+    - name: Set up GKE credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ secrets.GKE_NAME }}
+        location: us-central1
 
     - name: Use gcloud CLI
       run: "gcloud info"
@@ -39,3 +45,12 @@ jobs:
       run: |
         docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend
         docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend
+    
+    - name: Depoly
+      run: |
+        kubectl apply -f k8s/config.yml
+        kubectl apply -f k8s/postgres-secrets.yml
+        kubectl apply -f k8s/postgres-deployment.yml
+        kubectl apply -f k8s/ingress.yml
+        kubectl apply -f k8s/backend-deployment.yml
+        kubectl apply -f k8s/frontend-deployment.yml
