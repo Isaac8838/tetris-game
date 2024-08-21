@@ -186,7 +186,7 @@ func TestCreateUserAPI(t *testing.T) {
 			require.NoError(t, err)
 			require.NotEmpty(t, data)
 
-			url := "/users"
+			url := "/api/users"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
@@ -316,7 +316,7 @@ func TestLoginUserAPI(t *testing.T) {
 			data, err := json.Marshal(tc.body)
 			require.NoError(t, err)
 
-			url := "/users/login"
+			url := "/api/users/login"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
@@ -407,7 +407,7 @@ func TestUserProfileAPI(t *testing.T) {
 			server := newTestServer(t, dbqtx, nil)
 			recorder := httptest.NewRecorder()
 
-			url := "/users"
+			url := "/api/users"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, request)

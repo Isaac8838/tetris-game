@@ -198,7 +198,7 @@ func TestCreateScore(t *testing.T) {
 			require.NoError(t, err)
 			require.NotEmpty(t, data)
 
-			url := "/scores"
+			url := "/api/scores"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
@@ -357,7 +357,7 @@ func TestListScores(t *testing.T) {
 			server := newTestServer(t, dbqtx, nil)
 			recorder := httptest.NewRecorder()
 
-			url := "/scores"
+			url := "/api/scores"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, request)
