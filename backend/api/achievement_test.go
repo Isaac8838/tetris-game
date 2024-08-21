@@ -88,7 +88,7 @@ func TestListAchievements(t *testing.T) {
 			server := newTestServer(t, dbqtx, nil)
 			recorder := httptest.NewRecorder()
 
-			url := "/achievements"
+			url := "/api/achievements"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, request)

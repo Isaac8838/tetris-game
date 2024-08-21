@@ -112,7 +112,7 @@ func TestRankByScore(t *testing.T) {
 			server := newTestServer(t, dbqtx, nil)
 			recorder := httptest.NewRecorder()
 
-			url := "/rank/scores"
+			url := "/api/rank/scores"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, request)
@@ -227,7 +227,7 @@ func TestRankByLevel(t *testing.T) {
 			server := newTestServer(t, dbqtx, nil)
 			recorder := httptest.NewRecorder()
 
-			url := "/rank/levels"
+			url := "/api/rank/levels"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, request)

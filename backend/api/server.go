@@ -43,17 +43,17 @@ func (server *TetrisServer) SetupRouter() {
 
 	router.GET("/", server.healthCheck)
 
-	router.POST("/tokens/renew_access", server.renewToken)
-	router.POST("/users", server.createUser)
-	router.POST("/users/login", server.loginUser)
-	router.GET("/scores", server.listScores)
-	router.GET("/rank/scores", server.rankByScore)
-	router.GET("/rank/levels", server.rankByLevel)
-	router.GET("/achievements", server.listAchievements)
+	router.POST("/api/tokens/renew_access", server.renewToken)
+	router.POST("/api/users", server.createUser)
+	router.POST("/api/users/login", server.loginUser)
+	router.GET("/api/scores", server.listScores)
+	router.GET("/api/rank/scores", server.rankByScore)
+	router.GET("/api/rank/levels", server.rankByLevel)
+	router.GET("/api/achievements", server.listAchievements)
 
 	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
-	authRoutes.POST("/scores", server.createScore)
-	authRoutes.GET("/users", server.userProfile)
+	authRoutes.POST("/api/scores", server.createScore)
+	authRoutes.GET("/api/users", server.userProfile)
 	server.router = router
 }
 

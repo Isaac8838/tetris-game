@@ -114,7 +114,7 @@ func TestRenewTokenAPI(t *testing.T) {
 				require.NoError(t, err)
 			}
 
-			url := "/tokens/renew_access"
+			url := "/api/tokens/renew_access"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
