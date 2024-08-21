@@ -7,5 +7,5 @@ import (
 )
 
 func (server *TetrisServer) healthCheck(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, "")
+	ctx.JSON(http.StatusOK, "OK")
 }
