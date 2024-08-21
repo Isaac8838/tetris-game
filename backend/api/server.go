@@ -41,6 +41,8 @@ func (server *TetrisServer) SetupRouter() {
 
 	router.Use(cors.New(config))
 
+	router.GET("/", server.healthCheck)
+
 	router.POST("/tokens/renew_access", server.renewToken)
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
