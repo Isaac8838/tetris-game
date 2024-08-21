@@ -51,6 +51,6 @@ jobs:
         kubectl apply -f k8s/config.yml
         kubectl apply -f k8s/postgres-secrets.yml
         kubectl apply -f k8s/postgres-deployment.yml
-        kubectl apply -f k8s/ingress.yml
         kubectl apply -f k8s/backend-deployment.yml
         kubectl apply -f k8s/frontend-deployment.yml
+        kubectl apply -f k8s/ingress.yml
