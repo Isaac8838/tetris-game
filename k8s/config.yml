@@ -6,8 +6,8 @@ data:
   postgres-url: "postgresql://root:root@postgres-service:5432/tetris-game?sslmode=disable"
   postgres-user: "root"
   postgres-dbname: "tetris-game"
-  access_origin: "http://tetris-game.com/"
+  access_origin: "http://34.128.132.157"
   frontend-config: | 
     window.appConfig = {
-      API_URL: "http://tetris-game.com/api"
+      API_URL: "http://34.128.132.157/api"
     }
