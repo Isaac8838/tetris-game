@@ -1,8 +1,8 @@
-import { useDropTime } from "hooks/useDroptime";
-import useInterval from "hooks/useInterval";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { handleKeyPress } from "./TetrisSlice";
+import { useDropTime } from "@/hooks/useDroptime";
+import useInterval from "@/hooks/useInterval";
 
 const isAvailableKey = (key) => {
     return (

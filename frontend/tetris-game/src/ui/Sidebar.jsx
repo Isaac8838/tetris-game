@@ -9,7 +9,8 @@ import { PiMedalThin } from "react-icons/pi";
 import { GoHome } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { clearUser } from "features/User/userSlice";
+
+import { clearUser } from "@/features/User/userSlice";
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
 
@@ -27,7 +28,7 @@ const Sidebar = () => {
 
             {/* sidebar background */}
             <div
-                className=" absolute h-full bg-black/40 transition-all"
+                className="fixed h-full top-0 left-0 bg-black/40 transition-all"
                 style={{
                     width: open ? "calc(100% - 300px)" : "100%",
                     opacity: open ? 1 : 0,
@@ -40,7 +41,7 @@ const Sidebar = () => {
 
             {/* sidebar */}
             <div
-                className="h-full bg-black/80 transition-all fixed z-10 right-0 divide flex gap-5 flex-col"
+                className="h-full bg-black/80 transition-all fixed z-10 top-0 right-0 divide flex gap-5 flex-col"
                 style={{
                     width: open ? "300px" : "0",
                     borderLeft: open ? "2px solid #817474" : "none",

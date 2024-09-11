@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { buildBoard, transferToBoard } from "utils/Board";
+import { buildBoard, transferToBoard } from "@/utils/Board";
 import BoardCell from "./BoardCell";
 
 const TetrominoSave = () => {

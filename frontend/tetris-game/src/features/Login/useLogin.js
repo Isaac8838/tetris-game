@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "features/User/userSlice";
-import { loginAPI } from "utils/WebAPI";
+import { setUser } from "@/features/User/userSlice";
+import { loginAPI } from "@/utils/WebAPI";
 
 const useLogin = () => {
     const dispatch = useDispatch();

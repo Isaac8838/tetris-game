@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { clearUser, setToken } from "features/User/userSlice";
-import { buildBoard, detectDead, nextBoard } from "utils/Board";
-import { attemptMove, attemptRotate } from "utils/PlayerController";
-import { calculateScore } from "utils/Stats";
-import { generateTetrominoesArr } from "utils/Tetromino";
-import { createScoreAPI, renewTokenAPI } from "utils/WebAPI";
+import { clearUser, setToken } from "@/features/User/userSlice";
+import { buildBoard, detectDead, nextBoard } from "@/utils/Board";
+import { attemptMove, attemptRotate } from "@/utils/PlayerController";
+import { calculateScore } from "@/utils/Stats";
+import { generateTetrominoesArr } from "@/utils/Tetromino";
+import { createScoreAPI, renewTokenAPI } from "@/utils/WebAPI";
 const temp_Tetrominoes = generateTetrominoesArr();
 
 const initialState = {
@@ -34,24 +34,27 @@ export const handleKeyPress = createAsyncThunk(
         if (isGameOver) return;
 
         switch (key) {
-            case "ArrowUp":
+            case "ArrowUp": {
                 const rotatedTetromino = attemptRotate({ board, tetromino });
                 dispatch(setTetromino(rotatedTetromino));
                 break;
+            }
 
             case "ArrowLeft":
             case "ArrowRight":
-            case "ArrowDown":
+            case "ArrowDown": {
                 const [movedTetromino] = attemptMove({ board, tetromino, key });
                 dispatch(setTetromino(movedTetromino));
                 break;
+            }
 
-            case " ":
+            case " ": {
                 await dispatch(setTetromino({ ...tetromino, fastDrop: true }));
                 await dispatch(getTetromino());
                 break;
+            }
 
-            case "AutoDown":
+            case "AutoDown": {
                 const [autoMovedTetromino, collideBottom] = attemptMove({
                     board,
                     tetromino,
@@ -62,12 +65,14 @@ export const handleKeyPress = createAsyncThunk(
                     await dispatch(getTetromino());
                 }
                 break;
+            }
 
-            case "c":
+            case "c": {
                 if (!tetris.hold_tetromino.isChanged) {
                     dispatch(holdTetromino());
                 }
                 break;
+            }
 
             default:
                 break;
@@ -225,12 +230,12 @@ const tetrisSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(handleKeyPress.fulfilled, (state, action) => {})
-            .addCase(handleAutoDown.fulfilled, (state, action) => {})
-            .addCase(handleSubmitRecord.fulfilled, (state, action) => {
+            .addCase(handleKeyPress.fulfilled, () => {})
+            .addCase(handleAutoDown.fulfilled, () => {})
+            .addCase(handleSubmitRecord.fulfilled, (state) => {
                 state.alreadySendRecord = true;
             })
-            .addCase(holdTetromino.fulfilled, (state, action) => {});
+            .addCase(holdTetromino.fulfilled, () => {});
     },
 });
 

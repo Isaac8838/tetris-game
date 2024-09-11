@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import Spinner from "ui/Spinner";
-import { listAchievementsAPI } from "utils/WebAPI";
+import Spinner from "@/ui/Spinner";
+import { listAchievementsAPI } from "@/utils/WebAPI";
 
 const achievements = {
     1: {

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Spinner from "ui/Spinner";
-import Table from "ui/Table";
-import { listScoreAPI } from "utils/WebAPI";
+import Spinner from "@/ui/Spinner";
+import Table from "@/ui/Table";
+import { listScoreAPI } from "@/utils/WebAPI";
 
 const ListScore = () => {
     const [page, setPage] = useState(1);
@@ -58,7 +58,7 @@ const ListScore = () => {
                             <Spinner width={40} />
                         </div>
                     ) : (
-                        data?.map((item, index) => (
+                        data?.map((item) => (
                             <Table.ListScoreBody key={item.id} data={item} />
                         ))
                     )}
