@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import Spinner from "ui/Spinner";
-import Table from "ui/Table";
-import { rankAPI } from "utils/WebAPI";
+
+import Spinner from "@/ui/Spinner";
+import Table from "@/ui/Table";
+import { rankAPI } from "@/utils/WebAPI";
 
 const Rank = () => {
     const [page, setPage] = useState(1);

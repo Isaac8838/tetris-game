@@ -4,19 +4,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import "./App.css";
-import AppLayout from "ui/AppLayout";
-import store from "utils/store";
-import PrivateRoute from "utils/PrivateRoute";
-import Login from "pages/Login";
-import Signup from "pages/Signup";
-import Home from "pages/Home";
-import Game from "pages/Game";
-import Rank from "pages/Rank";
-import ListScore from "pages/ListScore";
-import Achievement from "pages/Achievement";
+import store from "@/utils/store";
+import AppLayout from "@/ui/AppLayout";
+import PrivateRoute from "@/utils/PrivateRoute";
+
+import Login from "@/pages/Login";
+import Home from "@/pages/Home";
+import Game from "@/pages/Game";
+import Rank from "@/pages/Rank";
+import ListScore from "@/pages/ListScore";
+import Achievement from "@/pages/Achievement";
+import Room from "./pages/Room";
+
 export default function App() {
     const queryClient = new QueryClient();
+
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} />
@@ -28,11 +30,12 @@ export default function App() {
                             element={<Navigate to="/login" />}
                         ></Route>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/signup" element={<Signup />}></Route>
+
                         <Route element={<PrivateRoute />}>
                             <Route element={<AppLayout />}>
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/game" element={<Game />} />
+                                <Route path="/room" element={<Room />} />
                                 <Route path="/rank" element={<Rank />} />
                                 <Route
                                     path="/listScore"

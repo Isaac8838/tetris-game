@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import BoardCell from "./BoardCell";
-import { buildBoard, transferToBoard } from "utils/Board";
+import { buildBoard, transferToBoard } from "@/utils/Board";
 
 const TetrisPreviews = () => {
     const tetrominoes = useSelector((state) => state.tetris.tetrominoes);

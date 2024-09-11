@@ -1,71 +1,42 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { HiOutlineUser, HiOutlineLockClosed } from "react-icons/hi";
-// import styles from "./index.module.scss";
-// import "scss/component.scss";
-import LoginLayout from "ui/LoginLayout";
-import Input from "ui/Input";
-import SubmitBTN from "ui/SubmitBTN";
-import useLogin from "features/Login/useLogin";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import LoginComponent from "@/features/Login/LoginComponent";
+import RegisterComponent from "@/features/Login/RegisterComponent";
+import { Card } from "@/components/ui/card";
+import { useState } from "react";
 
 const Login = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-
-    const { handleLogin, loginIsError, loginIsPending } = useLogin();
+    const [tabValue, setTabValue] = useState("login");
 
     return (
-        <LoginLayout>
-            <form
-                className="flex gap-7 flex-col w-full"
-                onSubmit={handleSubmit(handleLogin)}
+        <div className="flex justify-center items-center flex-col pt-40">
+            <h2 className="text-6xl text-white mb-6">Welcome</h2>
+
+            <Tabs
+                value={tabValue}
+                onValueChange={(data) => setTabValue(data)}
+                defaultValue="login"
+                className="flex items-center flex-col gap-2 w-[40%]"
             >
-                <div>
-                    <Input
-                        Icon={HiOutlineUser}
-                        register={register}
-                        Iid="username"
-                        validateRule={{
-                            required: "username can't be empty",
-                        }}
-                    />
-                    <p className=" text-orange-400 font-semibold flex justify-end">
-                        {errors.username?.message}
-                    </p>
-                </div>
-
-                <div>
-                    <Input
-                        Icon={HiOutlineLockClosed}
-                        register={register}
-                        Iid="password"
-                        type="password"
-                        validateRule={{
-                            required: "password can't be empty",
-                            minLength: {
-                                value: 6,
-                                message:
-                                    "password must be at least 6 characters",
-                            },
-                        }}
-                    />
-                    <p className=" text-orange-400 font-semibold flex justify-end">
-                        {errors.password?.message}
-                    </p>
-                </div>
-
-                <SubmitBTN isPending={loginIsPending}>Login</SubmitBTN>
-
-                {loginIsError && (
-                    <p className="text-red-700 mt-[-30px] font-bold">
-                        username or password incorrect
-                    </p>
-                )}
-            </form>
-        </LoginLayout>
+                <TabsList className="w-full grid grid-cols-2 gap-2 h-auto">
+                    <TabsTrigger value="login" className="text-lg">
+                        Login
+                    </TabsTrigger>
+                    <TabsTrigger value="register" className="text-lg">
+                        Register
+                    </TabsTrigger>
+                </TabsList>
+                <TabsContent value="login" className="w-full">
+                    <Card className="p-4 bg-muted shadow-md">
+                        <LoginComponent />
+                    </Card>
+                </TabsContent>
+                <TabsContent value="register" className="w-full">
+                    <Card className="p-4 bg-muted shadow-md">
+                        <RegisterComponent setTabValue={setTabValue} />
+                    </Card>
+                </TabsContent>
+            </Tabs>
+        </div>
     );
 };
 
