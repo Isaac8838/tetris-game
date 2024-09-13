@@ -207,6 +207,7 @@ const tetrisSlice = createSlice({
             state.tetrominoes = generateTetrominoesArr(state.tetrominoes);
         },
         reset(state) {
+            //new Game BTN時呼叫
             const temp_Tetrominoes = generateTetrominoesArr();
             state.board = buildBoard(10, 20);
             state.tetromino = {
@@ -216,6 +217,7 @@ const tetrisSlice = createSlice({
                 fastDorp: false,
             };
             state.tetrominoes = temp_Tetrominoes;
+            state.hold_tetromino = { isChanged: false, tetromino: null };
             state.stats = {
                 score: 0,
                 level: 1,

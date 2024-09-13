@@ -149,19 +149,3 @@ const rotate = (shape) => {
 
     return shape;
 };
-
-// export const findGhostPosition = (player, board) => {
-//     let ghostPosition = null;
-//     for (let i = 0; i < 20; i++) {
-//         // 尋找最下面掉落位置
-//         const { collideBottom, position } = MovePlayer(
-//             { x: 0, y: i },
-//             player.position,
-//             player.tetromino.shape,
-//             board,
-//         );
-//         if (collideBottom) break;
-//         ghostPosition = position;
-//     }
-//     return ghostPosition;
-// };

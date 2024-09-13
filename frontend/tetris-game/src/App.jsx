@@ -15,6 +15,8 @@ import Rank from "@/pages/Rank";
 import ListScore from "@/pages/ListScore";
 import Achievement from "@/pages/Achievement";
 import Room from "./pages/Room";
+import CreateRoom from "./pages/CreateRoom";
+import MultiplayerGame from "./pages/MultiplayerGame";
 
 export default function App() {
     const queryClient = new QueryClient();
@@ -36,6 +38,14 @@ export default function App() {
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/game" element={<Game />} />
                                 <Route path="/room" element={<Room />} />
+                                <Route
+                                    path="/createRoom"
+                                    element={<CreateRoom />}
+                                />
+                                <Route
+                                    path="/multiplayerGame"
+                                    element={<MultiplayerGame />}
+                                />
                                 <Route path="/rank" element={<Rank />} />
                                 <Route
                                     path="/listScore"

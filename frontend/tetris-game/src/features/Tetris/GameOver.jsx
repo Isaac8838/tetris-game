@@ -2,9 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import GameOverBTN from "./GameOverBTN";
 import { useEffect } from "react";
 import { handleSubmitRecord } from "./TetrisSlice";
+import { useReady } from "./useReady";
 
 const GameOver = () => {
     const { score, level, lines } = useSelector((state) => state.tetris.stats);
+
+    const { setReady } = useReady();
+
     const alreadySendRecord = useSelector(
         (state) => state.tetris.alreadySendRecord,
     );
@@ -12,23 +16,30 @@ const GameOver = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        setReady(false);
         if (!alreadySendRecord) {
             dispatch(handleSubmitRecord());
         }
-    }, [alreadySendRecord]);
+    }, [alreadySendRecord, dispatch, setReady]);
 
     return (
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center backdrop-blur-sm gap-4">
-            <div className=" text-3xl text-white font-semibold tracking-wider">
-                Game Over
-            </div>
-            <div className=" bg-indigo-800 border-4 border-violet-700 rounded-md px-4 py-4 text-white flex flex-col gap-5 items-center w-64">
-                <div className="flex flex-col gap-3">
-                    <p className="text-xl">SCORE: {score}</p>
-                    <p className="text-xl">LEVEL: {level}</p>
-                    <p className="text-xl">LINES: {lines}</p>
+        <div className="fixed left-0 top-0 flex h-full w-full items-center backdrop-blur-md">
+            <div className="mx-auto flex w-64 flex-col gap-8">
+                <div className="rounded-full bg-custom-red_bg px-10 py-4 text-3xl font-semibold tracking-wider text-custom-orange_text">
+                    Game Over
                 </div>
-                <ul className="flex flex-col gap-4 w-full">
+                <div className="flex flex-col items-center gap-3">
+                    <p className="text-2xl text-custom-white_text">
+                        SCORE: {score}
+                    </p>
+                    <p className="text-2xl text-custom-white_text">
+                        LEVEL: {level}
+                    </p>
+                    <p className="text-2xl text-custom-white_text">
+                        LINES: {lines}
+                    </p>
+                </div>
+                <ul className="flex w-full flex-col gap-4">
                     <li>
                         <GameOverBTN label="New Game" />
                     </li>

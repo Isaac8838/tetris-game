@@ -28,8 +28,8 @@ const ListScore = () => {
     };
 
     return (
-        <div className="w-[70%] h-full flex flex-col justify-center items-center m-auto">
-            <div className="self-end mb-4 flex gap-4">
+        <div className="m-auto flex h-full w-[70%] max-w-[900px] flex-col items-center justify-center">
+            <div className="mb-4 flex gap-4 self-end">
                 <label htmlFor="search" className="text-xl text-white">
                     Search Player
                 </label>
@@ -39,9 +39,10 @@ const ListScore = () => {
                     value={inputUsername}
                     onChange={(e) => setInputUsername(e.target.value)}
                     onBlur={handleBlur}
-                    className="outline-none px-2 text-lg rounded"
+                    className="rounded px-2 text-lg outline-none"
                 />
             </div>
+
             <Table cols="0.5fr 1.4fr 0.9fr 0.9fr 1.1fr">
                 <Table.Container>
                     <Table.Header
@@ -53,22 +54,30 @@ const ListScore = () => {
                             "record time",
                         ]}
                     />
-                    {isPending ? (
-                        <div className="mx-auto">
-                            <Spinner width={40} />
-                        </div>
-                    ) : (
-                        data?.map((item) => (
-                            <Table.ListScoreBody key={item.id} data={item} />
-                        ))
-                    )}
+                    <div className="flex flex-col gap-1 overflow-hidden rounded-2xl">
+                        {isPending ? (
+                            <div className="mx-auto">
+                                <Spinner width={40} />
+                            </div>
+                        ) : data?.length === 0 ? (
+                            <div className="bg-custom-purple_content py-4 text-center text-xl text-white">
+                                This Player Has No Data
+                            </div>
+                        ) : (
+                            data?.map((item) => (
+                                <Table.ListScoreBody
+                                    key={item.id}
+                                    data={item}
+                                />
+                            ))
+                        )}
+                    </div>
                 </Table.Container>
                 <Table.Footer
                     page={page}
                     setPage={setPage}
                     data_length={data?.length}
                 />
-                {/* <Table.JumpTable /> */}
             </Table>
         </div>
     );

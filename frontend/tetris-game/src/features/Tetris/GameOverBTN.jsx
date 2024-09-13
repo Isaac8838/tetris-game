@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { reset } from "./TetrisSlice";
 
 const className =
-    "block bg-sky-600 rounded-[3px] px-4 text-center cursor-pointer hover:bg-blue-700";
+    "block bg-custom-orange_bg rounded-full px-4 py-2 text-center text-xl text-custom-white_text cursor-pointer hover:bg-custom-red_bg";
 
 const GameOverBTN = ({ to, label }) => {
     const dispatch = useDispatch();

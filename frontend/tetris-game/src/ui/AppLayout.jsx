@@ -3,9 +3,9 @@ import Sidebar from "./Sidebar";
 
 const AppLayout = () => {
     return (
-        <div className="w-full flex h-auto justify-center relative">
+        <div className="relative flex h-auto w-full justify-center">
             <Sidebar />
-            <div className="w-[30rem] md:w-[70%] pt-24 h-full">
+            <div className="h-full w-full min-w-[1000px] pt-24">
                 <Outlet />
             </div>
         </div>

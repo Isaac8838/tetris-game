@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import BoardCell from "./BoardCell";
 import { buildBoard, transferToBoard } from "@/utils/Board";
+import { useReady } from "./useReady";
 
 const TetrisPreviews = () => {
     const tetrominoes = useSelector((state) => state.tetris.tetrominoes);
     return (
-        <div className="absolute top-[-4px] left-[110%] flex flex-col gap-5 max-h-[350px] h-[55%] aspect-[1/3.4]">
+        <div className="absolute left-[110%] top-0 flex aspect-[1/3.4] h-[55%] max-h-[350px] flex-col gap-5">
             <TetrisPreview tetromino={tetrominoes[3]} />
             <TetrisPreview tetromino={tetrominoes[2]} />
             <TetrisPreview tetromino={tetrominoes[1]} />
@@ -14,6 +15,8 @@ const TetrisPreviews = () => {
 };
 
 const TetrisPreview = ({ tetromino }) => {
+    const { ready } = useReady();
+
     let preview_board = buildBoard(4, 4);
     preview_board = transferToBoard({
         rows: preview_board.rows,
@@ -23,12 +26,16 @@ const TetrisPreview = ({ tetromino }) => {
     });
 
     return (
-        <div className="h-[33%] w-[80%] aspect-square border-4 border-violet-600 grid grid-cols-4 grid-rows-4 rounded-md box-content gap-[2px] bg-violet-950">
-            {preview_board.map((row, y) =>
-                row.map((cell, x) => (
-                    <BoardCell key={y * row.length + x} cell={cell}></BoardCell>
-                )),
-            )}
+        <div className="box-content grid aspect-square h-[33%] w-[80%] grid-cols-4 grid-rows-4 gap-[2px] overflow-hidden rounded-lg border-4 border-custom-purple_border bg-custom-purple_content">
+            {ready &&
+                preview_board.map((row, y) =>
+                    row.map((cell, x) => (
+                        <BoardCell
+                            key={y * row.length + x}
+                            cell={cell}
+                        ></BoardCell>
+                    )),
+                )}
         </div>
     );
 };
