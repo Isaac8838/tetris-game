@@ -1,5 +1,3 @@
-import seedrandom from "seedrandom";
-
 const TETROMINOES = {
     I: {
         shape: [
@@ -59,15 +57,24 @@ const TETROMINOES = {
     },
 };
 
-const rng = seedrandom();
+let tetromino_pool = [];
+
+// const rng = seedrandom();
 
 const randomTetromino = () => {
     const keys = Object.keys(TETROMINOES);
-    const index = Math.floor(rng() * keys.length);
-    return TETROMINOES[keys[index]];
+    // const index = Math.floor(rng() * keys.length);
+    return TETROMINOES[keys[tetromino_pool.pop()]];
 };
 
 export const generateTetrominoesArr = (preTetrominoes) => {
+    if (tetromino_pool.length === 0) {
+        tetromino_pool = [
+            ...generateTetrominoPool(),
+            ...generateTetrominoPool(),
+        ];
+    }
+
     //如果已經有Tetrominoes了
     if (preTetrominoes) {
         preTetrominoes.unshift(randomTetromino());
@@ -80,3 +87,16 @@ export const generateTetrominoesArr = (preTetrominoes) => {
         .map(() => randomTetromino());
     return tetrominoes;
 };
+
+function generateTetrominoPool() {
+    const numbers = Array.from({ length: 7 }, (_, index) => index); // 產生 [0, 1, 2, 3, 4, 5, 6]
+    return shuffle(numbers); // 隨機排列
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // 交換元素
+    }
+    return array;
+}

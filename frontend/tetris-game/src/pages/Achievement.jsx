@@ -5,61 +5,61 @@ import { listAchievementsAPI } from "@/utils/WebAPI";
 
 const achievements = {
     1: {
-        label: "SCORE 10達成",
+        label: "SCORE 10 ACHIEVE",
         component: CoperMedal,
         achieved_at: "",
         achieve: false,
     },
     2: {
-        label: "SCORE 100達成",
+        label: "SCORE 100 ACHIEVE",
         component: SliverMedal,
         achieved_at: "",
         achieve: false,
     },
     3: {
-        label: "SCORE 1000達成",
+        label: "SCORE 1000 ACHIEVE",
         component: GoldMedal,
         achieved_at: "",
         achieve: false,
     },
     4: {
-        label: "SCORE 10000達成",
+        label: "SCORE 10000 ACHIEVE",
         component: PlatinumMedal,
         achieved_at: "",
         achieve: false,
     },
     5: {
-        label: "SCORE 100000達成",
+        label: "SCORE 100000 ACHIEVE",
         component: DiamondMedal,
         achieved_at: "",
         achieve: false,
     },
     6: {
-        label: "LEVEL 5達成",
+        label: "LEVEL 5 ACHIEVE",
         component: CoperLevel,
         achieved_at: "",
         achieve: false,
     },
     7: {
-        label: "LEVEL 10達成",
+        label: "LEVEL 10 ACHIEVE",
         component: SliverLevel,
         achieved_at: "",
         achieve: false,
     },
     8: {
-        label: "LEVEL 15達成",
+        label: "LEVEL 15 ACHIEVE",
         component: GoldLevel,
         achieved_at: "",
         achieve: false,
     },
     9: {
-        label: "LEVEL 20達成",
+        label: "LEVEL 20 ACHIEVE",
         component: PlatinumLevel,
         achieved_at: "",
         achieve: false,
     },
     10: {
-        label: "LEVEL 25達成",
+        label: "LEVEL 25 ACHIEVE",
         component: DiamondLevel,
         achieved_at: "",
         achieve: false,
@@ -93,15 +93,15 @@ const Achievement = () => {
         }
     }
     return (
-        <div className=" w-[60%] max-w-[650px] h-[75%] max-h-[600px] m-auto overflow-auto border-4 border-violet-700 rounded-md bg-indigo-950 ">
-            <ul className="flex flex-col gap-4">
+        <div className="border-custom-blue_border bg-custom-blue_border m-auto h-[75%] max-h-[600px] w-[60%] max-w-[650px] overflow-auto rounded-3xl border-8">
+            <ul className="flex flex-col gap-1">
                 {Object.entries(achievements).map(([id, achievement]) => (
                     <li
                         key={id}
-                        className="flex items-center gap-14 px-10  py-5  relative  bg-violet-950"
+                        className="bg-custom-blue_bg relative flex items-center gap-14 px-10 py-5"
                     >
                         <div
-                            className="w-24 aspect-square"
+                            className="aspect-square w-24"
                             style={{
                                 filter:
                                     achievement.achieve || "grayscale(100%)",
@@ -110,13 +110,13 @@ const Achievement = () => {
                             <achievement.component />
                         </div>
                         <div
-                            className=" text-3xl text-white"
+                            className="text-3xl text-white"
                             style={{ color: !achievement.achieve && "gray" }}
                         >
                             {achievement.label}
                         </div>
                         {achievement.achieve && (
-                            <div className=" absolute right-4 bottom-1 text-stone-400 ">
+                            <div className="absolute bottom-1 right-4 text-stone-400">
                                 {achievement.achieved_at}
                             </div>
                         )}

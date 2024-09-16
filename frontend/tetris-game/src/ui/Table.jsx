@@ -1,7 +1,9 @@
 import { createContext, useContext, useState } from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
+import { FaLock, FaPlay } from "react-icons/fa";
+
 const TableContext = createContext();
-const Table = ({ children, cols, setPage }) => {
+const Table = ({ children, cols }) => {
     const [showJumpTable, setShowJumpTable] = useState(false);
 
     return (
@@ -14,7 +16,7 @@ const Table = ({ children, cols, setPage }) => {
 };
 const Container = ({ children }) => {
     return (
-        <div className="w-full max-h-[550px]  h-[68%] border-4 border-violet-700 rounded-lg flex flex-col gap-4 bg-purple-950 overflow-auto relative">
+        <div className="border-custom-blue_border bg-custom-blue_border relative flex h-[68%] max-h-[550px] w-full flex-col gap-4 overflow-auto rounded-2xl border-8">
             {children}
         </div>
     );
@@ -26,9 +28,9 @@ const Header = ({ titles }) => {
     };
 
     return (
-        <div className="grid py-8 bg-violet-950" style={style}>
+        <div className="bg-custom-blue_border grid py-8" style={style}>
             {titles.map((title, i) => (
-                <div key={i} className="text-center text-white text-2xl">
+                <div key={i} className="text-center text-2xl text-white">
                     {title}
                 </div>
             ))}
@@ -51,14 +53,14 @@ const RankBody = ({ data, rank }) => {
 
     return (
         <div
-            className="grid py-4 text-white bg-violet-900 text-xl"
+            className="bg-custom-blue_bg grid py-4 text-xl text-white"
             style={style}
         >
-            <div className="text-center py-2">#{rank}</div>
-            <div className="text-center py-2">{data.owner}</div>
-            <div className="text-center py-2">{data.score}</div>
-            <div className="text-center py-2">{data.level}</div>
-            <div className="text-center py-2">{formattedDate}</div>
+            <div className="py-2 text-center">#{rank}</div>
+            <div className="py-2 text-center">{data.owner}</div>
+            <div className="py-2 text-center">{data.score}</div>
+            <div className="py-2 text-center">{data.level}</div>
+            <div className="py-2 text-center">{formattedDate}</div>
         </div>
     );
 };
@@ -80,14 +82,38 @@ const ListScoreBody = ({ data }) => {
 
     return (
         <div
-            className="grid py-4 text-white bg-violet-900 text-xl"
+            className="bg-custom-blue_bg grid py-4 text-xl text-white"
             style={style}
         >
-            <div className="text-center py-2">#{data.id}</div>
-            <div className="text-center py-2">{data.owner}</div>
-            <div className="text-center py-2">{data.score}</div>
-            <div className="text-center py-2">{data.level}</div>
-            <div className="text-center py-2">{formattedDate}</div>
+            <div className="py-2 text-center">#{data.id}</div>
+            <div className="py-2 text-center">{data.owner}</div>
+            <div className="py-2 text-center">{data.score}</div>
+            <div className="py-2 text-center">{data.level}</div>
+            <div className="py-2 text-center">{formattedDate}</div>
+        </div>
+    );
+};
+
+const RoomBody = ({ room }) => {
+    const { cols } = useContext(TableContext);
+
+    const style = {
+        gridTemplateColumns: cols,
+    };
+
+    return (
+        <div
+            className="bg-custom-blue_bg grid items-center py-4 text-xl text-custom-white_text"
+            style={style}
+        >
+            <div className="flex justify-end">{room.hadKey && <FaLock />}</div>
+            {/* : <div></div>} */}
+            <div className="py-2 text-center">{room.roomId}</div>
+            <div className="py-2 text-center">{room.roomName}</div>
+            <div className="py-2 text-center">{room.host}</div>
+            <div className="flex justify-center">
+                <FaPlay />
+            </div>
         </div>
     );
 };
@@ -111,15 +137,15 @@ const Footer = ({ page, setPage, data_length }) => {
     };
 
     return (
-        <div className="mt-5 flex gap-9 items-center">
+        <div className="mt-5 flex items-center gap-9">
             <span disabled={page === 1} onClick={handlePre}>
-                <HiOutlineChevronLeft className=" text-white bg-black cursor-pointer text-3xl rounded" />
+                <HiOutlineChevronLeft className="aspect-square h-8 cursor-pointer rounded-full bg-black text-3xl text-white" />
             </span>
-            <div className=" text-3xl" onClick={handleJump}>
+            <div className="text-3xl" onClick={handleJump}>
                 {page}
             </div>
             <span onClick={handleNext}>
-                <HiOutlineChevronRight className=" text-white bg-black cursor-pointer text-3xl rounded" />
+                <HiOutlineChevronRight className="aspect-square h-8 cursor-pointer rounded-full bg-black text-3xl text-white" />
             </span>
         </div>
     );
@@ -142,6 +168,6 @@ Table.Header = Header;
 Table.RankBody = RankBody;
 Table.ListScoreBody = ListScoreBody;
 Table.Footer = Footer;
-// Table.JumpTable = JumpTable;
+Table.RoomBody = RoomBody;
 
 export default Table;

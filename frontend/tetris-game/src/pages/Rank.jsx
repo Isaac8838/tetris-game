@@ -15,11 +15,11 @@ const Rank = () => {
     });
 
     return (
-        <div className="w-[70%] max-w-[900px] h-full flex flex-col justify-center items-center m-auto">
-            <div className="self-end mb-4 flex gap-4 items-center text-xl">
-                <p className=" text-white">Rank By</p>
+        <div className="m-auto flex h-full w-[70%] max-w-[900px] flex-col items-center justify-center">
+            <div className="mb-4 flex items-center gap-4 self-end text-xl">
+                <p className="text-white">Rank By</p>
                 <select
-                    className="px-4 py-1 rounded"
+                    className="rounded px-4 py-1"
                     onChange={(e) => setSortBy(e.target.value)}
                     value={sortBy}
                 >
@@ -32,19 +32,25 @@ const Rank = () => {
                     <Table.Header
                         titles={["Rank", "Username", "Score", "Level", "Line"]}
                     />
-                    {isPending ? (
-                        <div className="mx-auto">
-                            <Spinner width={40} />
-                        </div>
-                    ) : (
-                        data?.map((item, index) => (
-                            <Table.RankBody
-                                key={item.id}
-                                data={item}
-                                rank={index + 1 + (page - 1) * 5}
-                            />
-                        ))
-                    )}
+                    <div className="flex flex-col gap-1 overflow-hidden rounded-2xl">
+                        {isPending ? (
+                            <div className="mx-auto">
+                                <Spinner width={40} />
+                            </div>
+                        ) : data?.length === 0 ? (
+                            <div className="bg-custom-purple_content py-4 text-center text-xl text-white">
+                                No data
+                            </div>
+                        ) : (
+                            data?.map((item, index) => (
+                                <Table.RankBody
+                                    key={item.id}
+                                    data={item}
+                                    rank={index + 1 + (page - 1) * 5}
+                                />
+                            ))
+                        )}
+                    </div>
                 </Table.Container>
                 <Table.Footer
                     page={page}

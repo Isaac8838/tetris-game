@@ -5,17 +5,21 @@ import Stats from "./Stats";
 import { useSelector } from "react-redux";
 import GameOver from "./GameOver";
 import TetrominoSave from "./TetrominoSave";
+import ReadyButton from "./ReadyButton";
+import { useReady } from "./useReady";
 
 const Tetris = () => {
-    const isGameOver = useSelector((state) => state.tetris.isGameOver);
+    const { isGameOver } = useSelector((state) => state.tetris);
+    const { ready } = useReady();
     return (
         <>
-            <div className="h-[80%] max-h-[650px] min-h-[480px] aspect-[1/2] m-auto border-4 border-violet-600 box-content rounded-md relative">
+            <div className="relative m-auto box-content aspect-[1/2] h-[650px]">
                 <Board />
                 <TetrisPreviews />
                 <TetrominoSave />
                 <Stats />
-                <Controller />
+                {!ready && <ReadyButton />}
+                {ready && <Controller />}
             </div>
             {isGameOver && <GameOver />}
         </>
