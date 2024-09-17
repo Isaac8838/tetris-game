@@ -1,4 +1,4 @@
-const TETROMINOES = {
+export const TETROMINOES = {
     I: {
         shape: [
             [1, 1, 1, 1],

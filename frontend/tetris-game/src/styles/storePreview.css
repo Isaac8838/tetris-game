@@ -1,0 +1,30 @@
+/* default */
+.default {
+    background-color: #ff3213;
+    position: relative;
+}
+
+/* envelope */
+.envelope {
+    background-color: #ff3213;
+    position: relative;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+/* round */
+.round {
+    background-color: #ff3213;
+    border: 3px solid #841e0e;
+    position: relative;
+}

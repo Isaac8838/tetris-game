@@ -17,6 +17,7 @@ import Achievement from "@/pages/Achievement";
 import Room from "./pages/Room";
 import CreateRoom from "./pages/CreateRoom";
 import MultiplayerGame from "./pages/MultiplayerGame";
+import TetrominoStore from "./pages/TetrominoStore";
 
 export default function App() {
     const queryClient = new QueryClient();
@@ -54,6 +55,10 @@ export default function App() {
                                 <Route
                                     path="/achievement"
                                     element={<Achievement />}
+                                />
+                                <Route
+                                    path="/store"
+                                    element={<TetrominoStore />}
                                 />
                             </Route>
                         </Route>

@@ -19,7 +19,7 @@ const Sidebar = () => {
     return (
         <>
             <HiOutlineMenu
-                className="text-white text-3xl block p-2 box-content bg-black rounded-full cursor-pointer fixed z-20 transition-all mr-6 top-6"
+                className="fixed top-6 z-20 mr-6 box-content block cursor-pointer rounded-full bg-black p-2 text-3xl text-white transition-all"
                 style={{ right: open ? "300px" : "0" }}
                 onClick={() => {
                     setOpen((prev) => !prev);
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
             {/* sidebar background */}
             <div
-                className="fixed h-full top-0 left-0 bg-black/40 transition-all"
+                className="fixed left-0 top-0 h-full bg-black/40 transition-all"
                 style={{
                     width: open ? "calc(100% - 300px)" : "100%",
                     opacity: open ? 1 : 0,
@@ -41,7 +41,7 @@ const Sidebar = () => {
 
             {/* sidebar */}
             <div
-                className="h-full bg-black/80 transition-all fixed z-10 top-0 right-0 divide flex gap-5 flex-col"
+                className="divide fixed right-0 top-0 z-10 flex h-full flex-col gap-5 bg-black/80 transition-all"
                 style={{
                     width: open ? "300px" : "0",
                     borderLeft: open ? "2px solid #817474" : "none",
@@ -49,55 +49,64 @@ const Sidebar = () => {
                     paddingRight: open ? "20px" : "0",
                 }}
             >
-                <div className="flex items-center gap-4 py-4 border-b-2">
+                <div className="flex items-center gap-4 border-b-2 py-4">
                     <span>
-                        <HiOutlineUserCircle className="text-white text-5xl" />
+                        <HiOutlineUserCircle className="text-5xl text-white" />
                     </span>
-                    <p className="text-white text-3xl">{username}</p>
+                    <p className="text-3xl text-white">{username}</p>
                 </div>
-                <div className=" pb-4 border-b-2">
-                    <ul className=" flex flex-col gap-5 items-start">
+                <div className="border-b-2 pb-4">
+                    <ul className="flex flex-col items-start gap-5">
                         {/* <li className="inline-flex gap-4 text-stone-400 hover:text-stone-100"> */}
                         <li onClick={() => setOpen(false)}>
                             <Link
                                 to="/home"
-                                className=" flex gap-4 text-stone-400 hover:text-stone-100 items-center"
+                                className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
                             >
-                                <GoHome className=" text-3xl" />
+                                <GoHome className="text-3xl" />
                                 <p className="text-2xl">Home</p>
                             </Link>
                         </li>
                         <li onClick={() => setOpen(false)}>
                             <Link
                                 to="/rank"
-                                className=" flex gap-4 text-stone-400 hover:text-stone-100 items-center"
+                                className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
                             >
-                                <HiOutlineChartBar className=" text-3xl" />
+                                <HiOutlineChartBar className="text-3xl" />
                                 <p className="text-2xl">Rank</p>
                             </Link>
                         </li>
                         <li onClick={() => setOpen(false)}>
                             <Link
                                 to="/listScore"
-                                className=" flex gap-4 text-stone-400 hover:text-stone-100 items-center"
+                                className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
                             >
-                                <HiOutlineNewspaper className=" text-3xl" />
+                                <HiOutlineNewspaper className="text-3xl" />
                                 <p className="text-2xl">List Score</p>
                             </Link>
                         </li>
                         <li onClick={() => setOpen(false)}>
                             <Link
                                 to="/achievement"
-                                className=" flex gap-4 text-stone-400 hover:text-stone-100 items-center"
+                                className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
                             >
-                                <PiMedalThin className=" text-3xl" />
+                                <PiMedalThin className="text-3xl" />
                                 <p className="text-2xl">Achievement</p>
+                            </Link>
+                        </li>
+                        <li onClick={() => setOpen(false)}>
+                            <Link
+                                to="/store"
+                                className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
+                            >
+                                <PiMedalThin className="text-3xl" />
+                                <p className="text-2xl">Store</p>
                             </Link>
                         </li>
                     </ul>
                 </div>
                 <div
-                    className=" text-stone-500 cursor-pointer text-2xl hover:text-stone-100"
+                    className="cursor-pointer text-2xl text-stone-500 hover:text-stone-100"
                     onClick={() => dispatch(clearUser())}
                 >
                     Sign out
