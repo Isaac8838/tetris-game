@@ -1,0 +1,166 @@
+.tetromino {
+    width: 100%;
+    height: 100%;
+    border-radius: 1px;
+}
+
+/* J */
+.tetrominoJ {
+    background-color: #0341ae;
+    position: relative;
+}
+
+.tetrominoJ::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoJ_ghost {
+    background-color: #0341ae;
+    opacity: 0.2;
+}
+
+/* L */
+.tetrominoL {
+    background-color: #ff9717;
+    position: relative;
+}
+
+.tetrominoL::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoL_ghost {
+    background-color: #ff9717;
+    opacity: 0.2;
+}
+
+/* Z */
+.tetrominoZ {
+    background-color: #ff3213;
+    position: relative;
+}
+
+.tetrominoZ::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoZ_ghost {
+    background-color: #ff3213;
+    opacity: 0.2;
+}
+
+/* I */
+.tetrominoI {
+    background-color: rgb(0, 238, 255);
+    position: relative;
+}
+
+.tetrominoI::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoI_ghost {
+    background-color: rgb(0, 238, 255);
+    opacity: 0.2;
+}
+
+/* S */
+.tetrominoS {
+    background-color: #72cb3b;
+    position: relative;
+}
+
+.tetrominoS::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoS_ghost {
+    background-color: #72cb3b;
+    opacity: 0.2;
+}
+
+/* T */
+.tetrominoT {
+    background-color: #82007b;
+    position: relative;
+}
+
+.tetrominoT::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoT_ghost {
+    background-color: #82007b;
+    opacity: 0.2;
+}
+
+/* O */
+.tetrominoO {
+    background-color: #ffd500;
+    position: relative;
+}
+
+.tetrominoO::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, white 45%),
+        linear-gradient(-45deg, transparent 45%, white 45%) top right;
+    background-size: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+.tetrominoO_ghost {
+    background-color: #ffd500;
+    opacity: 0.2;
+}

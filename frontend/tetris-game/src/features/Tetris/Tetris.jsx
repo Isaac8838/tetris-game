@@ -11,6 +11,7 @@ import { useReady } from "./useReady";
 const Tetris = () => {
     const { isGameOver } = useSelector((state) => state.tetris);
     const { ready } = useReady();
+
     return (
         <>
             <div className="relative m-auto box-content aspect-[1/2] h-[650px]">

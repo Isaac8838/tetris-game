@@ -26,6 +26,8 @@ const Carousel = React.forwardRef(
             plugins,
             className,
             children,
+            slidesToScroll = 1,
+            watchDrag = false,
             ...props
         },
         ref,
@@ -34,6 +36,8 @@ const Carousel = React.forwardRef(
             {
                 ...opts,
                 axis: orientation === "horizontal" ? "x" : "y",
+                slidesToScroll,
+                watchDrag,
             },
             plugins,
         );
@@ -171,7 +175,7 @@ const CarouselPrevious = React.forwardRef(
                 variant={variant}
                 size={size}
                 className={cn(
-                    "absolute  h-8 w-8 rounded-full",
+                    "absolute h-8 w-8 rounded-full",
                     orientation === "horizontal"
                         ? "-left-12 top-1/2 -translate-y-1/2"
                         : "-top-12 left-1/2 -translate-x-1/2 rotate-90",

@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require("tailwindcss/plugin");
+
 export default {
     darkMode: ["class"],
     content: [
@@ -64,9 +67,29 @@ export default {
                     red_bg: "#CD113B",
                     blue_border: "#1259DF",
                     blue_bg: "#141C62",
+                    green_bg: "#1ABA50",
                 },
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [
+        require("tailwindcss-animate"),
+        plugin(function ({ addUtilities }) {
+            const newUtilities = {
+                ".text-shadow-sm": {
+                    "text-shadow": "1px 1px 2px rgba(0, 0, 0, 0.5)",
+                },
+                ".text-shadow": {
+                    "text-shadow": "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                },
+                ".text-shadow-lg": {
+                    "text-shadow": "3px 3px 6px rgba(0, 0, 0, 0.5)",
+                },
+                ".text-shadow-none": {
+                    "text-shadow": "none",
+                },
+            };
+            addUtilities(newUtilities);
+        }),
+    ],
 };

@@ -12,6 +12,7 @@ const userSlice = createSlice({
             localStorage.getItem("refresh_token_expires_at") || "",
         isAuthenticated:
             localStorage.getItem("isAuthenticated") === "true" || false,
+        skin: "default",
     },
     reducers: {
         setUser: (state, action) => {
@@ -71,8 +72,11 @@ const userSlice = createSlice({
                 action.payload.refresh_token_expires_at,
             );
         },
+        changeSkin: (state, action) => {
+            state.skin = action.payload;
+        },
     },
 });
 
-export const { setUser, clearUser, setToken } = userSlice.actions;
+export const { setUser, clearUser, setToken, changeSkin } = userSlice.actions;
 export default userSlice.reducer;

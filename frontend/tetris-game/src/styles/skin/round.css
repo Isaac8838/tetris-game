@@ -3,8 +3,12 @@
     height: 100%;
     border-radius: 1px;
 }
+
+/* J */
 .tetrominoJ {
     background-color: #0341ae;
+    border: 3px solid #093073;
+    position: relative;
 }
 
 .tetrominoJ_ghost {
@@ -12,49 +16,73 @@
     opacity: 0.2;
 }
 
+/* L */
 .tetrominoL {
     background-color: #ff9717;
+    border: 3px solid #b16a14;
+    position: relative;
 }
+
 .tetrominoL_ghost {
     background-color: #ff9717;
     opacity: 0.2;
 }
 
+/* Z */
 .tetrominoZ {
     background-color: #ff3213;
+    border: 3px solid #841e0e;
+    position: relative;
 }
+
 .tetrominoZ_ghost {
     background-color: #ff3213;
     opacity: 0.2;
 }
 
+/* I */
 .tetrominoI {
-    background-color: rgb(0, 238, 255);
+    background-color: #00eeff;
+    border: 3px solid #008b94;
+    position: relative;
 }
+
 .tetrominoI_ghost {
-    background-color: rgb(0, 238, 255);
+    background-color: #00eeff;
     opacity: 0.2;
 }
 
+/* S */
 .tetrominoS {
     background-color: #72cb3b;
+    border: 3px solid #457c24;
+    position: relative;
 }
+
 .tetrominoS_ghost {
     background-color: #72cb3b;
     opacity: 0.2;
 }
 
+/* T */
 .tetrominoT {
     background-color: #82007b;
+    border: 3px solid #590054;
+    position: relative;
 }
+
 .tetrominoT_ghost {
     background-color: #82007b;
     opacity: 0.2;
 }
 
+/* O */
 .tetrominoO {
     background-color: #ffd500;
+    border: 3px solid #a88c00;
+    position: relative;
 }
+
 .tetrominoO_ghost {
     background-color: #ffd500;
     opacity: 0.2;
