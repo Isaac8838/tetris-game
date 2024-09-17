@@ -6,3 +6,10 @@ MultipleyerGame 重做
 Ready狀態要和Server連線
 紀錄不該傳送到Server
 GameOver要改成贏了或輸了
+
+<!-- document -->
+
+API
+user現在套用哪個skin
+user買了哪些skin
+新增skin
