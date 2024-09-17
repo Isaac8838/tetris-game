@@ -1,56 +1,56 @@
-name: Build and Push Docker Image
+# name: Build and Push Docker Image
 
-on:
-  push:
-    branches:
-      - main  
+# on:
+#   push:
+#     branches:
+#       - main  
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
 
-    - id: auth
-      uses: google-github-actions/auth@v2
-      with:
-        credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+#     - id: auth
+#       uses: google-github-actions/auth@v2
+#       with:
+#         credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
+#     - name: Set up Cloud SDK
+#       uses: google-github-actions/setup-gcloud@v2
     
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2
-      with:
-        cluster_name: ${{ secrets.GKE_NAME }}
-        location: us-central1
+#     - name: Set up GKE credentials
+#       uses: google-github-actions/get-gke-credentials@v2
+#       with:
+#         cluster_name: ${{ secrets.GKE_NAME }}
+#         location: us-central1
 
-    - name: Use gcloud CLI
-      run: "gcloud info"
+#     - name: Use gcloud CLI
+#       run: "gcloud info"
 
-    - name: Configure Docker for Artifact Registry
-      run: |
-        gcloud --quiet auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
+#     - name: Configure Docker for Artifact Registry
+#       run: |
+#         gcloud --quiet auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
 
-    - name: Build Docker image
-      env: 
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:latest ./backend
-        docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:latest ./frontend
+#     - name: Build Docker image
+#       env: 
+#         IMAGE_TAG: ${{ github.sha }}
+#       run: |
+#         docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend:latest ./backend
+#         docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:$IMAGE_TAG -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend:latest ./frontend
 
-    - name: Push Docker image to Artifact Registry
-      run: |
-        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend
-        docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend
+#     - name: Push Docker image to Artifact Registry
+#       run: |
+#         docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-backend
+#         docker push -a ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_NAME }}/tetris-game-frontend
     
-    - name: Depoly
-      run: |
-        kubectl apply -f k8s/config.yml
-        kubectl apply -f k8s/postgres-secrets.yml
-        kubectl apply -f k8s/postgres-deployment.yml
-        kubectl apply -f k8s/backend-deployment.yml
-        kubectl apply -f k8s/frontend-deployment.yml
-        kubectl apply -f k8s/ingress.yml
+#     - name: Depoly
+#       run: |
+#         kubectl apply -f k8s/config.yml
+#         kubectl apply -f k8s/postgres-secrets.yml
+#         kubectl apply -f k8s/postgres-deployment.yml
+#         kubectl apply -f k8s/backend-deployment.yml
+#         kubectl apply -f k8s/frontend-deployment.yml
+#         kubectl apply -f k8s/ingress.yml
