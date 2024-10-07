@@ -1,0 +1,11 @@
+name: multiplayer-server
+services:
+  websocket-server:
+    build:
+      context: .
+      dockerfile: dockerfile-dev
+    ports:
+      - 8081:8081
+    tty: true
+    volumes:
+      - ./:/app
