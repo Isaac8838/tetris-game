@@ -139,6 +139,10 @@ type joinRoomRequest struct {
 	RoomId int64  `json:"room_id"`
 }
 
+type joinRoomResponse struct {
+	Ready string `json:"ready"`
+}
+
 func (s *Server) joinRoom(w http.ResponseWriter, r *http.Request) {
 	conn, err := s.upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -168,6 +172,16 @@ func (s *Server) joinRoom(w http.ResponseWriter, r *http.Request) {
 
 		client := createClient(req.Player, conn, room, s.hub)
 		client.room.register <- client
+
+		res := joinRoomResponse{
+			Ready: "OK",
+		}
+		err = conn.WriteJSON(res)
+		if err != nil {
+			log.Printf("Failed to write ready response: %v", err)
+			conn.Close()
+			return
+		}
 
 		go client.readPump()
 		go client.writePump()

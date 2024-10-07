@@ -58,6 +58,11 @@ func TestJoinRoom(t *testing.T) {
 				err = clientConn.WriteJSON(req)
 				require.NoError(t, err)
 
+				var res joinRoomResponse
+				err = clientConn.ReadJSON(&res)
+				require.NoError(t, err)
+				require.Equal(t, "OK", res.Ready)
+
 				time.Sleep(1 * time.Second)
 				for i := 0; i < 2; i++ {
 					room.broadcast <- data[0]
