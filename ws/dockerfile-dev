@@ -1,0 +1,13 @@
+FROM golang:1.22.2-bookworm
+
+WORKDIR /app
+
+RUN <<EOF
+go mod init github.com/isaac8838/tetris-game-multiplayer
+go install go.uber.org/mock/mockgen@latest
+go get github.com/gorilla/websocket
+EOF
+
+COPY . /app
+
+EXPOSE 8081
