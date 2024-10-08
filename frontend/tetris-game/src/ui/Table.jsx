@@ -106,13 +106,9 @@ const RoomBody = ({ room }) => {
             className="grid items-center bg-custom-blue_bg py-4 text-xl text-custom-white_text"
             style={style}
         >
-            {/* <div className="flex justify-end">{room.hadKey && <FaLock />}</div> */}
-            <div className="py-2 text-center">{room.roomId}</div>
-            <div className="py-2 text-center">{room.roomName}</div>
-            <div className="py-2 text-center">{room.host}</div>
-            {/* <div className="flex justify-center">
-                <FaPlay />
-            </div> */}
+            <div className="py-2 text-center">{room.id}</div>
+            <div className="py-2 text-center">{room.room_name}</div>
+            <div className="py-2 text-center">{room.owner}</div>
         </div>
     );
 };
@@ -149,18 +145,6 @@ const Footer = ({ page, setPage, data_length }) => {
         </div>
     );
 };
-
-// const JumpTable = () => {
-//     const { showJumpTable } = useContext(TableContext);
-//     console.log(showJumpTable);
-//     if (!showJumpTable) return;
-
-//     return (
-//         <div className="  absolute w-full h-full flex items-center justify-center">
-//             <div></div>
-//         </div>
-//     );
-// };
 
 Table.Container = Container;
 Table.Header = Header;

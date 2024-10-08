@@ -8,7 +8,7 @@ const SelectAction = () => {
         <ul className="flex h-full flex-col justify-between pt-6">
             <div className="flex flex-col gap-4">
                 <HomeLink to="/room">Join Room</HomeLink>
-                <HomeLink to="/createRoom">Create Room</HomeLink>
+                <HomeLink to="/host">Create Room</HomeLink>
             </div>
             <HomeLink onClick={() => scrollPrev()}>Back</HomeLink>
         </ul>

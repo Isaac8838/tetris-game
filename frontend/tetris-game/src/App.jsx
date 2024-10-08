@@ -15,9 +15,10 @@ import Rank from "@/pages/Rank";
 import ListScore from "@/pages/ListScore";
 import Achievement from "@/pages/Achievement";
 import Room from "./pages/Room";
-import CreateRoom from "./pages/CreateRoom";
-import MultiplayerGame from "./pages/MultiplayerGame";
+// import CreateRoom from "./pages/MultipleyerHost";
+// import MultiplayerGame from "./features/Multiplayer/MultiplayerGame";
 import TetrominoStore from "./pages/TetrominoStore";
+import MultipleyerHost from "./pages/MultipleyerHost";
 
 export default function App() {
     const queryClient = new QueryClient();
@@ -40,13 +41,13 @@ export default function App() {
                                 <Route path="/game" element={<Game />} />
                                 <Route path="/room" element={<Room />} />
                                 <Route
-                                    path="/createRoom"
-                                    element={<CreateRoom />}
+                                    path="/host"
+                                    element={<MultipleyerHost />}
                                 />
-                                <Route
+                                {/* <Route
                                     path="/multiplayerGame"
                                     element={<MultiplayerGame />}
-                                />
+                                /> */}
                                 <Route path="/rank" element={<Rank />} />
                                 <Route
                                     path="/listScore"
