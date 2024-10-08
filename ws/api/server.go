@@ -45,7 +45,7 @@ func (s *Server) Start() error {
 func NewUpgrader(config utils.Config) websocket.Upgrader {
 	return websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool {
-			allowOrigins := []string{config.AccessOrigin}
+			allowOrigins := []string{"http://localhost:3001", config.AccessOrigin}
 			origin := r.Header.Get("Origin")
 			for _, allowOrigin := range allowOrigins {
 				if origin == allowOrigin {
