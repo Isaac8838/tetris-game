@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-import { FaLock, FaPlay } from "react-icons/fa";
+// import { FaLock, FaPlay } from "react-icons/fa";
 
 const TableContext = createContext();
 const Table = ({ children, cols }) => {
@@ -16,7 +16,7 @@ const Table = ({ children, cols }) => {
 };
 const Container = ({ children }) => {
     return (
-        <div className="border-custom-blue_border bg-custom-blue_border relative flex h-[68%] max-h-[550px] w-full flex-col gap-4 overflow-auto rounded-2xl border-8">
+        <div className="relative flex h-[68%] max-h-[550px] w-full flex-col gap-4 overflow-auto rounded-2xl border-8 border-custom-blue_border bg-custom-blue_border">
             {children}
         </div>
     );
@@ -28,7 +28,7 @@ const Header = ({ titles }) => {
     };
 
     return (
-        <div className="bg-custom-blue_border grid py-8" style={style}>
+        <div className="grid bg-custom-blue_border py-8" style={style}>
             {titles.map((title, i) => (
                 <div key={i} className="text-center text-2xl text-white">
                     {title}
@@ -53,7 +53,7 @@ const RankBody = ({ data, rank }) => {
 
     return (
         <div
-            className="bg-custom-blue_bg grid py-4 text-xl text-white"
+            className="grid bg-custom-blue_bg py-4 text-xl text-white"
             style={style}
         >
             <div className="py-2 text-center">#{rank}</div>
@@ -73,7 +73,7 @@ const ListScoreBody = ({ data }) => {
     };
     const date = new Date(data.created_at);
 
-    // // 提取月份（0-11，所以需要加1）和日期
+    // 提取月份（0-11，所以需要加1）和日期
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -82,7 +82,7 @@ const ListScoreBody = ({ data }) => {
 
     return (
         <div
-            className="bg-custom-blue_bg grid py-4 text-xl text-white"
+            className="grid bg-custom-blue_bg py-4 text-xl text-white"
             style={style}
         >
             <div className="py-2 text-center">#{data.id}</div>
@@ -103,17 +103,12 @@ const RoomBody = ({ room }) => {
 
     return (
         <div
-            className="bg-custom-blue_bg grid items-center py-4 text-xl text-custom-white_text"
+            className="grid items-center bg-custom-blue_bg py-4 text-xl text-custom-white_text"
             style={style}
         >
-            <div className="flex justify-end">{room.hadKey && <FaLock />}</div>
-            {/* : <div></div>} */}
-            <div className="py-2 text-center">{room.roomId}</div>
-            <div className="py-2 text-center">{room.roomName}</div>
-            <div className="py-2 text-center">{room.host}</div>
-            <div className="flex justify-center">
-                <FaPlay />
-            </div>
+            <div className="py-2 text-center">{room.id}</div>
+            <div className="py-2 text-center">{room.room_name}</div>
+            <div className="py-2 text-center">{room.owner}</div>
         </div>
     );
 };
@@ -150,18 +145,6 @@ const Footer = ({ page, setPage, data_length }) => {
         </div>
     );
 };
-
-// const JumpTable = () => {
-//     const { showJumpTable } = useContext(TableContext);
-//     console.log(showJumpTable);
-//     if (!showJumpTable) return;
-
-//     return (
-//         <div className="  absolute w-full h-full flex items-center justify-center">
-//             <div></div>
-//         </div>
-//     );
-// };
 
 Table.Container = Container;
 Table.Header = Header;
