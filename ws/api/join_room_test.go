@@ -43,7 +43,7 @@ func TestJoinRoom(t *testing.T) {
 				room := createRoom(1, "1")
 				client := createClient("1", nil, room, s.hub)
 				go room.run()
-				room.register <- client
+				room.registerOwner <- client
 				s.hub.register <- room
 
 				time.Sleep(1 * time.Second)
