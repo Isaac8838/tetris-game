@@ -63,7 +63,7 @@ func TestCreateRoom(t *testing.T) {
 				room, ok := s.hub.rooms[res.RoomId]
 				require.True(t, ok)
 				client := createClient("2", nil, room, s.hub)
-				client.room.register <- client
+				client.room.registerPlayer <- client
 
 				for k := 0; k < 2; k++ {
 					err = clientConn.WriteJSON(data[0])
@@ -185,7 +185,7 @@ func TestCreateRoom(t *testing.T) {
 				require.True(t, ok)
 
 				client := createClient("2", nil, room, s.hub)
-				room.register <- client
+				room.registerPlayer <- client
 				err = clientConn.WriteJSON(data[0])
 				require.NoError(t, err)
 				client.room.broadcast <- data[1]
