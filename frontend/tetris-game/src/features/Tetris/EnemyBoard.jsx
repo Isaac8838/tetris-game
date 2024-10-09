@@ -11,15 +11,17 @@ const EnemyBoard = () => {
     };
 
     return (
-        <div
-            className="grid h-full gap-[2px] overflow-hidden rounded-2xl border-4 border-custom-purple_border bg-custom-purple_content"
-            style={boardStyle}
-        >
-            {board.rows.map((columns, y) =>
-                columns.map((cell, x) => (
-                    <BoardCell key={`${y}-${x}`} cell={cell}></BoardCell>
-                )),
-            )}
+        <div className="relative m-auto box-content aspect-[1/2] h-[650px]">
+            <div
+                className="grid h-full gap-[2px] overflow-hidden rounded-2xl border-4 border-custom-purple_border bg-custom-purple_content"
+                style={boardStyle}
+            >
+                {board.rows.map((columns, y) =>
+                    columns.map((cell, x) => (
+                        <BoardCell key={`${y}-${x}`} cell={cell}></BoardCell>
+                    )),
+                )}
+            </div>
         </div>
     );
 };

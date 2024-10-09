@@ -1,11 +1,14 @@
 import CreateRoom from "@/features/Multiplayer/CreateRoom";
 import MultiplayerGame from "@/features/Multiplayer/MultiplayerGame";
-import useMultiplayerData from "@/features/Multiplayer/useMultiplayerData";
+import useGameRoomSocket from "@/features/Multiplayer/useGameRoomSocket";
+import MultiplayerDataProvider from "@/features/Multiplayer/useMultiplayerDataContext";
 
 const socketUrl = "ws://localhost:8081/create_room";
 
 const MultipleyerHost = () => {
-    const { room_id, sendMessage } = useMultiplayerData({ socketUrl });
+    const { room_id, sendMessage, recceivedData } = useGameRoomSocket({
+        socketUrl,
+    });
     return (
         <div>
             {
@@ -13,7 +16,9 @@ const MultipleyerHost = () => {
                 !room_id ? (
                     <CreateRoom sendMessage={sendMessage} />
                 ) : (
-                    <MultiplayerGame />
+                    <MultiplayerDataProvider receiveData={recceivedData}>
+                        <MultiplayerGame />
+                    </MultiplayerDataProvider>
                 )
             }
         </div>

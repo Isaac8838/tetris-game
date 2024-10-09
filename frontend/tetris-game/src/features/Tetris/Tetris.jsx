@@ -16,6 +16,7 @@ const Tetris = () => {
         <>
             <div className="relative m-auto box-content aspect-[1/2] h-[650px]">
                 <Board />
+
                 <TetrisPreviews />
                 <TetrominoSave />
                 <Stats />
