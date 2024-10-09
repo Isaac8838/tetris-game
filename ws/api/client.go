@@ -113,7 +113,10 @@ func (s *Server) createRoom(w http.ResponseWriter, r *http.Request) {
 		room := createRoom(id, req.RoomName)
 		client := createClient(req.Player, conn, room, s.hub)
 		go room.run()
+		client.hub.register <- room
 		room.registerOwner <- client
+
+		time.Sleep(1 * time.Second)
 
 		err = conn.WriteJSON(createRoomResponse{
 			RoomId: id,
@@ -126,8 +129,6 @@ func (s *Server) createRoom(w http.ResponseWriter, r *http.Request) {
 			conn.Close()
 			return
 		}
-
-		client.hub.register <- room
 
 		log.Printf("Client %s has created room %s", client.name, room.name)
 
@@ -174,6 +175,8 @@ func (s *Server) joinRoom(w http.ResponseWriter, r *http.Request) {
 
 		client := createClient(req.Player, conn, room, s.hub)
 		client.room.registerPlayer <- client
+
+		time.Sleep(1 * time.Second)
 
 		res := joinRoomResponse{
 			Ready: "OK",
