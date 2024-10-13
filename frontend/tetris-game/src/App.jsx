@@ -18,7 +18,8 @@ import Room from "./pages/Room";
 // import CreateRoom from "./pages/MultipleyerHost";
 // import MultiplayerGame from "./features/Multiplayer/MultiplayerGame";
 import TetrominoStore from "./pages/TetrominoStore";
-import MultipleyerHost from "./pages/MultipleyerHost";
+import MultiplayerHost from "./pages/MultiplayerHost";
+import MultiplayerClient from "./pages/MultiplayerClient";
 
 export default function App() {
     const queryClient = new QueryClient();
@@ -42,13 +43,18 @@ export default function App() {
                                 <Route path="/room" element={<Room />} />
                                 <Route
                                     path="/host"
-                                    element={<MultipleyerHost />}
+                                    element={<MultiplayerHost />}
+                                />
+                                <Route
+                                    path="/join/:room_id"
+                                    element={<MultiplayerClient />}
                                 />
                                 {/* <Route
                                     path="/multiplayerGame"
                                     element={<MultiplayerGame />}
                                 /> */}
                                 <Route path="/rank" element={<Rank />} />
+
                                 <Route
                                     path="/listScore"
                                     element={<ListScore />}

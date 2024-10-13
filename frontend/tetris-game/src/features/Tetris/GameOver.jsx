@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import GameOverBTN from "./GameOverBTN";
 import { useEffect } from "react";
-import { handleSubmitRecord } from "./TetrisSlice";
-import { useReady } from "./useReady";
+import { handleSubmitRecord, setGameState } from "./TetrisSlice";
 
 const GameOver = () => {
     const { score, level, lines } = useSelector((state) => state.tetris.stats);
 
-    const { setReady } = useReady();
+    // const { gameReadyHandler } = useReady();
 
     const alreadySendRecord = useSelector(
         (state) => state.tetris.alreadySendRecord,
@@ -16,11 +15,11 @@ const GameOver = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setReady(false);
+        dispatch(setGameState(0));
         if (!alreadySendRecord) {
             dispatch(handleSubmitRecord());
         }
-    }, [alreadySendRecord, dispatch, setReady]);
+    }, [alreadySendRecord, dispatch]);
 
     return (
         <div className="fixed left-0 top-0 flex h-full w-full items-center backdrop-blur-md">

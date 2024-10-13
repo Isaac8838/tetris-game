@@ -1,24 +1,12 @@
-import EnemyBoard from "@/features/Tetris/EnemyBoard";
-import Tetris from "@/features/Tetris/Tetris";
-import { ReadyProvider } from "@/features/Tetris/useReady";
-import { useMultiplayerDataContext } from "./useMultiplayerDataContext";
+import P1Tetris from "./P1Tetris";
+import P2Tetris from "./P2Tetris";
 
 const MultiplayerGame = () => {
-    const { receiveData } = useMultiplayerDataContext();
-    console.log("收到", receiveData);
     return (
-        <ReadyProvider>
-            <div className="m-auto grid h-[650px] w-[1200px] grid-cols-[1.5fr_0.7fr] gap-36">
-                <div>
-                    <Tetris />
-                    <div className="flex justify-center">aaa</div>
-                </div>
-                <div>
-                    <EnemyBoard />
-                    <div className="flex justify-center">aaa</div>
-                </div>
-            </div>
-        </ReadyProvider>
+        <div className="m-auto grid h-[650px] w-[1200px] grid-cols-[1.5fr_0.7fr] gap-36">
+            <P1Tetris />
+            <P2Tetris />
+        </div>
     );
 };
 

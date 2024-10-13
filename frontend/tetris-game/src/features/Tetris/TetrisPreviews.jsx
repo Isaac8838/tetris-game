@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import BoardCell from "./BoardCell";
 import { buildBoard, transferToBoard } from "@/utils/Board";
-import { useReady } from "./useReady";
 
 const TetrisPreviews = () => {
     const tetrominoes = useSelector((state) => state.tetris.tetrominoes);
@@ -15,7 +14,8 @@ const TetrisPreviews = () => {
 };
 
 const TetrisPreview = ({ tetromino }) => {
-    const { ready } = useReady();
+    // const { ready } = useReady();
+    const { gameState } = useSelector((state) => state.tetris);
 
     let preview_board = buildBoard(4, 4);
     preview_board = transferToBoard({
@@ -27,7 +27,7 @@ const TetrisPreview = ({ tetromino }) => {
 
     return (
         <div className="box-content grid aspect-square h-[33%] w-[80%] grid-cols-4 grid-rows-4 gap-[2px] overflow-hidden rounded-lg border-4 border-custom-purple_border bg-custom-purple_content">
-            {ready &&
+            {gameState >= 1 &&
                 preview_board.map((row, y) =>
                     row.map((cell, x) => (
                         <BoardCell

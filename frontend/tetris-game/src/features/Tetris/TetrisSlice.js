@@ -22,6 +22,8 @@ const initialState = {
         level: 1,
         lines: 0,
     },
+    playerReady: false,
+    gameState: 0,
     isGameOver: false,
     alreadySendRecord: false,
 };
@@ -229,7 +231,14 @@ const tetrisSlice = createSlice({
         setHoldTetromino(state, action) {
             state.hold_tetromino = action.payload;
         },
+        setPlayerReady(state, action) {
+            state.playerReady = action.payload;
+        },
+        setGameState(state, action) {
+            state.gameState = action.payload;
+        },
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(handleKeyPress.fulfilled, () => {})
@@ -248,6 +257,8 @@ export const {
     setBoard,
     reset,
     setHoldTetromino,
+    setPlayerReady,
+    setGameState,
 } = tetrisSlice.actions;
 
 export default tetrisSlice.reducer;

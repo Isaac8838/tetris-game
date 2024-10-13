@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import BoardCell from "./BoardCell";
 import { useEffect } from "react";
-import { updateBoard } from "./TetrisSlice";
+import { updateBoard } from "../Tetris/TetrisSlice";
+import BoardCell from "../Tetris/BoardCell";
 
-const Board = () => {
+const Player1Board = () => {
     const { board, tetromino } = useSelector((state) => state.tetris);
 
+    // const { gameReady } = useReady();
     const { gameState } = useSelector((state) => state.tetris);
 
     const boardStyle = {
@@ -34,4 +35,4 @@ const Board = () => {
     );
 };
 
-export default Board;
+export default Player1Board;
