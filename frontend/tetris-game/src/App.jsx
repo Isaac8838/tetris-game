@@ -15,8 +15,6 @@ import Rank from "@/pages/Rank";
 import ListScore from "@/pages/ListScore";
 import Achievement from "@/pages/Achievement";
 import Room from "./pages/Room";
-// import CreateRoom from "./pages/MultipleyerHost";
-// import MultiplayerGame from "./features/Multiplayer/MultiplayerGame";
 import TetrominoStore from "./pages/TetrominoStore";
 import MultiplayerHost from "./pages/MultiplayerHost";
 import MultiplayerClient from "./pages/MultiplayerClient";

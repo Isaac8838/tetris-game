@@ -4,9 +4,11 @@ import TetrisPreviews from "../Tetris/TetrisPreviews";
 import TetrominoSave from "../Tetris/TetrominoSave";
 import MultuplayerReadyBTN from "./MultuplayerReadyBTN";
 import Player1Board from "./Player1Board";
+import Controller from "../Tetris/Controller";
 
 const P1Tetris = () => {
     const { username } = useSelector((state) => state.user);
+    const { gameState } = useSelector((state) => state.tetris);
 
     return (
         <>
@@ -15,13 +17,9 @@ const P1Tetris = () => {
                 <TetrisPreviews />
                 <TetrominoSave />
                 <Stats />
-                {/* {ready && <Controller />} */}
-                {/* {p1Ready && !gameReady ? (
-                    <GameReadyState />
-                ) : (
-                    <MultuplayerReadyBTN />
-                )} */}
-                <MultuplayerReadyBTN />
+
+                {gameState === 0 && <MultuplayerReadyBTN />}
+                {gameState === 1 && <Controller />}
                 <div className="flex justify-center text-2xl text-gray-800">
                     {username}
                 </div>

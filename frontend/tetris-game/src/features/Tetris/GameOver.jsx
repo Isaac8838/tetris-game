@@ -6,8 +6,6 @@ import { handleSubmitRecord, setGameState } from "./TetrisSlice";
 const GameOver = () => {
     const { score, level, lines } = useSelector((state) => state.tetris.stats);
 
-    // const { gameReadyHandler } = useReady();
-
     const alreadySendRecord = useSelector(
         (state) => state.tetris.alreadySendRecord,
     );

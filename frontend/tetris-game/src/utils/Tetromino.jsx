@@ -61,9 +61,13 @@ let tetromino_pool = [];
 
 // const rng = seedrandom();
 
-const randomTetromino = () => {
+export const randomTetromino = () => {
     const keys = Object.keys(TETROMINOES);
     // const index = Math.floor(rng() * keys.length);
+    if (tetromino_pool.length === 0) {
+        tetromino_pool = generateTetrominoPool();
+    }
+
     return TETROMINOES[keys[tetromino_pool.pop()]];
 };
 

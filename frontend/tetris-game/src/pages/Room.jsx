@@ -17,7 +17,7 @@ const Room = () => {
         if (lastMessage !== null) {
             const data = JSON.parse(lastMessage.data);
             setRooms(data);
-            console.log("Received message:", data); // 印出接收到的資料
+            // console.log("Received message:", data); // 印出接收到的資料
         }
     }, [lastMessage]);
 

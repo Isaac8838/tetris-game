@@ -5,8 +5,6 @@ import BoardCell from "../Tetris/BoardCell";
 
 const Player1Board = () => {
     const { board, tetromino } = useSelector((state) => state.tetris);
-
-    // const { gameReady } = useReady();
     const { gameState } = useSelector((state) => state.tetris);
 
     const boardStyle = {
@@ -17,8 +15,10 @@ const Player1Board = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(updateBoard(tetromino));
-    }, [tetromino, dispatch]);
+        if (gameState === 1) {
+            dispatch(updateBoard(tetromino));
+        }
+    }, [tetromino, dispatch, gameState]);
 
     return (
         <div

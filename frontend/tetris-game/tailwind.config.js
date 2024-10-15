@@ -67,6 +67,8 @@ export default {
                     red_bg: "#CD113B",
                     blue_border: "#1259DF",
                     blue_bg: "#141C62",
+                    blue1_bg: "#000DFF",
+                    blue2_bg: "#0059FF",
                     green_bg: "#1ABA50",
                 },
             },

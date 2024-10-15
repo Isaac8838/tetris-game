@@ -1,2 +1,3 @@
+改：
 如果MultiplayerClient的params有人亂輸入會有問題
-雙方Ready，房主先送出1，加入者回傳1開始遊戲，房主收到1開始遊戲．
+死後還是要傳送board狀態
