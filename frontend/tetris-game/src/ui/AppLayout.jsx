@@ -21,11 +21,14 @@ const AppLayout = () => {
         link.id = linkId;
 
         if (skin === "default") {
-            link.href = "/src/styles/skin/default.css";
+            // link.href = "/src/styles/skin/default.css";
+            link.href = "/css/skin/default.css";
         } else if (skin === "envelope") {
-            link.href = "/src/styles/skin/envelope.css";
+            // link.href = "/src/styles/skin/envelope.css";
+            link.href = "/css/skin/envelope.css";
         } else if (skin === "round") {
-            link.href = "/src/styles/skin/round.css";
+            // link.href = "/src/styles/skin/round.css";
+            link.href = "/css/skin/round.css";
         }
 
         // 將新的 <link> 插入 head
