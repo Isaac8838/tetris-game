@@ -1,44 +1,54 @@
 import { transferToWebsocketData, websocketDataToRows } from "@/utils/Cell";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 import { reset, setGameState } from "../Tetris/TetrisSlice";
 import { transferToBoard } from "@/utils/Board";
 import { useOpponentDataContext } from "./OpponentDataContext";
 import useConnectionTimeout from "./useConnectionTimeout";
-import { useNavigate } from "react-router-dom";
 
-const useGameRoomSocket = ({ socketUrl }) => {
+const useGameRoomSocketClient = ({ socketUrl }) => {
+    const { room_id } = useParams();
+
     const navigate = useNavigate();
+
     const dispatch = useDispatch();
     const { opponentData, opponentDispatch } = useOpponentDataContext();
 
-    const [shouldSend, setStartSend] = useState(false);
-    const [room_id, setRoom_id] = useState("");
+    const [shouldSend, setShouldSend] = useState(false);
 
     const { username } = useSelector((state) => state.user);
-    const { playerReady, board, tetromino, gameState, stats } = useSelector(
+    const { gameState, playerReady, board, tetromino, stats } = useSelector(
         (state) => state.tetris,
     );
 
-    const boardDataRef = useRef(board);
     const usernameRef = useRef(username);
+    const room_idRef = useRef(room_id);
     const playerReadyRef = useRef(playerReady);
-    const gameStateRef = useRef(gameState);
+    const boardDataRef = useRef(board);
+    const gameStateRef = useRef(0);
     const opponentDataRef = useRef(opponentData);
     const statsRef = useRef(stats);
 
     const { sendMessage, lastMessage } = useWebSocket(socketUrl, {
-        onOpen: () => console.log("websocket connected"),
+        onOpen: () => {
+            console.log("websocket connected");
+            sendMessage(
+                JSON.stringify({
+                    player: username,
+                    room_id: parseInt(room_id),
+                }),
+            );
+        },
         onClose: () => {
             dispatch(reset());
             opponentDispatch({ type: "resetOpponentData" });
-            navigate("/home");
+            navigate("/room");
             console.log("websocket disconnected");
         },
     });
 
-    //檢查斷線
     const { resetConnectionTimeout, clearConnectionTimeout } =
         useConnectionTimeout(
             useCallback(() => {
@@ -47,26 +57,30 @@ const useGameRoomSocket = ({ socketUrl }) => {
             }, [dispatch]),
         );
 
+    //更新狀態
     useEffect(() => {
         //把玩家現在移動的方塊轉換成websocket上傳的格式
-        boardDataRef.current = transferToWebsocketData(
-            //把玩家現在移動的方塊轉換到board上
-            transferToBoard({
-                rows: board.rows,
-                tetromino: tetromino.tetromino,
-                position: tetromino.position,
-                collide: false,
-            }),
-        );
-    }, [board, tetromino]);
+        if (gameState === 0) {
+            boardDataRef.current = transferToWebsocketData(board.rows);
+        }
+        if (gameState === 1) {
+            boardDataRef.current = transferToWebsocketData(
+                //把玩家現在移動的方塊轉換到board上
+                transferToBoard({
+                    rows: board.rows,
+                    tetromino: tetromino.tetromino,
+                    position: tetromino.position,
+                    collide: false,
+                }),
+            );
+        }
+    }, [board, tetromino, gameState]);
 
     useEffect(() => {
-        usernameRef.current = username; // 更新 username 的 ref 值
-    }, [username]);
-
-    useEffect(() => {
-        playerReadyRef.current = playerReady; // 更新 isReady 的 ref 值
-    }, [playerReady]);
+        room_idRef.current = room_id;
+        usernameRef.current = username;
+        playerReadyRef.current = playerReady;
+    }, [room_id, username, playerReady]);
 
     useEffect(() => {
         gameStateRef.current = gameState;
@@ -83,23 +97,19 @@ const useGameRoomSocket = ({ socketUrl }) => {
         statsRef.current = stats;
     }, [stats]);
 
+    //接收
     useEffect(() => {
         if (lastMessage !== null) {
             const data = JSON.parse(lastMessage.data);
 
-            if (data.room_id) {
-                //host第一步接收到room_id
-                // console.log("收到room_id");
-                setRoom_id(data.room_id);
-                setStartSend(true);
+            if (data?.ready === "OK") {
+                // console.log("收到ready");
+                setShouldSend(true);
             } else {
-                //接收到其他資料
                 if (
                     typeof data?.game_state === "number" &&
                     data?.player !== ""
                 ) {
-                    // console.log("收到", data);
-
                     resetConnectionTimeout();
 
                     const dataData = JSON.parse(data.data);
@@ -113,7 +123,6 @@ const useGameRoomSocket = ({ socketUrl }) => {
                     ) {
                         dispatch(setGameState(3));
                     }
-
                     // 處理對手數據
                     opponentDispatch({
                         type: "receiveOpponentData",
@@ -142,13 +151,13 @@ const useGameRoomSocket = ({ socketUrl }) => {
                 }
             }
         }
-    }, [lastMessage, opponentDispatch, resetConnectionTimeout, dispatch]);
+    }, [lastMessage, dispatch, resetConnectionTimeout, opponentDispatch]);
 
+    //發送
     useEffect(() => {
         if (shouldSend) {
             console.log("設定發送");
-            // console.log("發送狀態", gameStateRef.current);
-            // 每秒發送資料
+
             const intervalId = setInterval(() => {
                 const sendData =
                     gameStateRef.current === 2 || gameStateRef.current === 3
@@ -164,18 +173,20 @@ const useGameRoomSocket = ({ socketUrl }) => {
                         game_state: gameStateRef.current,
                         data: sendData,
                     }),
+                    // JSON.stringify({
+                    //     player: usernameRef.current,
+                    //     ready: playerReadyRef.current ? 1 : 0,
+                    //     game_state: gameStateRef.current,
+                    //     data: "",
+                    // }),
                 );
             }, 1000);
 
-            // 清除 interval
-            return () => {
-                console.log("清除 interval");
-                clearInterval(intervalId);
-            };
+            return () => clearInterval(intervalId);
         }
     }, [shouldSend, sendMessage]);
 
-    return { room_id, sendMessage };
+    // return { recceivedData };
 };
 
-export default useGameRoomSocket;
+export default useGameRoomSocketClient;

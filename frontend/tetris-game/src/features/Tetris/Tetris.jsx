@@ -6,11 +6,10 @@ import { useSelector } from "react-redux";
 import GameOver from "./GameOver";
 import TetrominoSave from "./TetrominoSave";
 import ReadyButton from "./ReadyButton";
-import { useReady } from "./useReady";
 
 const Tetris = () => {
     const { isGameOver } = useSelector((state) => state.tetris);
-    const { ready } = useReady();
+    const { gameState } = useSelector((state) => state.tetris);
 
     return (
         <>
@@ -20,8 +19,8 @@ const Tetris = () => {
                 <TetrisPreviews />
                 <TetrominoSave />
                 <Stats />
-                {!ready && <ReadyButton />}
-                {ready && <Controller />}
+                {gameState === 0 && <ReadyButton />}
+                {gameState === 1 && <Controller />}
             </div>
             {isGameOver && <GameOver />}
         </>

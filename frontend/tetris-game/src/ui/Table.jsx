@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 // import { FaLock, FaPlay } from "react-icons/fa";
 
 const TableContext = createContext();
@@ -95,7 +96,10 @@ const ListScoreBody = ({ data }) => {
 };
 
 const RoomBody = ({ room }) => {
+    console.log(room);
     const { cols } = useContext(TableContext);
+
+    const navigate = useNavigate();
 
     const style = {
         gridTemplateColumns: cols,
@@ -103,7 +107,8 @@ const RoomBody = ({ room }) => {
 
     return (
         <div
-            className="grid items-center bg-custom-blue_bg py-4 text-xl text-custom-white_text"
+            className="grid cursor-pointer items-center bg-custom-blue_bg py-4 text-xl text-custom-white_text"
+            onClick={() => navigate(`/join/${room.id}`)}
             style={style}
         >
             <div className="py-2 text-center">{room.id}</div>

@@ -22,6 +22,9 @@ const initialState = {
         level: 1,
         lines: 0,
     },
+    playerReady: false,
+    // 0:ready 1:playing 2:game over 3:win
+    gameState: 0,
     isGameOver: false,
     alreadySendRecord: false,
 };
@@ -30,7 +33,8 @@ export const handleKeyPress = createAsyncThunk(
     "tetris/handleKeyPress",
     async (key, { getState, dispatch }) => {
         const { tetris } = getState();
-        const { board, tetromino, isGameOver } = tetris;
+        const { board, tetromino, isGameOver, gameState } = tetris;
+        if (gameState !== 1) return;
         if (isGameOver) return;
 
         switch (key) {
@@ -174,6 +178,7 @@ const tetrisSlice = createSlice({
                 board: state.board,
                 tetromino: action.payload,
             });
+
             state.board = newBoard;
             state.stats.lines += clearLine;
             state.stats.score += calculateScore({
@@ -203,7 +208,11 @@ const tetrisSlice = createSlice({
                 board: state.board,
                 tetromino: state.tetromino,
             });
-            if (isDead) state.isGameOver = true;
+
+            if (isDead) {
+                state.isGameOver = true;
+                state.gameState = 2;
+            }
             state.tetrominoes = generateTetrominoesArr(state.tetrominoes);
         },
         reset(state) {
@@ -223,13 +232,22 @@ const tetrisSlice = createSlice({
                 level: 1,
                 lines: 0,
             };
+            state.playerReady = false;
             state.isGameOver = false;
+            state.gameState = 0;
             state.alreadySendRecord = false;
         },
         setHoldTetromino(state, action) {
             state.hold_tetromino = action.payload;
         },
+        setPlayerReady(state, action) {
+            state.playerReady = action.payload;
+        },
+        setGameState(state, action) {
+            state.gameState = action.payload;
+        },
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(handleKeyPress.fulfilled, () => {})
@@ -248,6 +266,8 @@ export const {
     setBoard,
     reset,
     setHoldTetromino,
+    setPlayerReady,
+    setGameState,
 } = tetrisSlice.actions;
 
 export default tetrisSlice.reducer;

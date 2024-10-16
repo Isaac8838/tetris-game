@@ -1,24 +1,7 @@
-// import {
-//     Table,
-//     TableBody,
-//     TableCell,
-//     TableHead,
-//     TableHeader,
-//     TableRow,
-// } from "@/components/ui/table";
-
 import useWebSocket from "react-use-websocket";
 
 import Table from "@/ui/Table";
 import { useEffect, useState } from "react";
-
-// const room = [
-//     { roomId: 1, hadKey: false, roomName: "room1", host: "player1" },
-//     { roomId: 19, hadKey: true, roomName: "my room", host: "gonason" },
-//     { roomId: 57, hadKey: false, roomName: "please join", host: "player6" },
-//     { roomId: 83, hadKey: true, roomName: "room15", host: "shio" },
-//     { roomId: 26, hadKey: false, roomName: "no friend", host: "kodoku" },
-// ];
 
 const socketUrl = "ws://localhost:8081/lobby";
 
@@ -34,7 +17,7 @@ const Room = () => {
         if (lastMessage !== null) {
             const data = JSON.parse(lastMessage.data);
             setRooms(data);
-            console.log("Received message:", data); // 印出接收到的資料
+            // console.log("Received message:", data); // 印出接收到的資料
         }
     }, [lastMessage]);
 

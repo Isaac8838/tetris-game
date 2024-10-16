@@ -71,19 +71,23 @@ export const transferToBoard = ({
     collide,
     position,
 }) => {
+    // 深拷貝 rows
+    const newRows = rows.map((row) => row.map((cell) => ({ ...cell })));
+
     Tetromino.shape.forEach((tetromino_rows, y) => {
         const _y = position.row + y;
         tetromino_rows.forEach((tetromino_cell, x) => {
             if (tetromino_cell) {
                 const _x = position.column + x;
-                rows[_y][_x] = {
-                    occupied: collide ? true : rows[_y][_x].occupied,
+                newRows[_y][_x] = {
+                    occupied: collide ? true : newRows[_y][_x].occupied,
                     className: Tetromino.className,
                 };
             }
         });
     });
-    return rows;
+
+    return newRows;
 };
 
 // 檢查是不是生成在方塊上
