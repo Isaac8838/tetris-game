@@ -10,7 +10,7 @@ const MultiplayerGame = () => {
         <div className="relative m-auto grid h-[650px] w-[1200px] grid-cols-[1.5fr_0.7fr] gap-36">
             <P1Tetris />
             <P2Tetris />
-            {gameState === 2 || gameState === 3 ? (
+            {gameState === 3 || gameState === 4 ? (
                 <MultiplayerGameOver />
             ) : null}
         </div>

@@ -23,7 +23,7 @@ const initialState = {
         lines: 0,
     },
     playerReady: false,
-    // 0:ready 1:playing 2:game over 3:win
+    // 0:ready 1:playing 2:game over 3:win 4:lose 5:draw
     gameState: 0,
     isGameOver: false,
     alreadySendRecord: false,
