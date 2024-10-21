@@ -10,15 +10,22 @@ import (
 
 type Querier interface {
 	CreateAchievement(ctx context.Context, arg CreateAchievementParams) (Achievement, error)
+	CreateBalance(ctx context.Context, arg CreateBalanceParams) (Balance, error)
 	CreateScore(ctx context.Context, arg CreateScoreParams) (Score, error)
+	CreateSkin(ctx context.Context, arg CreateSkinParams) (Skin, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteUser(ctx context.Context, username string) error
 	GetAchievement(ctx context.Context, arg GetAchievementParams) (Achievement, error)
+	GetBalance(ctx context.Context, owner string) (Balance, error)
+	GetDefaultSkin(ctx context.Context, owner string) (Skin, error)
 	GetUser(ctx context.Context, username string) (User, error)
 	ListAchievements(ctx context.Context, owner string) ([]Achievement, error)
 	ListScores(ctx context.Context, arg ListScoresParams) ([]Score, error)
+	ListSkins(ctx context.Context, owner string) ([]Skin, error)
 	RankByLevel(ctx context.Context, arg RankByLevelParams) ([]Score, error)
 	RankByScore(ctx context.Context, arg RankByScoreParams) ([]Score, error)
+	UpdateBalance(ctx context.Context, arg UpdateBalanceParams) (Balance, error)
+	UpdateSkin(ctx context.Context, arg UpdateSkinParams) (Skin, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 }
 

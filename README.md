@@ -35,6 +35,8 @@ json response
 ```json
 "username": "string",
 "email": "string",
+"skin_id": "int32",
+"balance": "int64",
 "password_changed_at": "time",
 "created_at": "time"
 ```
@@ -58,6 +60,8 @@ json response
 {
     "username": "string",
     "email": "string",
+    "skin_id": "int32",
+    "balance": "int64",
     "password_changed_at": "time",
     "created_at": "time"
 }
@@ -84,6 +88,8 @@ json response
 "created_at": "time"
 ``` 
 
+---
+
 **Tokens**
  - POST /tokens/renew_access **renewToken**
  > usage: Renew token using refresh token. If refresh token was compromised, then it will ask user to login again to renew tokens. (使用refresh token更新token。如果refresh token被盜用，則系統會要求使用者重新登入)
@@ -101,6 +107,8 @@ json response
 "refresh_token": "string",
 "refresh_token_expires_at": "time"
 ```
+
+---
 
 **Scores**
  - POST /scores **createScores**
@@ -152,6 +160,8 @@ json response
 ]
 ```
 
+---
+
 **Rank**
  - GET /rank/scores rankByScore
  - GET /rank/levels rankByLevels
@@ -173,6 +183,8 @@ json response
     "created_at": "time"
 ]
 ```
+
+---
 
 **Achievements**
  - GET /achievements listAchievements
@@ -206,3 +218,159 @@ json response
 | 9   | LEVEL 20達成         |
 | 10  | LEVEL 25達成         |
  ```
+
+---
+
+**Balance**
+ - GET /balance
+ > usage: Returning user's balance (回傳使用者的餘額)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+response
+ ```json
+ "owner": "string",
+ "balance": "int64",
+ "updated_at": "time.Time"
+ ```
+
+---
+
+**Skin**
+
+All the skin are represented by a series of numbers.
+(所有的skin都是用數字序列表示)
+
+Current Skins are:
+```
+default
+{
+    "id": 0,
+    "price": 50
+}
+
+envelope
+{
+    "id": 1,
+    "price": 50
+}
+
+round
+{
+    "id": 2,
+    "price": 50
+}
+```
+
+---
+
+ - GET /skin/default
+ > usage: Getting current default skin (獲取預設skin)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+response
+```json
+"skin_id": "int64"
+```
+
+ - POST /skin/purchase
+ > usage: purchasing skin with given amount and skin ID (購買想要的skin)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+http body
+```json
+"amount": "int64",
+"skin_id": "int32"
+```
+
+response
+```json
+"balance": "int64",
+"skin_id": "int32"
+```
+
+ - POST /skin/set_default
+ > usage: setting default skin with given skin ID (設定預設skin)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+http body
+```json
+"skin_id": "int32"
+```
+
+response
+```json
+"skin_id": "int32"
+```
+
+ - GET /skin/list_skins
+ > usage: Getting the skins owned by the user (獲得目前使用者的所有skin)
+
+json request header
+```json
+"Authorization": "Bearer token"
+```
+
+example
+```json
+"Authorization": "Bearer v4.local.245epTMgYnUnoA0xhUQtaxG4_No7hBPwDCpi_-Dg74Fi2VK7sYsmlHzDWe7Xp4KvObpxmplBU2YpMSk7V--YXhXU457owNbxwOsc8a7WN0vlPA55Q6cFR4BLFXRR1RTicHZiJm5vIsiqUvQxkWgoRJdVDPxphz0EZXA2zCmPo9MCVUg_zz-MtYwE_JAW-JWvnBDh3bphE0G38QOdNymnFwDKsdcJ_GjIscSVw-PNbI0qzQjbvjCY8v6J"
+```
+
+response
+```json
+[
+    {
+        "owner": "string",
+        "skin_id": "int32",
+        "default_skin": "bool"
+    }
+]
+```
+
+ - GET /skin/list_skin_prices
+ > usage: Getting all the skins and the prices (獲取所有skin和其對應價格)
+
+response
+```json
+[
+    {
+        "skin_id": "int32",
+        "price": "int64"
+    }
+]
+```

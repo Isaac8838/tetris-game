@@ -12,6 +12,10 @@ type DBQTx interface {
 	CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
 	CreateScoreTx(ctx context.Context, arg CreateScoreTxParams) (CreateScoreTxResult, error)
 	CreateAchievementTx(ctx context.Context, arg CreateAchievementTxParams) (CreateAchievementTxResult, error)
+	CreateBalanceTx(ctx context.Context, arg CreateBalanceTxParams) (CreateBalanceTxResult, error)
+	UpdateBalanceTx(ctx context.Context, arg UpdateBalanceTxParams) (UpdateBalanceTxResult, error)
+	CreateSkinTx(ctx context.Context, arg CreateSkinTxParams) (CreateSkinTxResult, error)
+	UpdateSkinTx(ctx context.Context, arg UpdateSkinTxParams) (UpdateSkinTxResult, error)
 }
 
 type SQLDBQTx struct {
