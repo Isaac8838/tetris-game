@@ -6,7 +6,7 @@ import useGameRoomSocket from "@/features/Multiplayer/useGameRoomSocket";
 const socketUrl = "ws://localhost:8081/create_room";
 
 const MultipleyerHost = () => {
-    const { sendMessage, room_id } = useGameRoomSocket({
+    const { sendMessage, getRoomId } = useGameRoomSocket({
         socketUrl,
     });
 
@@ -14,7 +14,7 @@ const MultipleyerHost = () => {
         <div>
             {
                 //創建完房間後(收到room_id)取消創建房間組件
-                !room_id ? (
+                !getRoomId ? (
                     <CreateRoom sendMessage={sendMessage} />
                 ) : (
                     <MultiplayerGame />

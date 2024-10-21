@@ -17,7 +17,9 @@ const MultiplayerGameOver = () => {
             <h2
                 className={`mb-12 text-center text-6xl font-semibold tracking-wide ${gameState === 3 ? "text-custom-orange_text" : "text-red-600"}`}
             >
-                {gameState === 3 ? "You Win" : "You Lose"}
+                {gameState === 3 && "You Win"}
+                {gameState === 4 && "You Lose"}
+                {gameState === 5 && "Draw"}
             </h2>
             <div className="flex overflow-hidden rounded-2xl text-white shadow-2xl">
                 <div className="bg-custom-blue1_bg flex flex-1 flex-col items-center gap-6 px-16 py-6">
@@ -50,7 +52,7 @@ const MultiplayerGameOver = () => {
                 <div className="bg-custom-blue2_bg flex flex-1 flex-col items-center gap-6 px-16 py-6">
                     <div className="flex flex-col items-center">
                         <span className="aspect-square w-8">
-                            {gameState === 2 && (
+                            {gameState === 4 && (
                                 <FaCrown className="h-full w-full text-custom-orange_text" />
                             )}
                         </span>
