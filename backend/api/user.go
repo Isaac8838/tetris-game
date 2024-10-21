@@ -9,6 +9,7 @@ import (
 	db "github.com/isaac8838/tetris-game/db/sqlc"
 	"github.com/isaac8838/tetris-game/token"
 	"github.com/isaac8838/tetris-game/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type createUserRequest struct {
@@ -20,16 +21,20 @@ type createUserRequest struct {
 type userResponse struct {
 	Username          string    `json:"username"`
 	Email             string    `json:"email"`
+	SkinID            int32     `json:"skin_id"`
+	Balance           int64     `json:"balance"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
 	CreatedAt         time.Time `json:"created_at"`
 }
 
-func newUserResponse(user db.User) userResponse {
+func newUserResponse(user db.User, skinID int32, balance int64) userResponse {
 	return userResponse{
 		Username:          user.Username,
 		Email:             user.Email,
 		PasswordChangedAt: user.PasswordChangedAt.Time,
 		CreatedAt:         user.CreatedAt.Time,
+		SkinID:            skinID,
+		Balance:           balance,
 	}
 }
 
@@ -64,7 +69,37 @@ func (server *TetrisServer) createUser(ctx *gin.Context) {
 		return
 	}
 
-	rsp := newUserResponse(userTxResult.User)
+	balanceArg := db.CreateBalanceTxParams{
+		CreateBalanceParams: db.CreateBalanceParams{
+			Owner: req.Username,
+			Balance: pgtype.Int8{
+				Int64: 200,
+				Valid: true,
+			},
+		},
+	}
+
+	balance, err := server.dbqtx.CreateBalanceTx(ctx, balanceArg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	skinArg := db.CreateSkinTxParams{
+		CreateSkinParams: db.CreateSkinParams{
+			Owner:       req.Username,
+			SkinID:      0,
+			DefaultSkin: true,
+		},
+	}
+
+	skin, err := server.dbqtx.CreateSkinTx(ctx, skinArg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	rsp := newUserResponse(userTxResult.User, skin.Skin.SkinID, balance.Balance.Balance.Int64)
 	ctx.JSON(http.StatusOK, rsp)
 }
 
@@ -116,12 +151,32 @@ func (server *TetrisServer) loginUser(ctx *gin.Context) {
 		return
 	}
 
+	skin, err := server.dbqtx.GetDefaultSkin(ctx, req.Username)
+	if err != nil {
+		if errors.Is(err, db.ErrRecordNotFound) {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	balance, err := server.dbqtx.GetBalance(ctx, req.Username)
+	if err != nil {
+		if errors.Is(err, db.ErrRecordNotFound) {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
 	rsp := loginUserResponse{
 		AccessToken:           accessToken,
 		AccessTokenExpiresAt:  accessTokenPayload.ExpiredAt,
 		RefreshToken:          refreshToken,
 		RefreshTokenExpiresAt: refreshTokenPayload.ExpiredAt,
-		User:                  newUserResponse(user),
+		User:                  newUserResponse(user, skin.SkinID, balance.Balance.Int64),
 	}
 	ctx.JSON(http.StatusOK, rsp)
 }

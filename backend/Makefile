@@ -16,6 +16,10 @@ migratedown1:
 cimigrateup:
 	migrate -path db/migration -database "$(CI_DB_URL)" -verbose up	
 
+# Need to manually modify force version
+migratedirty:
+	migrate -path db/migration/ -database $(DB_URL) force 3
+
 sqlc:
 	sqlc generate
 

@@ -70,6 +70,36 @@ func (mr *MockDBQTxMockRecorder) CreateAchievementTx(arg0, arg1 any) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAchievementTx", reflect.TypeOf((*MockDBQTx)(nil).CreateAchievementTx), arg0, arg1)
 }
 
+// CreateBalance mocks base method.
+func (m *MockDBQTx) CreateBalance(arg0 context.Context, arg1 db.CreateBalanceParams) (db.Balance, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateBalance", arg0, arg1)
+	ret0, _ := ret[0].(db.Balance)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateBalance indicates an expected call of CreateBalance.
+func (mr *MockDBQTxMockRecorder) CreateBalance(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBalance", reflect.TypeOf((*MockDBQTx)(nil).CreateBalance), arg0, arg1)
+}
+
+// CreateBalanceTx mocks base method.
+func (m *MockDBQTx) CreateBalanceTx(arg0 context.Context, arg1 db.CreateBalanceTxParams) (db.CreateBalanceTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateBalanceTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateBalanceTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateBalanceTx indicates an expected call of CreateBalanceTx.
+func (mr *MockDBQTxMockRecorder) CreateBalanceTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBalanceTx", reflect.TypeOf((*MockDBQTx)(nil).CreateBalanceTx), arg0, arg1)
+}
+
 // CreateScore mocks base method.
 func (m *MockDBQTx) CreateScore(arg0 context.Context, arg1 db.CreateScoreParams) (db.Score, error) {
 	m.ctrl.T.Helper()
@@ -98,6 +128,36 @@ func (m *MockDBQTx) CreateScoreTx(arg0 context.Context, arg1 db.CreateScoreTxPar
 func (mr *MockDBQTxMockRecorder) CreateScoreTx(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateScoreTx", reflect.TypeOf((*MockDBQTx)(nil).CreateScoreTx), arg0, arg1)
+}
+
+// CreateSkin mocks base method.
+func (m *MockDBQTx) CreateSkin(arg0 context.Context, arg1 db.CreateSkinParams) (db.Skin, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateSkin", arg0, arg1)
+	ret0, _ := ret[0].(db.Skin)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateSkin indicates an expected call of CreateSkin.
+func (mr *MockDBQTxMockRecorder) CreateSkin(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSkin", reflect.TypeOf((*MockDBQTx)(nil).CreateSkin), arg0, arg1)
+}
+
+// CreateSkinTx mocks base method.
+func (m *MockDBQTx) CreateSkinTx(arg0 context.Context, arg1 db.CreateSkinTxParams) (db.CreateSkinTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateSkinTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateSkinTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateSkinTx indicates an expected call of CreateSkinTx.
+func (mr *MockDBQTxMockRecorder) CreateSkinTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSkinTx", reflect.TypeOf((*MockDBQTx)(nil).CreateSkinTx), arg0, arg1)
 }
 
 // CreateUser mocks base method.
@@ -159,6 +219,36 @@ func (mr *MockDBQTxMockRecorder) GetAchievement(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAchievement", reflect.TypeOf((*MockDBQTx)(nil).GetAchievement), arg0, arg1)
 }
 
+// GetBalance mocks base method.
+func (m *MockDBQTx) GetBalance(arg0 context.Context, arg1 string) (db.Balance, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetBalance", arg0, arg1)
+	ret0, _ := ret[0].(db.Balance)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetBalance indicates an expected call of GetBalance.
+func (mr *MockDBQTxMockRecorder) GetBalance(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBalance", reflect.TypeOf((*MockDBQTx)(nil).GetBalance), arg0, arg1)
+}
+
+// GetDefaultSkin mocks base method.
+func (m *MockDBQTx) GetDefaultSkin(arg0 context.Context, arg1 string) (db.Skin, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetDefaultSkin", arg0, arg1)
+	ret0, _ := ret[0].(db.Skin)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetDefaultSkin indicates an expected call of GetDefaultSkin.
+func (mr *MockDBQTxMockRecorder) GetDefaultSkin(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDefaultSkin", reflect.TypeOf((*MockDBQTx)(nil).GetDefaultSkin), arg0, arg1)
+}
+
 // GetUser mocks base method.
 func (m *MockDBQTx) GetUser(arg0 context.Context, arg1 string) (db.User, error) {
 	m.ctrl.T.Helper()
@@ -204,6 +294,21 @@ func (mr *MockDBQTxMockRecorder) ListScores(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListScores", reflect.TypeOf((*MockDBQTx)(nil).ListScores), arg0, arg1)
 }
 
+// ListSkins mocks base method.
+func (m *MockDBQTx) ListSkins(arg0 context.Context, arg1 string) ([]db.Skin, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListSkins", arg0, arg1)
+	ret0, _ := ret[0].([]db.Skin)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListSkins indicates an expected call of ListSkins.
+func (mr *MockDBQTxMockRecorder) ListSkins(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSkins", reflect.TypeOf((*MockDBQTx)(nil).ListSkins), arg0, arg1)
+}
+
 // RankByLevel mocks base method.
 func (m *MockDBQTx) RankByLevel(arg0 context.Context, arg1 db.RankByLevelParams) ([]db.Score, error) {
 	m.ctrl.T.Helper()
@@ -232,6 +337,66 @@ func (m *MockDBQTx) RankByScore(arg0 context.Context, arg1 db.RankByScoreParams)
 func (mr *MockDBQTxMockRecorder) RankByScore(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RankByScore", reflect.TypeOf((*MockDBQTx)(nil).RankByScore), arg0, arg1)
+}
+
+// UpdateBalance mocks base method.
+func (m *MockDBQTx) UpdateBalance(arg0 context.Context, arg1 db.UpdateBalanceParams) (db.Balance, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateBalance", arg0, arg1)
+	ret0, _ := ret[0].(db.Balance)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateBalance indicates an expected call of UpdateBalance.
+func (mr *MockDBQTxMockRecorder) UpdateBalance(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateBalance", reflect.TypeOf((*MockDBQTx)(nil).UpdateBalance), arg0, arg1)
+}
+
+// UpdateBalanceTx mocks base method.
+func (m *MockDBQTx) UpdateBalanceTx(arg0 context.Context, arg1 db.UpdateBalanceTxParams) (db.UpdateBalanceTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateBalanceTx", arg0, arg1)
+	ret0, _ := ret[0].(db.UpdateBalanceTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateBalanceTx indicates an expected call of UpdateBalanceTx.
+func (mr *MockDBQTxMockRecorder) UpdateBalanceTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateBalanceTx", reflect.TypeOf((*MockDBQTx)(nil).UpdateBalanceTx), arg0, arg1)
+}
+
+// UpdateSkin mocks base method.
+func (m *MockDBQTx) UpdateSkin(arg0 context.Context, arg1 db.UpdateSkinParams) (db.Skin, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateSkin", arg0, arg1)
+	ret0, _ := ret[0].(db.Skin)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateSkin indicates an expected call of UpdateSkin.
+func (mr *MockDBQTxMockRecorder) UpdateSkin(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateSkin", reflect.TypeOf((*MockDBQTx)(nil).UpdateSkin), arg0, arg1)
+}
+
+// UpdateSkinTx mocks base method.
+func (m *MockDBQTx) UpdateSkinTx(arg0 context.Context, arg1 db.UpdateSkinTxParams) (db.UpdateSkinTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateSkinTx", arg0, arg1)
+	ret0, _ := ret[0].(db.UpdateSkinTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateSkinTx indicates an expected call of UpdateSkinTx.
+func (mr *MockDBQTxMockRecorder) UpdateSkinTx(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateSkinTx", reflect.TypeOf((*MockDBQTx)(nil).UpdateSkinTx), arg0, arg1)
 }
 
 // UpdateUser mocks base method.

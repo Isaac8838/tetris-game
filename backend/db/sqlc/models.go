@@ -14,12 +14,25 @@ type Achievement struct {
 	AchievedAt    pgtype.Timestamptz `json:"achieved_at"`
 }
 
+type Balance struct {
+	Owner     string             `json:"owner"`
+	Balance   pgtype.Int8        `json:"balance"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
+}
+
 type Score struct {
 	ID        int64              `json:"id"`
 	Owner     string             `json:"owner"`
 	Score     pgtype.Int8        `json:"score"`
 	Level     pgtype.Int4        `json:"level"`
 	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
+type Skin struct {
+	Owner       string `json:"owner"`
+	SkinID      int32  `json:"skin_id"`
+	DefaultSkin bool   `json:"default_skin"`
 }
 
 type User struct {

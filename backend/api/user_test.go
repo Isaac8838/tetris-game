@@ -18,6 +18,7 @@ import (
 	db "github.com/isaac8838/tetris-game/db/sqlc"
 	"github.com/isaac8838/tetris-game/token"
 	"github.com/isaac8838/tetris-game/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 )
@@ -73,10 +74,34 @@ func TestCreateUserAPI(t *testing.T) {
 						Email:    user.Email,
 					},
 				}
+				balanceArg := db.CreateBalanceTxParams{
+					CreateBalanceParams: db.CreateBalanceParams{
+						Owner: user.Username,
+						Balance: pgtype.Int8{
+							Int64: 200,
+							Valid: true,
+						},
+					},
+				}
+				skinArg := db.CreateSkinTxParams{
+					CreateSkinParams: db.CreateSkinParams{
+						Owner:       user.Username,
+						SkinID:      0,
+						DefaultSkin: true,
+					},
+				}
 				dbqtx.EXPECT().
 					CreateUserTx(gomock.Any(), EqCreateUserTxParams(arg, password)).
 					Times(1).
 					Return(db.CreateUserTxResult{User: user}, nil)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Eq(balanceArg)).
+					Times(1).
+					Return(db.CreateBalanceTxResult{Balance: db.Balance{Owner: user.Username, Balance: balanceArg.Balance}}, nil)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Eq(skinArg)).
+					Times(1).
+					Return(db.CreateSkinTxResult{Skin: db.Skin{Owner: user.Username, SkinID: 0, DefaultSkin: true}}, nil)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
@@ -95,6 +120,12 @@ func TestCreateUserAPI(t *testing.T) {
 					CreateUserTx(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.CreateUserTxResult{}, sql.ErrConnDone)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -112,6 +143,12 @@ func TestCreateUserAPI(t *testing.T) {
 					CreateUserTx(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.CreateUserTxResult{}, db.ErrUniqueViolation)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusForbidden, recorder.Code)
@@ -127,6 +164,12 @@ func TestCreateUserAPI(t *testing.T) {
 			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
 				dbqtx.EXPECT().
 					CreateUserTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Any()).
 					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
@@ -144,6 +187,12 @@ func TestCreateUserAPI(t *testing.T) {
 				dbqtx.EXPECT().
 					CreateUserTx(gomock.Any(), gomock.Any()).
 					Times(0)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
@@ -159,6 +208,12 @@ func TestCreateUserAPI(t *testing.T) {
 			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
 				dbqtx.EXPECT().
 					CreateUserTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateBalanceTx(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					CreateSkinTx(gomock.Any(), gomock.Any()).
 					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
@@ -216,6 +271,14 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Eq(user.Username)).
 					Times(1).
 					Return(user, nil)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Eq(user.Username)).
+					Times(1).
+					Return(db.Skin{Owner: user.Username, SkinID: 0, DefaultSkin: true}, nil)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Eq(user.Username)).
+					Times(1).
+					Return(db.Balance{Owner: user.Username, Balance: pgtype.Int8{Int64: 200, Valid: true}}, nil)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
@@ -232,6 +295,12 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.User{}, db.ErrRecordNotFound)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusNotFound, recorder.Code)
@@ -248,6 +317,12 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Eq(user.Username)).
 					Times(1).
 					Return(user, nil)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusUnauthorized, recorder.Code)
@@ -264,6 +339,12 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Eq(user.Username)).
 					Times(1).
 					Return(user, sql.ErrConnDone)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -279,6 +360,12 @@ func TestLoginUserAPI(t *testing.T) {
 				dbqtx.EXPECT().
 					GetUser(gomock.Any(), gomock.Any()).
 					Times(0)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Any()).
+					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
@@ -293,6 +380,12 @@ func TestLoginUserAPI(t *testing.T) {
 			buildStubs: func(dbqtx *mockdb.MockDBQTx) {
 				dbqtx.EXPECT().
 					GetUser(gomock.Any(), gomock.Eq(user.Username)).
+					Times(0)
+				dbqtx.EXPECT().
+					GetDefaultSkin(gomock.Any(), gomock.Any()).
+					Times(0)
+				dbqtx.EXPECT().
+					GetBalance(gomock.Any(), gomock.Any()).
 					Times(0)
 			},
 			checkResponse: func(recorder *httptest.ResponseRecorder) {

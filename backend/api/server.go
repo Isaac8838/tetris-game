@@ -50,10 +50,16 @@ func (server *TetrisServer) SetupRouter() {
 	router.GET("/api/rank/scores", server.rankByScore)
 	router.GET("/api/rank/levels", server.rankByLevel)
 	router.GET("/api/achievements", server.listAchievements)
+	router.GET("/api/skin/list_skin_prices", server.listSkinPrices)
 
 	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
 	authRoutes.POST("/api/scores", server.createScore)
 	authRoutes.GET("/api/users", server.userProfile)
+	authRoutes.GET("/api/balance", server.getBalance)
+	authRoutes.GET("/api/skin/default", server.getDefaultSkin)
+	authRoutes.POST("/api/skin/purchase", server.purchaseSkin)
+	authRoutes.POST("/api/skin/set_default", server.setDefaultSkin)
+	authRoutes.GET("/api/skin/list_skins", server.listSkins)
 	server.router = router
 }
 
