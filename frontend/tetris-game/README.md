@@ -1,3 +1,0 @@
-改：
-如果MultiplayerClient的params有人亂輸入會有問題
-死後還是要傳送board狀態

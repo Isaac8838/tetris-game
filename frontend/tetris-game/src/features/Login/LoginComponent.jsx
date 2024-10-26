@@ -4,6 +4,7 @@ import { HiOutlineUser, HiOutlineLockClosed } from "react-icons/hi";
 import useLogin from "@/features/Login/useLogin";
 import Input from "@/ui/Input";
 import SubmitBTN from "@/ui/SubmitBTN";
+import { useSelector } from "react-redux";
 
 const LoginComponent = () => {
     const {
@@ -14,9 +15,11 @@ const LoginComponent = () => {
 
     const { handleLogin, loginIsError, loginIsPending } = useLogin();
 
+    const { username } = useSelector((state) => state.user);
+
     return (
         <form
-            className="flex gap-9 flex-col w-full"
+            className="flex w-full flex-col gap-9"
             onSubmit={handleSubmit(handleLogin)}
         >
             <div className="relative">
@@ -27,8 +30,9 @@ const LoginComponent = () => {
                     validateRule={{
                         required: "username can't be empty",
                     }}
+                    defaultValue={username}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors.username?.message}
                 </p>
             </div>
@@ -47,7 +51,7 @@ const LoginComponent = () => {
                         },
                     }}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors.password?.message}
                 </p>
             </div>
@@ -55,7 +59,7 @@ const LoginComponent = () => {
             <SubmitBTN isPending={loginIsPending}>Login</SubmitBTN>
 
             {loginIsError && (
-                <p className="text-red-700 mt-[-30px] font-bold">
+                <p className="mt-[-30px] font-bold text-red-700">
                     username or password incorrect
                 </p>
             )}

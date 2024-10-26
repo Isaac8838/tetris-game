@@ -2,22 +2,30 @@ import useWebSocket from "react-use-websocket";
 
 import Table from "@/ui/Table";
 import { useEffect, useState } from "react";
+import Spinner from "@/ui/Spinner";
 
 const socketUrl = "ws://localhost:8081/lobby";
 
 const Room = () => {
     const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const { lastMessage } = useWebSocket(socketUrl, {
-        onOpen: () => console.log("websocket connected"),
-        onClose: () => console.log("websocket disconnected"),
+        onOpen: () => {
+            console.log("websocket connected");
+            setLoading(true);
+        },
+        onClose: () => {
+            console.log("websocket disconnected");
+            setLoading(false);
+        },
     });
 
     useEffect(() => {
         if (lastMessage !== null) {
             const data = JSON.parse(lastMessage.data);
             setRooms(data);
-            // console.log("Received message:", data); // 印出接收到的資料
+            setLoading(false);
         }
     }, [lastMessage]);
 
@@ -27,7 +35,11 @@ const Room = () => {
                 <Table.Container>
                     <Table.Header titles={["Room ID", "Room Name", "Host"]} />
                     <div className="flex flex-col gap-1 overflow-hidden rounded-2xl">
-                        {rooms ? (
+                        {loading ? (
+                            <div className="flex justify-center bg-custom-blue_bg py-4">
+                                <Spinner width={30} />
+                            </div>
+                        ) : rooms ? (
                             rooms.map((data, i) => (
                                 <Table.RoomBody key={`room-${i}`} room={data} />
                             ))

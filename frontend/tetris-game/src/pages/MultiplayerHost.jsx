@@ -2,10 +2,22 @@ import CreateRoom from "@/features/Multiplayer/CreateRoom";
 import MultiplayerGame from "@/features/Multiplayer/MultiplayerGame";
 import OpponentDataProvider from "@/features/Multiplayer/OpponentDataContext";
 import useGameRoomSocket from "@/features/Multiplayer/useGameRoomSocket";
+import { reset } from "@/features/Tetris/TetrisSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const socketUrl = "ws://localhost:8081/create_room";
 
 const MultipleyerHost = () => {
+    const dispatch = useDispatch();
+
+    // Reset the game when the component unmounts
+    useEffect(() => {
+        return () => {
+            dispatch(reset());
+        };
+    }, [dispatch]);
+
     const { sendMessage, getRoomId } = useGameRoomSocket({
         socketUrl,
     });
