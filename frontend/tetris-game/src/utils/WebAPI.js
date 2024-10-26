@@ -1,3 +1,5 @@
+import { updateTokenThunk } from "@/features/User/userSlice";
+
 const apiUrl = window?.appConfig?.API_URL || "http://localhost:8080/api";
 
 if (apiUrl === undefined) {
@@ -116,6 +118,110 @@ export const listAchievementsAPI = async ({ username }) => {
     const res = await fetch(`${apiUrl}/achievements?owner=${username}`);
     if (!res.ok) {
         throw new Error("Failed to get list score");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+//獲取所有skin和其對應價格
+export const getSkinAndPriceAPI = async () => {
+    const res = await fetch(`${apiUrl}/skin/list_skin_prices`);
+
+    if (!res.ok) {
+        throw new Error("Failed to get skin and price");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+//獲取user有的skin
+export const getUserSkinAPI = async ({ dispatch, access_token }) => {
+    // console.log(token);
+    dispatch(updateTokenThunk());
+    const res = await fetch(`${apiUrl}/skin/list_skins`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to get user skin");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+export const getUserBalanceAPI = async ({ access_token }) => {
+    const res = await fetch(`${apiUrl}/balance`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to get user balance");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+export const purchaseSkinAPI = async ({ access_token, amount, skin_id }) => {
+    const res = await fetch(`${apiUrl}/skin/purchase`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, skin_id }),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to purchase skin");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+export const applySkinAPI = async ({ access_token, skin_id }) => {
+    const res = await fetch(`${apiUrl}/skin/set_default`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify({ skin_id }),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to apply skin");
+    }
+
+    const data = await res.json();
+
+    return data;
+};
+
+export const getDefaultSkinAPI = async ({ access_token }) => {
+    const res = await fetch(`${apiUrl}/skin/default`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to get default skin");
     }
 
     const data = await res.json();

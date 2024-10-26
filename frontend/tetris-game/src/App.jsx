@@ -47,10 +47,6 @@ export default function App() {
                                     path="/join/:room_id"
                                     element={<MultiplayerClient />}
                                 />
-                                {/* <Route
-                                    path="/multiplayerGame"
-                                    element={<MultiplayerGame />}
-                                /> */}
                                 <Route path="/rank" element={<Rank />} />
 
                                 <Route

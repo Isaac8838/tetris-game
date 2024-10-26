@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { clearUser } from "@/features/User/userSlice";
+import { FaStore } from "react-icons/fa";
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
 
@@ -99,7 +100,7 @@ const Sidebar = () => {
                                 to="/store"
                                 className="flex items-center gap-4 text-stone-400 hover:text-stone-100"
                             >
-                                <PiMedalThin className="text-3xl" />
+                                <FaStore className="text-3xl" />
                                 <p className="text-2xl">Store</p>
                             </Link>
                         </li>

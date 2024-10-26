@@ -10,6 +10,8 @@ import {
     HiOutlineMail,
     HiOutlineUser,
 } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { setUsername } from "../User/userSlice";
 
 const RegisterComponent = ({ setTabValue }) => {
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
@@ -21,11 +23,16 @@ const RegisterComponent = ({ setTabValue }) => {
         formState: { errors },
     } = useForm();
 
+    const dispatch = useDispatch();
+
     const { mutate: signupMutate, isPending } = useMutation({
         mutationKey: ["signup"],
         mutationFn: createUserAPI,
-        onSuccess: () => {
+        onSuccess: ({ username }) => {
+            console.log("註冊Data", username);
+
             setTabValue("login");
+            dispatch(setUsername(username));
         },
         onError: (error) => {
             // 處理錯誤響應
@@ -59,7 +66,7 @@ const RegisterComponent = ({ setTabValue }) => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex gap-9 flex-col w-full"
+            className="flex w-full flex-col gap-9"
         >
             <div className="relative">
                 <Input
@@ -70,7 +77,7 @@ const RegisterComponent = ({ setTabValue }) => {
                         required: "Username is required",
                     }}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors.username?.message}
                 </p>
             </div>
@@ -89,7 +96,7 @@ const RegisterComponent = ({ setTabValue }) => {
                         },
                     }}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors.password?.message}
                 </p>
             </div>
@@ -104,7 +111,7 @@ const RegisterComponent = ({ setTabValue }) => {
                         required: "Repeat Password is required",
                     }}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors["repeat-password"]?.message || repeatPasswordError}
                 </p>
             </div>
@@ -119,14 +126,14 @@ const RegisterComponent = ({ setTabValue }) => {
                         required: "Email is required",
                     }}
                 />
-                <p className=" text-red-500 font-semibold flex justify-end absolute right-0">
+                <p className="absolute right-0 flex justify-end font-semibold text-red-500">
                     {errors.email?.message}
                 </p>
             </div>
 
             <SubmitBTN isPending={isPending}>Register</SubmitBTN>
             {fetchError && (
-                <p className=" text-red-500 mt-[-30px] font-bold">
+                <p className="mt-[-30px] font-bold text-red-500">
                     {fetchError}
                 </p>
             )}

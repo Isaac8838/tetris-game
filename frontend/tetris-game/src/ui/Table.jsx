@@ -96,7 +96,6 @@ const ListScoreBody = ({ data }) => {
 };
 
 const RoomBody = ({ room }) => {
-    console.log(room);
     const { cols } = useContext(TableContext);
 
     const navigate = useNavigate();
